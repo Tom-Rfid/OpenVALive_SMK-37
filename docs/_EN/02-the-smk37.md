@@ -66,7 +66,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **pads** | their own mode only (PERFORM / PLAY / SCENES): they never follow a held layer button (the keys and the screen do) |
 | **4 faders** | the levels of tracks 1 to 4 (100 % at 4/5 of the travel) |
 | **FADER BANK** | goes round three banks: **levels** → **macros** ENERGY, SPACE, TENSION, DENSITY (LED lit) → **USER**, what the CONTROL MAP gives them (LED blinking) |
-| **HOME** + white key 14, HOME let go first | **SOUNDS**: which sounds PRESET offers, family by family (SELECT the family, PRESET the sound, SEL green / red, OCT− / OCT+ the whole family, HOME back). On the screen keyboard the set-up keys are red |
+| **HOME** + white key 14, HOME let go first | **SOUNDS**: which sounds PRESET offers. The screen stays open with HOME let go (both hands free). One line a family F1–F7: the whole line red = family hidden, “F2” blue = partly, green = all offered; a square a sound. SELECT the line, PRESET the sound, SEL offered (green) / hidden (red), OCT− / OCT+ the whole family hidden / offered. Last line **MENU**: PRESET or OCT goes to **SETTINGS** (and SETTINGS' MENU line comes back here). Any menu button (HOME, FX, ARP, SEQ, GLO, SAVE) closes and saves. A hidden sound still plays where it is; PRESET and the family jumps skip it |
 | **FX** + white key 14, FX let go first | the pitch wheel: **BEND** ↔ **PAN** (kept). In PAN, the wheel moves the selected track left (up) and right (down), back to the centre at rest |
 | **key velocity** | curved: soft playing gets more of the range (half linear, half square root) |
 | **pitch wheel** | by default ±2 semitones on the selected track (at rest: none); set in the CONTROL MAP |

@@ -1,5 +1,9 @@
 # Changelog
 
+## 19 November 2026 — SOUNDS: one line a family
+
+As on the FM-1: one line a family with its colour, a MENU line to SETTINGS, any menu button closes and saves.
+
 ## 19 November 2026 — SOUNDS (favourites)
 
 As on the FM-1: HOME + white key 14 chooses the sounds PRESET offers; the set-up keys are red on the screen keyboard.
