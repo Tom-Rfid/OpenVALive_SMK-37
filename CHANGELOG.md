@@ -1,5 +1,9 @@
 # Changelog
 
+## 19 November 2026 — SOUNDS and SETTINGS tidied
+
+As on the FM-1: SOUNDS place line under the title, colours; DRUM KEYS as two keys, ON green / OFF red.
+
 ## 19 November 2026 — SOUNDS: one line a family
 
 As on the FM-1: one line a family with its colour, a MENU line to SETTINGS, any menu button closes and saves.
