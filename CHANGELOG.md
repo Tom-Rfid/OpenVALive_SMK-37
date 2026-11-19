@@ -1,5 +1,9 @@
 # Changelog
 
+## 19 November 2026 — recording's pink from the first note
+
+As on the FM-1.
+
 ## 19 November 2026 — lights checked, PAN target
 
 As on the FM-1; the screen keyboard shows the black keys too (checked in the host test).
