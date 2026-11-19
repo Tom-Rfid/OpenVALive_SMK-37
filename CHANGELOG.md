@@ -1,5 +1,9 @@
 # Changelog
 
+## 19 November 2026 — SOUNDS (favourites)
+
+As on the FM-1: HOME + white key 14 chooses the sounds PRESET offers; the set-up keys are red on the screen keyboard.
+
 ## 19 November 2026 — wheel PAN, softer keys, STAB / POLY / DRUM EQ, flash tool
 
 - FX + white key 14: the pitch wheel BEND or PAN (the selected track, up = left), kept past a power cycle.

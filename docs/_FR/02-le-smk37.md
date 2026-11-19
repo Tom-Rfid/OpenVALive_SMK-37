@@ -68,6 +68,7 @@ Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware d
 | **pads** | leur propre mode seulement (PERFORM / PLAY / SCÈNES) : ils ne suivent jamais un bouton de couche tenu (les touches et l'écran le font) |
 | **4 faders** | volume des pistes 1 à 4 (100 % aux 4/5 de la course) |
 | **FADER BANK** | fait tourner trois banques : **volumes** → **macros** ENERGY, SPACE, TENSION, DENSITY (voyant allumé) → **USER**, ce que le CONTROL MAP leur donne (voyant qui clignote) |
+| **HOME** + touche blanche 14, HOME relâché d'abord | **SOUNDS** : les sons que PRESET propose, famille par famille (SELECT la famille, PRESET le son, SEL vert / rouge, OCT− / OCT+ toute la famille, HOME pour sortir). Sur le clavier dessiné, les touches de réglage sont en rouge |
 | **FX** + touche blanche 14, FX relâché d'abord | la molette de pitch : **BEND** ↔ **PAN** (gardé). En PAN, la molette envoie la piste choisie à gauche (vers le haut) ou à droite (vers le bas), au centre au repos |
 | **vélocité des touches** | courbée : le jeu doux a plus de nuances (moitié linéaire, moitié racine carrée) |
 | **molette de pitch** | par défaut ±2 demi-tons sur la piste sélectionnée (au repos : rien) ; réglable dans le CONTROL MAP |
