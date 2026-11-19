@@ -1,5 +1,10 @@
 # Changelog
 
+## 19 November 2026 — A VOL, MUTE ALL on a black key
+
+- SELECT held: the black keys act as the FM-1's (1st C#3 MUTE ALL, 4th G#3 A VOL); SCENES pads: 13 MUTE ALL (fast
+  red blink when all are out), 14 A VOL (green swell while it runs).
+
 ## 19 November 2026 — SOUNDS and SETTINGS tidied
 
 As on the FM-1: SOUNDS place line under the title, colours; DRUM KEYS as two keys, ON green / OFF red.

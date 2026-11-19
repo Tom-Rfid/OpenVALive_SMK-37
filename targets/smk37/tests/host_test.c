@@ -139,6 +139,12 @@ int main(void)
     tap(SMK_KEY, 0);
     run_ms(50);
     CHECK(!live.track[0].mute, "...and back");
+    tap(SMK_KEY, 1);                                    /* the first black key (C#3): MUTE ALL, as the FM-1's F#3 */
+    run_ms(50);
+    CHECK(live.track[0].mute && live.track[3].mute, "SELECT + the first black key mutes all four");
+    tap(SMK_KEY, 1);
+    run_ms(50);
+    CHECK(!live.track[0].mute && !live.track[3].mute, "...and back");
     ev(SMK_BUTTON, SMK_B_SELECT, 0);
 
     /* PAD/STEP: the pads play; on the drum track, a kick from pad 1 */
@@ -184,6 +190,12 @@ int main(void)
     run_ms(50);
     CHECK(live.track[0].mute, "pad 9 mutes track 1");
     tap(SMK_PAD, 8);
+    run_ms(50);
+    CHECK(!live.track[0].mute, "...and back");
+    tap(SMK_PAD, 12);
+    run_ms(50);
+    CHECK(live.track[0].mute && live.track[2].mute, "pad 13 mutes all four");
+    tap(SMK_PAD, 12);
     run_ms(50);
     CHECK(!live.track[0].mute, "...and back");
     tap(SMK_PAD, 14);

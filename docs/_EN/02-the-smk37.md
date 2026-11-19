@@ -57,7 +57,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **PAD/STEP** | goes round three pad modes: **PERFORM** (LED off) → **PLAY** (LED lit) → **SCENES** (LED blinking) |
 | pads in **PLAY** | they play the track (on the drums: 16 sounds from C2, like a drum machine); pressure = aftertouch (filter, vibrato) |
 | **pressure** on a drum pad (PLAY) | a **roll** on the beat grid, faster the harder: 1/8, 1/16, 1/32 (the screen says which); eased off, it stops. In time with PLAY, or with the tempo when stopped |
-| pads in **SCENES** | pads 1–8 recall scenes 1–8 (on the next bar when playing; bright: the last one, dim: stored, dark: empty); **SHIFT** + pads 1–8 store them (purple); pads 9–12 mute / unmute tracks 1–4, pad 13 all four. At once, no button to hold |
+| pads in **SCENES** | pads 1–8 recall scenes 1–8 (on the next bar when playing; bright: the last one, dim: stored, dark: empty); **SHIFT** + pads 1–8 store them (purple); pads 9–12 mute / unmute tracks 1–4, pad 13 all four (fast red blink while all are out), pad 14 **A VOL** (the levels brought together over the longest loop, as on the FM-1; green swell while it runs). At once, no button to hold |
 | pads + a layer button held | that layer's 16 slots, in any mode: GLO + pads 1–8 recall the scenes, 9–16 store them… |
 | HOME + white key 15 | **LOOP EDIT**: the loop's notes one at a time (SELECT, a key = pitch, K1–K4 position / length / velocity / pitch, REC deletes, EDIT adds) |
 | **the 12 buttons on the right** | in the FM-1's order. Top: ARP, NOTE REPEAT = SEL, SCALE = ENV (undo), CHORD = LFO (redo), GLOBE = EDIT, BT = GLO. Below: PATCH = HOME, PARA = SAVE, FX, SEQ, PLAY, REC |
@@ -66,7 +66,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **pads** | their own mode only (PERFORM / PLAY / SCENES): they never follow a held layer button (the keys and the screen do) |
 | **4 faders** | the levels of tracks 1 to 4 (100 % at 4/5 of the travel) |
 | **FADER BANK** | goes round three banks: **levels** → **macros** ENERGY, SPACE, TENSION, DENSITY (LED lit) → **USER**, what the CONTROL MAP gives them (LED blinking) |
-| **HOME** + white key 14, HOME let go first | **SOUNDS**: which sounds PRESET offers. The screen stays open with HOME let go (both hands free). One line a family F1–F7: the whole line red = family hidden, “F2” blue = partly, green = all offered; a square a sound; on the chosen line, the chosen sound's name (and under the title its place “F4 3/5”, its family and ON / HIDDEN). Each family's name takes its colour. SELECT the line, PRESET the sound, SEL offered (green) / hidden (red), OCT− / OCT+ the whole family hidden / offered. Last line **MENU**: PRESET or OCT goes to **SETTINGS** (and SETTINGS' MENU line comes back here). Any menu button (HOME, FX, ARP, SEQ, GLO, SAVE) closes and saves. A hidden sound still plays where it is; PRESET and the family jumps skip it |
+| **HOME** + white key 14, HOME let go first | **SOUNDS**: which sounds PRESET offers. The screen stays open with HOME let go (both hands free). One line a family F1–F7: the whole line red = family hidden, “F2” blue = partly, green = all offered; a square a sound; on the chosen line, the chosen sound's name (and under the title its place “3/5”, its family and ON / HIDDEN). Each family's name takes its colour. SELECT the line, PRESET the sound, SEL offered (green) / hidden (red), OCT− / OCT+ the whole family hidden / offered. Last line **MENU**: PRESET or OCT goes to **SETTINGS** (and SETTINGS' MENU line comes back here). Any menu button (HOME, FX, ARP, SEQ, GLO, SAVE) closes and saves. A hidden sound still plays where it is; PRESET and the family jumps skip it |
 | **FX** + white key 14, FX let go first | the pitch wheel: **BEND** ↔ **PAN** (kept). In PAN, the wheel moves the selected track left (up) and right (down), back to the centre at rest |
 | **key velocity** | curved: soft playing gets more of the range (half linear, half square root) |
 | **pitch wheel** | by default ±2 semitones on the selected track (at rest: none); set in the CONTROL MAP |
@@ -78,7 +78,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **MASTER** (8th encoder) | the overall volume |
 | ENV | UNDO of the selected track; **SHIFT + ENV**: REDO (none on A: live only) |
 | **SHIFT + SELECT** (or ARP + SELECT) | **SOUND EDIT**: every parameter of the sound, tempo-locked LFOs, modulation matrix (see the manual) |
-| SELECT (held: tracks layer; pressed: takes a waiting sound; held + SELECT knob: point at a line, from A: swap), SEQ (held: perform layer), FX (knob pages) | as on the FM-1 |
+| SELECT (held: tracks layer — its black keys as the FM-1's: 1st (C#3) MUTE ALL, 4th (G#3) A VOL; pressed: takes a waiting sound; held + SELECT knob: point at a line, from A: swap), SEQ (held: perform layer), FX (knob pages) | as on the FM-1 |
 | HOME, SAVE, ARP, GLO, PLAY, REC, EDIT | as on the FM-1 ([05](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_EN/05-using-the-fm1.md)) |
 | **Bluetooth** | tapped: TAP tempo; **held half a second: the CONTROL MAP** |
 | **MIDI OUT** (TRS jack) | clock, START/STOP and notes: everything that goes out over USB goes out there too |

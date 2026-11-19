@@ -365,8 +365,8 @@ static const int8_t ENCODER_MAP[SMK_ENCODERS] = { EN_SELECT, EN_PRESET, EN_K1, E
                        | (1u << B_HOME) | (1u << BTN_PAGES))
 
 enum { PADS_PERFORM, PADS_PLAY, PADS_SCENES, PAD_MODES };   /* PAD/STEP goes round */
-#define SCENE_PADS 8u                           /* SCENES: pads 1-8 the scenes, 9-12 the tracks' mutes, 13 all */
-#define MUTE_PADS 5u
+#define SCENE_PADS 8u                           /* SCENES: pads 1-8 the scenes, 9-12 the tracks' mutes, 13 all, */
+#define MUTE_PADS 6u                            /* 14 A VOL */
 enum { FADERS_LEVEL, FADERS_MACRO, FADERS_USER, FADER_BANKS };   /* FADER BANK goes round */
 #define LONG_PRESS_MS 500u
 
@@ -400,10 +400,21 @@ static int smk_white_index(uint32_t id)
     return w < 0 ? -1 : (int)(id / 12u) * 7 + w;
 }
 
-/* a key of the keyboard: the app key (layer slot) it stands for, -1 none (the layers are on the first 16 white keys) */
+/* black key b (0..) of the SMK-37's keyboard, or -1 for a white key */
+static int smk_black_index(uint32_t id)
+{
+    static const int8_t IN_OCTAVE[12] = { -1, 0, -1, 1, -1, -1, 2, -1, 3, -1, 4, -1 };
+    int b = IN_OCTAVE[id % 12u];
+    return b < 0 ? -1 : (int)(id / 12u) * 5 + b;
+}
+
+/* a key of the keyboard: the app key (layer slot) it stands for, -1 none (the layers are on the first 16 white
+ * keys, and the first black ones in order: the 1st MUTE ALL, the 4th A VOL under SEL, as on the FM-1) */
 static int32_t smk_screen_key(uint32_t i)
 {
-    int w = smk_white_index(i);
+    int w = smk_white_index(i), b = smk_black_index(i);
+    if (b >= 0)
+        return b < BLACK_KEYS ? (int32_t)BLACK_KEY[b] : -1;
     return w >= 0 && w < WHITE_KEYS ? (int32_t)WHITE_KEY[w] : -1;
 }
 
@@ -463,10 +474,11 @@ static void key_event(uint32_t id, int velocity)
         return;
     smk.key_down = velocity ? (smk.key_down | bit) : (smk.key_down & ~bit);
     if (velocity) {
-        int w = smk_white_index(id);
-        if (layer_held() && w >= 0 && w < WHITE_KEYS) {   /* layer held: the white keys are its 16 slots */
-            smk.key_slot[id] = WHITE_KEY[w];
-            slot_down(WHITE_KEY[w], (uint32_t)velocity);
+        int32_t slot = smk_screen_key(id);
+        if (layer_held() && slot >= 0) {        /* layer held: the white keys are its 16 slots, the black ones the
+                                                 * FM-1's black keys in order */
+            smk.key_slot[id] = (uint8_t)slot;
+            slot_down((uint32_t)slot, (uint32_t)velocity);
             return;
         }
         if (smk.key_held_by_pedal[id]) {          /* struck again under the pedal: the old one ends first */
@@ -532,7 +544,7 @@ static void pad_event(uint32_t pad, int velocity)
                 smk.pad_slot[pad] = 0xFE;       /* nothing here */
                 return;
             }
-            uint32_t k = WHITE_KEY[w];
+            uint32_t k = w == 4u ? KEY_MUTE_ALL : (w == 5u ? KEY_AVOL : WHITE_KEY[w]);
             if ((v_keys >> k) & 1u) {           /* its slot already held (another pad, a key) */
                 smk.pad_slot[pad] = 0xFE;
                 return;
@@ -851,7 +863,7 @@ static uint32_t pad_colour(uint32_t pad)
     /* the pads show their own mode only (a held layer is on the keys and the screen) */
     if (smk.pad_mode == PADS_PERFORM)
         return perform_colour((int)pad);
-    if (smk.pad_mode == PADS_SCENES) {            /* 1-8 the scenes (SHIFT: store), 9-12 the mutes, 13 all */
+    if (smk.pad_mode == PADS_SCENES) {            /* 1-8 the scenes (SHIFT: store), 9-12 the mutes, 13 all, 14 A VOL */
         if (pad < SCENE_PADS) {
             if (shift_held())
                 return (smk.pad_down >> pad) & 1u ? 0xC000FF : (live.scene[pad].valid ? 0x300040 : 0x100018);
@@ -860,8 +872,19 @@ static uint32_t pad_colour(uint32_t pad)
         uint32_t t = pad - SCENE_PADS;
         if (t < TRACKS)
             return live.track[t].mute ? 0x400000 : (t == mirror.track && !ui.on_a ? 0x8060FF : 0x08A008);
-        if (t == TRACKS)
-            return 0x200040;
+        if (t == TRACKS) {                        /* MUTE ALL: fast red blink while every track is out */
+            int all_out = 1;
+            for (uint32_t i = 0; i < TRACKS; i++)
+                all_out &= live.track[i].mute != 0;
+            return all_out ? ((fm1_millis() / 125u) & 1u ? 0xFF0010 : 0x100000) : 0x200040;
+        }
+        if (t == TRACKS + 1u) {                   /* A VOL: running, a 2 s swell in green, lit first */
+            if (!avol.on)
+                return 0x002810;
+            uint32_t ph = (fm1_millis() - avol.start) % 2000u;
+            uint32_t up = ph < 1000u ? 1000u - ph : ph - 1000u;   /* 1000 .. 0 .. 1000 */
+            return dim(0x00FF60, 20u + up * 235u / 1000u);
+        }
         return 0;
     }
     /* PLAY: the pad lights while it is held */
