@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-only WITH GPL-3.0-linking-exception
-# Copyright (c) 2026 Tom-Rfid (OpenVALive).
+# Copyright (c) 2026 Techmelec (OpenVALive).
 """OpenVALive SMK-37 without Bluetooth: M-VAVE's engine object with every call from the rest of the SDK into the
 Bluetooth stack (classic and BLE: controller, host, A2DP/SBC audio, BLE MIDI) pointed at one function of ours that
 returns 0 (smk37_sdk.c: groove_midi_panel_reset). Nothing reaches the stack any more, so the linker's --gc-sections

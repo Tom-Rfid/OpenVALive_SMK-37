@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-3.0-only WITH GPL-3.0-linking-exception
- * Copyright (c) 2026 Tom-Rfid (OpenVALive).
+ * Copyright (c) 2026 Techmelec (OpenVALive).
  *
  * OpenVALive - SMK-37: the calls M-VAVE's SDK makes into its app (smk37_open's groove_* hooks), answered by
  * OpenVALive. The SDK runs the chip: start-up, USB (MIDI, audio), the firmware update, the flash; it calls

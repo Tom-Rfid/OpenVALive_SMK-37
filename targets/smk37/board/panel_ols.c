@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0-only WITH GPL-3.0-linking-exception
  * Copyright (c) 2026 珠海笙科智能科技有限公司 (M-VAVE): the RGB and LED code, from smk37_open app/board/panel.c.
- * Copyright (c) 2026 Tom-Rfid (OpenVALive): the adaptation.
+ * Copyright (c) 2026 Techmelec (OpenVALive): the adaptation.
  *
  * OpenVALive - SMK-37 panel: M-VAVE's scanner (board/scan.c, unchanged), screen (lcd.inc, unchanged) and pad
  * LEDs, handed to the app through glue.h. The scanner reads the factory calibration of each key and pad (read-only);

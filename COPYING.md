@@ -1,6 +1,6 @@
 # Licence of OpenVALive SMK-37
 
-Copyright (c) 2026 Tom-Rfid.
+Copyright (c) 2026 Techmelec.
 
 This repository's code is licensed under the **GNU General Public License version 3 only** ([LICENSE](LICENSE)),
 **with the linking exception** of M-VAVE's `smk37_open` SDK: you may link or combine it with the SMK37 Open binary
