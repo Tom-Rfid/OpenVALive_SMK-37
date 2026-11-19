@@ -96,7 +96,7 @@ goes on to SOUNDS / MAP CONTROL / OPTION CONTROL with PRESETS or OCT. Kept when 
 |---|---|
 | move a fader, a wheel, turn K1–K4 | picks its row (the fader or wheel keeps playing) |
 | SELECT | previous / next row |
-| PRESETS | the target: LEVEL, ENERGY, SPACE, TENSION, DENSITY, MORPH, SWING, PUMP, **FILTER, RESO, DRIVE, DELAY, CHORUS, CRUSH, DECAY**, SOUND (a knob of the track's sound), TEMPO (60–180), BEND, AFTER (aftertouch), **MIDI CC**, BASS, MID, TREBLE, MID FREQ (the master EQ), -- (nothing) |
+| PRESETS | the target: LEVEL, ENERGY, SPACE, TENSION, DENSITY, MORPH, SWING, PUMP, **FILTER, RESO, DRIVE, DELAY, CHORUS, CRUSH, DECAY**, SOUND (a knob of the track's sound), TEMPO (60–180), BEND, AFTER (aftertouch), **MIDI CC**, BASS, MID, TREBLE, MID FREQ (the master EQ), **PAN** (a track left / right, notched in the middle), -- (nothing) |
 | PAGE | the option: the track (1–4, or the selected one), ALL (every track, for the effects), the sound's knob, the CC number (0–127, e.g. to play the T-8's controls) |
 | EDIT | the row back to its default |
 | tap Bluetooth, or a menu button (HOME, FX, ARP, SEQ, GLO, SAVE), or SEL | closes the page; the map is kept in the flash (and with SAVE) |

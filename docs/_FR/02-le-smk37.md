@@ -99,7 +99,7 @@ avec PRESETS ou OCT. Gardé à la fermeture, sans SAVE.
 |---|---|
 | bouger un fader, une molette, tourner K1–K4 | sa ligne est choisie (et le fader, la molette continuent de jouer) |
 | SELECT | ligne précédente / suivante |
-| PRESETS | la cible : LEVEL, ENERGY, SPACE, TENSION, DENSITY, MORPH, SWING, PUMP, **FILTER, RESO, DRIVE, DELAY, CHORUS, CRUSH, DECAY**, SOUND (un bouton du son de la piste), TEMPO (60–180), BEND, AFTER (aftertouch), **MIDI CC**, -- (rien) |
+| PRESETS | la cible : LEVEL, ENERGY, SPACE, TENSION, DENSITY, MORPH, SWING, PUMP, **FILTER, RESO, DRIVE, DELAY, CHORUS, CRUSH, DECAY**, SOUND (un bouton du son de la piste), TEMPO (60–180), BEND, AFTER (aftertouch), **MIDI CC**, BASS, MID, TREBLE, MID FREQ (l'EQ de sortie), **PAN** (une piste à gauche / droite, cran au milieu), -- (rien) |
 | PAGE | l'option : la piste (1–4, ou la piste sélectionnée), ALL (toutes les pistes, pour les effets), le bouton du son, le numéro de CC (0–127, par exemple pour piloter la T-8) |
 | EDIT | la ligne revient à sa valeur par défaut |
 | tape sur Bluetooth, ou un bouton de menu (HOME, FX, ARP, SEQ, GLO, SAVE), ou SEL | ferme la page ; la carte est gardée dans la flash (et avec SAVE) |

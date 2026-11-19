@@ -1,5 +1,9 @@
 # Changelog
 
+## 19 November 2026 — lights checked, PAN target
+
+As on the FM-1; the screen keyboard shows the black keys too (checked in the host test).
+
 ## 19 November 2026 — new sounds, MAP CONTROL, OPTION CONTROL, EQ page
 
 As on the FM-1; PERC 1–6 (D#3 to G#5). The Bluetooth button held opens MAP CONTROL.

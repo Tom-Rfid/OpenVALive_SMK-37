@@ -139,6 +139,9 @@ int main(void)
     tap(SMK_KEY, 0);
     run_ms(50);
     CHECK(!live.track[0].mute, "...and back");
+    CHECK(smk_screen_key(1) == KEY_MUTE_ALL && smk_screen_key(8) == KEY_AVOL && smk_screen_key(0) == WHITE_KEY[0]
+          && smk_screen_key(26) == WHITE_KEY[15] && smk_screen_key(28) == -1,
+          "the screen keyboard: white keys 1-16 and the black keys stand for the FM-1's");
     tap(SMK_KEY, 1);                                    /* the first black key (C#3): MUTE ALL, as the FM-1's F#3 */
     run_ms(50);
     CHECK(live.track[0].mute && live.track[3].mute, "SELECT + the first black key mutes all four");
