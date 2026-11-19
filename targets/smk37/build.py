@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-only WITH GPL-3.0-linking-exception
-# Copyright (c) 2026 Tom-Rfid (OpenVALive). The package writer is a port of smk37_open sdk/Package.cs
+# Copyright (c) 2026 Techmelec (OpenVALive). The package writer is a port of smk37_open sdk/Package.cs
 # (MIT: Copyright (c) 2023 Andrey Grigoryev (kagaimiq), 2026 M-VAVE; see THIRD_PARTY notes in README.md).
 """OpenVALive for the SMK-37 Elite / Pro: build the firmware package (.fwsc), on Linux.
 

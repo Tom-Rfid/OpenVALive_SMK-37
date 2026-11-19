@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-3.0-only WITH GPL-3.0-linking-exception
- * Copyright (c) 2026 Tom-Rfid (OpenVALive).
+ * Copyright (c) 2026 Techmelec (OpenVALive).
  *
  * OpenVALive - SMK-37 Elite / Pro: the app.
  *

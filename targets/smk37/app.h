@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-3.0-only WITH GPL-3.0-linking-exception
- * Copyright (c) 2026 Tom-Rfid (OpenVALive).
+ * Copyright (c) 2026 Techmelec (OpenVALive).
  *
  * OpenVALive SMK-37 - the app's settings for this target. The app itself is OpenVALive CORE's (va/app/);
  * the platform it expects (fm1-base's plat.h) is smk37_app.c's, on M-VAVE's SDK. Flash objects: smk37_app.c's

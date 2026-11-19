@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-only WITH GPL-3.0-linking-exception
  * Copyright (c) 2026 珠海笙科智能科技有限公司 (M-VAVE): the ALNK0 driver and the output mix, from smk37_open
  * app/board/audio.c and app/audio_output.c.
- * Copyright (c) 2026 Tom-Rfid (OpenVALive): the adaptation.
+ * Copyright (c) 2026 Techmelec (OpenVALive): the adaptation.
  *
  * OpenVALive - SMK-37 audio: every 128 frames (2.9 ms) the interrupt asks the app's render (instead of
  * M-VAVE's instrument), then mixes the computer's USB audio in and feeds USB recording, as smk37_open does.
