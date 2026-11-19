@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenVALive SMK-37 — a live-first firmware for the M-VAVE SMK-37</title>
+<meta name="description" content="OpenVALive for the M-VAVE SMK-37 Elite and Pro: four looping tracks, a virtual analog synth and drum kits, CAPTURE, LOOP EDIT, scenes and Morph.">
+<style>
+  :root { --orange:#EE5A24; --mint:#5AC8A0; --violet:#3A1C8C; --ink:#14121a; --paper:#faf7f2; }
+  * { box-sizing:border-box } body { margin:0; font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--ink); background:var(--paper) }
+  header { background:var(--orange); color:#fff; text-align:center; padding:40px 20px 32px }
+  header img { width:220px; height:220px; image-rendering:pixelated; border-radius:18px }
+  header p { max-width:620px; margin:16px auto 0; font-size:18px }
+  main { max-width:860px; margin:0 auto; padding:28px 20px 48px }
+  h2 { color:var(--violet); margin-top:36px }
+  .btns { display:flex; flex-wrap:wrap; gap:12px; margin:18px 0 }
+  .btn { display:inline-block; padding:12px 18px; border-radius:10px; background:var(--violet); color:#fff; text-decoration:none; font-weight:600 }
+  .btn.alt { background:var(--mint); color:var(--ink) }
+  ul { padding-left:20px } li { margin:6px 0 }
+  table { border-collapse:collapse; width:100% } td { border-top:1px solid #e6e0d6; padding:8px 6px; vertical-align:top }
+  footer { text-align:center; color:#776f66; font-size:14px; padding:24px }
+  .fr { border-left:4px solid var(--mint); padding-left:14px }
+</style>
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="OpenVALive — virtual analog">
+  <p><strong>A live-first, open-source firmware for the M-VAVE SMK-37 Elite and Pro.</strong><br>
+  Four looping tracks, a virtual analog synth and five drum kits, played like an instrument: no menus on stage.</p>
+</header>
+<main>
+  <div class="btns">
+    <a class="btn" href="https://github.com/Tom-Rfid/OpenVALive_SMK-37/releases/tag/preview-dev">Download (preview)</a>
+    <a class="btn alt" href="https://github.com/Tom-Rfid/OpenVALive_SMK-37/blob/main/docs/_EN/02-the-smk37.md">Guide</a>
+    <a class="btn alt" href="https://github.com/Tom-Rfid/OpenVALive_SMK-37">Source</a>
+  </div>
+
+  <h2>What it does</h2>
+  <ul>
+    <li><strong>Four tracks, one clock</strong> — synths or drums, each with its own loop; swing; MIDI clock in and out, and the MIDI OUT jack drives a Roland T-8.</li>
+    <li><strong>CAPTURE and LOOP EDIT</strong> — play freely, press once: it loops, in time. Then edit the loop note by note.</li>
+    <li><strong>29 sounds in 7 families</strong> — acid, basses, drum kits (808, 909…), leads and keys, pads, textures, your own.</li>
+    <li><strong>The pads</strong> — PERFORM effects, PLAY (drum rolls by pressure) or SCENES (recall, store, mutes).</li>
+    <li><strong>The 37 keys on screen</strong> while a layer button is held: what each key does now.</li>
+    <li><strong>Scenes and Morph, a Creative Engine, undo everything.</strong></li>
+  </ul>
+
+  <h2>Install</h2>
+  <table>
+    <tr><td><strong>Windows</strong></td><td>download <code>OpenVALive-SMK37-Elite-X.Y.Z.zip</code> (or Pro), unzip, double-click <code>FLASH-SMK37.bat</code>.</td></tr>
+    <tr><td><strong>Back to M-VAVE</strong></td><td>the SMK37 OPEN web workbench: <em>Restore factory V16</em>.</td></tr>
+    <tr><td><strong>Unit that no longer starts</strong></td><td>the recovery scripts (a Raspberry Pi through the USB cable, the unit stays closed): <a href="https://github.com/Tom-Rfid/OpenVALive_SMK-37/tree/main/recovery">recovery/</a>.</td></tr>
+  </table>
+
+  <h2>Family</h2>
+  <ul>
+    <li><a href="https://github.com/Tom-Rfid/OpenVALive_FM-1">OpenVALive FM-1</a> — the same instrument on the FM-1 (<a href="https://tom-rfid.github.io/OpenVALive_FM-1/">site, emulator, web installer</a>).</li>
+    <li><a href="https://github.com/Tom-Rfid/OpenVALive_CORE">OpenVALive CORE</a> — the synth, the Live Core and the desktop app.</li>
+    <li>The Firmware Hub: <strong>FM-1_037</strong> (SMK-37), <strong>FM-1_023</strong> (FM-1).</li>
+  </ul>
+
+  <div class="fr">
+    <h2>En français</h2>
+    <p>Un firmware libre pensé pour le live, pour le M-VAVE SMK-37 Elite et Pro : quatre pistes en boucle, un synthé
+    analogique virtuel et cinq kits de batterie, CAPTURE, LOOP EDIT, scènes et Morph. Toute la documentation existe en
+    français : <a href="https://github.com/Tom-Rfid/OpenVALive_SMK-37/blob/main/docs/_FR/02-le-smk37.md">le guide du SMK-37</a>.</p>
+  </div>
+</main>
+<footer>OpenVALive SMK-37 — GPL-3.0 with smk37_open's linking exception. Not affiliated with or endorsed by M-VAVE.</footer>
+</body>
+</html>
