@@ -1,5 +1,12 @@
 # Changelog
 
+## 19 November 2026 — wheel PAN, softer keys, STAB / POLY / DRUM EQ, flash tool
+
+- FX + white key 14: the pitch wheel BEND or PAN (the selected track, up = left), kept past a power cycle.
+- The keys' velocity curved: more nuance when playing softly.
+- As on the FM-1 (CORE): STAB and POLY, the DRUM EQ page (red) on a drum track.
+- `FLASH-SMK37.bat` finds the keyboard as "SMK…" or "USB-Midi…", and points to jieli-usbkey-unbrick if it is not seen.
+
 ## 19 November 2026 — buttons read reliably, K1 track / K2 sound, pads on their own, recovery scripts (va: dfcc162)
 
 - The scanner is read between the screen's bands too: a long frame lost button taps, and past 256 events let every

@@ -237,6 +237,15 @@ int main(void)
     CHECK(va[mirror.track].bend > 1.9f, "pitch wheel up: +2 semitones");
     ev(SMK_FADER, 4, 64);
     CHECK(va[mirror.track].bend > -0.01f && va[mirror.track].bend < 0.01f, "pitch wheel at rest: no bend");
+    set.wheel_pan = 1;                                  /* FX + white key 14: the wheel pans the selected track */
+    ev(SMK_FADER, 4, 127);
+    run_ms(20);
+    CHECK(live.track[mirror.track].pan < -0.95f, "PAN mode: the wheel up pans the track left");
+    ev(SMK_FADER, 4, 64);
+    run_ms(20);
+    CHECK(live.track[mirror.track].pan == 0.0f, "...and back to the centre at rest");
+    set.wheel_pan = 0;
+    CHECK(key_velocity(32) > 40 && key_velocity(127) == 127 && key_velocity(1) >= 1, "the keys' velocity is curved");
 
     /* the CONTROL MAP: Bluetooth held opens it; a fader moved picks its row; PRESETS turns its target */
     ev(SMK_BUTTON, SMK_B_BACK, 1);

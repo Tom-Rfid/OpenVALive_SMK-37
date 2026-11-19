@@ -45,10 +45,16 @@ Write-Host "  - back up your M-VAVE Open projects and samples with the workbench
 Write-Host "  - way back: open.m-vave.com/smk37-workbench > Restore factory V16, or Switch to Open firmware"
 Read-Host "Press Enter when ready" | Out-Null
 
-& py -3.12 fm1_install.py --port SMK --info
-if ($LASTEXITCODE -ne 0) {
+# the keyboard's MIDI port is named "SMK-37 ..." by M-VAVE's firmware, "USB-Midi ..." by others (OpenVALive's too)
+$port = $null
+foreach ($name in @("SMK", "USB-Midi")) {
+    & py -3.12 fm1_install.py --port $name --info
+    if ($LASTEXITCODE -eq 0) { $port = $name; break }
+}
+if (-not $port) {
     Write-Host "SMK-37 not found: check the cable (data), that it is on, and that no program uses its MIDI port." -ForegroundColor Red
+    Write-Host "It no longer starts at all? See https://github.com/Tom-Rfid/jieli-usbkey-unbrick" -ForegroundColor Yellow
     Read-Host "Press Enter to close" | Out-Null; exit 1
 }
-& py -3.12 fm1_install.py --port SMK --force --no-resources $Package
+& py -3.12 fm1_install.py --port $port --force --no-resources $Package
 Read-Host "Press Enter to close" | Out-Null

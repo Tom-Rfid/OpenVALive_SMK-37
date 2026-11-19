@@ -431,8 +431,31 @@ static void note_off(uint8_t track, uint32_t note)
     midi_out_note_off(track, note);
 }
 
+/* The keys' velocity, curved: soft playing gets more of the range (the scanner's is linear and feels hard; the
+ * FM-1's touch keys feel livelier). Half linear, half square root: 32 -> 48, 64 -> 77, 100 -> 106, 127 -> 127. */
+static uint32_t isqrt32(uint32_t x)
+{
+    uint32_t r = 0, b = 1u << 14;
+    while (b) {
+        if ((r + b) * (r + b) <= x)
+            r += b;
+        b >>= 1;
+    }
+    return r;
+}
+
+static int key_velocity(int v)
+{
+    if (v <= 0)
+        return 0;
+    if (v > 127)
+        v = 127;
+    return (v + (int)isqrt32((uint32_t)v * 127u) + 1) / 2;
+}
+
 static void key_event(uint32_t id, int velocity)
 {
+    velocity = key_velocity(velocity);
     if (id >= SMK_KEYS)
         return;
     uint64_t bit = (uint64_t)1u << id;
@@ -666,6 +689,10 @@ static void fader_event(uint32_t id, int value)
     }
     if (id == 4) {                                /* pitch wheel: 64 (its rest) is exactly the middle */
         float c = value >= 64 ? 0.5f + (float)(value - 64) * (0.5f / 63.0f) : (float)value * (0.5f / 64.0f);
+        if (set.wheel_pan && !ui.on_a) {          /* PAN mode: up = left, down = right, at rest the centre */
+            send_live(LIVE_PAN, 0, 0, (0.5f - c) * 2.0f, mirror.track);
+            return;
+        }
         map_touch(MAP_PITCH);
         map_set(MAP_PITCH, c);
         return;

@@ -66,6 +66,8 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **pads** | their own mode only (PERFORM / PLAY / SCENES): they never follow a held layer button (the keys and the screen do) |
 | **4 faders** | the levels of tracks 1 to 4 (100 % at 4/5 of the travel) |
 | **FADER BANK** | goes round three banks: **levels** → **macros** ENERGY, SPACE, TENSION, DENSITY (LED lit) → **USER**, what the CONTROL MAP gives them (LED blinking) |
+| **FX** + white key 14, FX let go first | the pitch wheel: **BEND** ↔ **PAN** (kept). In PAN, the wheel moves the selected track left (up) and right (down), back to the centre at rest |
+| **key velocity** | curved: soft playing gets more of the range (half linear, half square root) |
 | **pitch wheel** | by default ±2 semitones on the selected track (at rest: none); set in the CONTROL MAP |
 | **mod wheel** | by default **MORPH** between the last two recalled scenes (otherwise aftertouch); settable |
 | **pedal** | holds the notes (sustain) |
