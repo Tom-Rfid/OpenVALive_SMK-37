@@ -59,14 +59,14 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **pressure** on a drum pad (PLAY) | a **roll** on the beat grid, faster the harder: 1/8, 1/16, 1/32 (the screen says which); eased off, it stops. In time with PLAY, or with the tempo when stopped |
 | pads in **SCENES** | pads 1–8 recall scenes 1–8 (on the next bar when playing; bright: the last one, dim: stored, dark: empty); **SHIFT** + pads 1–8 store them (purple); pads 9–12 mute / unmute tracks 1–4, pad 13 all four (fast red blink while all are out), pad 14 **A VOL** (the levels brought together over the longest loop, as on the FM-1; green swell while it runs). At once, no button to hold |
 | pads + a layer button held | that layer's 16 slots, in any mode: GLO + pads 1–8 recall the scenes, 9–16 store them… |
-| HOME + white key 15 | **LOOP EDIT**: the loop's notes one at a time (SELECT, a key = pitch, K1–K4 position / length / velocity / pitch, REC deletes, EDIT adds, EDIT held + keys: a chord) |
+| HOME + white key 9 | **LOOP EDIT**: the loop's notes one at a time (SELECT, a key = pitch, K1–K4 position / length / velocity / pitch, REC deletes, EDIT adds, EDIT held + keys: a chord) |
 | **the 12 buttons on the right** | in the FM-1's order. Top: ARP, NOTE REPEAT = SEL, SCALE = ENV (undo), CHORD = LFO (redo), GLOBE = EDIT, BT = GLO. Below: PATCH = HOME, PARA = SAVE, FX, SEQ, PLAY, REC |
 | **left buttons** | KNOB BANK = SHIFT, FADER BANK; **<** = TAP (held: MAP CONTROL), **>** = the pads' mode |
 | **8 knobs** | K1 the track (SELECT), K2 the sound (PRESET), K3–K6 the FM-1's K1–K4, K7 the tempo, K8 MASTER |
 | **pads** | their own mode only (PERFORM / PLAY / SCENES): they never follow a held layer button (the keys and the screen do) |
 | **4 faders** | the levels of tracks 1 to 4 (100 % at 4/5 of the travel) |
 | **FADER BANK** | goes round three banks: **levels** → **macros** ENERGY, SPACE, TENSION, DENSITY (LED lit) → **USER**, what MAP CONTROL gives them (LED blinking) |
-| **HOME** + white key 14, HOME let go first | **SOUNDS**: which sounds PRESET offers. The screen stays open with HOME let go (both hands free). One line a family F1–F9: the whole line red = family hidden, “F2” blue = partly, green = all offered; a square a sound; on the chosen line, the chosen sound's name (and under the title its place “3/5”, its family and ON / HIDDEN). Each family's name takes its colour. SELECT the line, PRESET the sound, SEL offered (green) / hidden (red), OCT− / OCT+ the whole family hidden / offered. Last line **MENU**: PRESET or OCT goes on to **MAP CONTROL** (OCT−: **OPTION CONTROL**), which have the same MENU line. Any menu button (HOME, FX, ARP, SEQ, GLO, SAVE) closes and saves. A hidden sound still plays where it is; PRESET and the family jumps skip it |
+| **HOME** + white key 8, HOME let go first | **SOUNDS**: which sounds PRESET offers. The screen stays open with HOME let go (both hands free). One line a family F1–F9: the whole line red = family hidden, “F2” blue = partly, green = all offered; a square a sound; on the chosen line, the chosen sound's name (and under the title its place “3/5”, its family and ON / HIDDEN). Each family's name takes its colour. SELECT the line, PRESET the sound, SEL offered (green) / hidden (red), OCT− / OCT+ the whole family hidden / offered. Last line **MENU**: PRESET or OCT goes on to **MAP CONTROL** (OCT−: **OPTION CONTROL**), which have the same MENU line. Any menu button (HOME, FX, ARP, SEQ, GLO, SAVE) closes and saves. A hidden sound still plays where it is; PRESET and the family jumps skip it |
 | **FX** + white key 14, FX let go first | the pitch wheel: **BEND** ↔ **PAN** (kept). In PAN, the wheel moves the selected track left (up) and right (down), back to the centre at rest |
 | **key velocity** | curved: soft playing gets more of the range (half linear, half square root) |
 | **pitch wheel** | by default ±2 semitones on the selected track (at rest: none); set in MAP CONTROL |
@@ -87,7 +87,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 
 **Hold the Bluetooth button** (or GLO + SEL): **MAP CONTROL** opens. First the knob pages in FX's order (PRESETS
 moves one up / down, PAGE shows / hides it), then the knobs of MACRO, LIVE, EQ and USER (K1 to K4 each), FADER 1 to 4
-(the USER bank) and the PITCH and MOD wheels. **HOME + white key 16** opens **OPTION CONTROL**: DRUM KEYS (ORIGINAL /
+(the USER bank) and the PITCH and MOD wheels. **HOME + white key 10** opens **OPTION CONTROL**: DRUM KEYS (ORIGINAL /
 GM), **PERC 1–6** (each D# / G# key of the drum keyboard, D#3 to G#5, its own percussion), KEYS ON SCREEN, and for
 T1–T4 and A the page a new sound brings (KEEP: none). On a row **EDIT** puts its default back; the last row, MENU,
 goes on to SOUNDS / MAP CONTROL / OPTION CONTROL with PRESETS or OCT. Kept when the page closes, without SAVE.

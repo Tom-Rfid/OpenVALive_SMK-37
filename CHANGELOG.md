@@ -1,5 +1,10 @@
 # Changelog
 
+## 20 November 2026 — the SMK-37's own names on screen
+
+- The screen names the SMK-37's buttons (NOTE, GLOBE, PARA, PATCH, BT, SCALE, CHORD, PAGE, PRESETS). With the
+  FM-1's changes: HOME (PATCH) + white keys 8–10, titles, REC / CAPTURE while playing.
+
 ## 19 November 2026 — SEL (NOTE REPEAT) valid on release, lights, drum levels
 
 As on the FM-1; NOTE REPEAT blinks fast while a sound waits for it. Host test: every layer valid on release (ARP,
