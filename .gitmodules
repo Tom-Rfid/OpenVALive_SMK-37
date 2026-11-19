@@ -1,0 +1,4 @@
+[submodule "va"]
+	path = va
+	url = https://github.com/Tom-Rfid/OpenVALive_CORE
+	branch = dev

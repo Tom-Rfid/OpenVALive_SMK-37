@@ -1,0 +1,91 @@
+# OpenVALive SMK-37 - tests and the Elite / Pro firmware. The synth is OpenVALive CORE, the va/ submodule.
+#   push / pull request    tests + both packages as artifacts
+#   Run workflow           without "release": the rolling pre-release "preview-<branch>" (a direct public link)
+#                          with "release" ticked, on main: the release vX.Y.Z of the VERSION file
+# Releases go on main only (dev is the default branch): docs/_EN/18-rules-git-and-publishing.md.
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Publish the release vX.Y.Z of the VERSION file (tag + files), from this branch"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+
+      - name: Packages
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq python3-numpy python3-pil zip
+
+      - name: fm1-base (fonts, plat.h, the JieLi toolchain script)
+        run: git clone --recursive --depth 1 https://github.com/charlesvestal/fm1-base "$HOME/fm1-base"
+
+      - name: smk37_open (M-VAVE's SDK, GPL-3.0; pinned in targets/smk37/SMK37_OPEN_COMMIT)
+        run: |
+          git clone https://github.com/m-vave/smk37_open "$HOME/smk37_open"
+          git -C "$HOME/smk37_open" checkout -q "$(cat targets/smk37/SMK37_OPEN_COMMIT)"
+
+      - name: Tests (OpenVALive CORE at the pinned version, then the SMK-37 host test)
+        run: FM1_BASE="$HOME/fm1-base" SMK37_OPEN="$HOME/smk37_open" sh tests/run_tests.sh
+
+      - name: JieLi toolchain
+        run: |
+          bash "$HOME/fm1-base/tools/get_toolchain.sh"
+          echo "JIELI_TOOLCHAIN=$HOME/.jieli/toolchain" >> "$GITHUB_ENV"
+
+      - name: Elite and Pro firmware
+        run: |
+          V="$(cat VERSION)"
+          echo "VERSION=$V" >> "$GITHUB_ENV"
+          for model in elite pro; do
+            python3 targets/smk37/build.py --model $model --version "$V" \
+              --smk37-open "$HOME/smk37_open" --fm1-base "$HOME/fm1-base" --out targets/smk37/build
+          done
+
+      - name: Collect the files
+        run: |
+          mkdir -p dist
+          for model in elite pro; do
+            M="$(echo ${model:0:1} | tr a-z A-Z)${model:1}"
+            cp "targets/smk37/build/$model/openvalive-smk37-$model-$VERSION.fwsc" dist/
+            zip -qj "dist/OpenVALive-SMK37-$M-$VERSION.zip" "dist/openvalive-smk37-$model-$VERSION.fwsc" \
+              "$HOME/fm1-base/tools/fm1_install.py" "$HOME/fm1-base/tools/fm1ports.py" \
+              scripts/windows/flash-smk37.ps1 scripts/windows/FLASH-SMK37.bat COPYING.md LICENSE
+          done
+          ls -la dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openvalive-smk37-${{ env.VERSION }}
+          path: dist/
+          retention-days: 14
+
+      - name: Release (Actions > build > Run workflow, "release" ticked)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.release }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v$VERSION" dist/* --target "$GITHUB_SHA" --title "OpenVALive SMK-37 $VERSION" \
+            --notes "Elite: OpenVALive-SMK37-Elite-$VERSION.zip, Pro: OpenVALive-SMK37-Pro-$VERSION.zip (Windows: FLASH-SMK37.bat). GPL-3.0 with smk37_open's linking exception; source: this tag. The synth: OpenVALive CORE $(git -C va describe --tags --always). Guide: docs/_EN/02-the-smk37.md"
+
+      - name: Rolling pre-release (Actions > build > Run workflow, "release" not ticked)
+        if: ${{ github.event_name == 'workflow_dispatch' && !inputs.release }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="preview-$(echo "$GITHUB_REF_NAME" | tr '/' '-')"
+          gh release delete "$TAG" --cleanup-tag -y 2>/dev/null || true
+          gh release create "$TAG" dist/* --prerelease --target "$GITHUB_SHA" --title "OpenVALive SMK-37 preview ($GITHUB_REF_NAME)" \
+            --notes "Preview of $GITHUB_REF_NAME at ${GITHUB_SHA:0:7}, not a release. Elite: openvalive-smk37-elite-$VERSION.fwsc"
