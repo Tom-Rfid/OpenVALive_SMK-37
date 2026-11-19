@@ -1,5 +1,9 @@
 # Changelog
 
+## 20 November 2026 — breathing keys on the screen keyboard
+
+As on the FM-1, on the screen keyboard (the SMK-37's LEDs have one level).
+
 ## 20 November 2026 — the SMK-37's own names on screen
 
 - The screen names the SMK-37's buttons (NOTE, GLOBE, PARA, PATCH, BT, SCALE, CHORD, PAGE, PRESETS). With the
