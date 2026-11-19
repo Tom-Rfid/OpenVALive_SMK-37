@@ -52,7 +52,7 @@ docs/            _EN (English) and _FR (français)
 | | English | Français |
 |---|---|---|
 | Overview | [01](docs/_EN/01-overview.md) | [01](docs/_FR/01-presentation.md) |
-| The SMK-37: install, controls, CONTROL MAP, T-8, test plan, building | [02](docs/_EN/02-the-smk37.md) | [02](docs/_FR/02-le-smk37.md) |
+| The SMK-37: install, controls, MAP CONTROL, T-8, test plan, building | [02](docs/_EN/02-the-smk37.md) | [02](docs/_FR/02-le-smk37.md) |
 | The synth inside: how it is wired | [03](docs/_EN/03-the-synth-inside.md) | [03](docs/_FR/03-le-synthe-a-l-interieur.md) |
 | Rules: code, git, publishing | [18](docs/_EN/18-rules-git-and-publishing.md) | [18](docs/_FR/18-regles-git-et-publication.md) |
 

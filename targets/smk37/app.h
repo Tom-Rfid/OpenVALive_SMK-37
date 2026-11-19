@@ -19,6 +19,8 @@ static uint32_t smk_master_pct(void);
 #define APP_SPLASH_RGB RGB(90, 200, 160)
 #define APP_KEYS_SCREEN 1u      /* no lights in the keys: a layer button held shows them on the screen */
 #define APP_WHEEL 1             /* the pitch wheel can pan the selected track (FX + white key 14) */
+#define APP_PERC_FIRST 0u       /* the drum keys' D# and G# from D#3: PERC 1..6 (OPTION CONTROL) */
+#define APP_PERC_COUNT 6u
 #ifdef OLS_NO_BLUETOOTH
 #define APP_SPLASH              /* the boot logo (va/app/src/splash.c): room for it without the Bluetooth stack */
 #endif

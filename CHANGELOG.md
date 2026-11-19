@@ -1,5 +1,9 @@
 # Changelog
 
+## 19 November 2026 — new sounds, MAP CONTROL, OPTION CONTROL, EQ page
+
+As on the FM-1; PERC 1–6 (D#3 to G#5). The Bluetooth button held opens MAP CONTROL.
+
 ## 19 November 2026 — A VOL, MUTE ALL on a black key
 
 - SELECT held: the black keys act as the FM-1's (1st C#3 MUTE ALL, 4th G#3 A VOL); SCENES pads: 13 MUTE ALL (fast

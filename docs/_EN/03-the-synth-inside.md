@@ -16,7 +16,7 @@ This repository holds the **SMK-37 half** of OpenVALive. The synth, the Live Cor
  smk37_app.c        the platform the app expects (fm1-base's plat.h API) + the SMK-37's extras + includes the app
  app.h              name, splash, APP_TOUCH, APP_OVERLOAD, host checks; includes va/app/openvalive_app.h
       │                                                                      ── the submodule: va/ (MIT)
- va/app             the instrument: pages, layers, CONTROL MAP, SOUND EDIT, saving, MIDI   (one unit, -Oz)
+ va/app             the instrument: pages, layers, MAP CONTROL, SOUND EDIT, saving, MIDI   (one unit, -Oz)
  va/core/live       the Live Core: clock, 4 tracks, REC, CAPTURE, undo, scenes, Morph, Creative Engine
  va/core/engines    VA (2 osc + sub + noise, filter, 2 env, 2 LFO, mod matrix, FX) · DRUM (808 family)
  va/core/dsp        PolyBLEP, ZDF SVF, ADSR, LFO, delay, chorus, phaser    (va/app/ols_dsp.c, -O2)
@@ -38,8 +38,8 @@ This repository holds the **SMK-37 half** of OpenVALive. The synth, the Live Cor
 
 | What | Where |
 |---|---|
-| Pads PERFORM / PLAY, faders (levels, macros, USER), wheels, pedal, MASTER, Bluetooth button = TAP / CONTROL MAP | `smk37_app.c` |
-| Two hooks into the shared app: `APP_KEY_LAYER(k)` (pads as layer keys), `APP_MAP_SLOTS 10` (faders and wheels in the CONTROL MAP) | `smk37_app.c`, before including the app |
+| Pads PERFORM / PLAY, faders (levels, macros, USER), wheels, pedal, MASTER, Bluetooth button = TAP / MAP CONTROL | `smk37_app.c` |
+| Two hooks into the shared app: `APP_KEY_LAYER(k)` (pads as layer keys), `APP_MAP_SLOTS 10` (faders and wheels in the MAP CONTROL) | `smk37_app.c`, before including the app |
 | Storage: 5 objects, 2 copies each with a CRC, in Open's project slots (never the calibration, never the pairing) | `smk37_app.c` |
 | Package per model (`SMK-37 Elite_8XXYYZZ` / `Pro`), byte-identical to M-VAVE's `Package.cs` | `build.py` |
 

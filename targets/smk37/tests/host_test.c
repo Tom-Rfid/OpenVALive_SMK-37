@@ -259,20 +259,20 @@ int main(void)
     set.wheel_pan = 0;
     CHECK(key_velocity(32) > 40 && key_velocity(127) == 127 && key_velocity(1) >= 1, "the keys' velocity is curved");
 
-    /* the CONTROL MAP: Bluetooth held opens it; a fader moved picks its row; PRESETS turns its target */
+    /* MAP CONTROL: Bluetooth held opens it; a fader moved picks its row; PRESETS turns its target */
     ev(SMK_BUTTON, SMK_B_BACK, 1);
     run_ms(600);
     ev(SMK_BUTTON, SMK_B_BACK, 0);
-    CHECK(map_is_open(), "Bluetooth held opens the CONTROL MAP");
+    CHECK(map_is_open(), "Bluetooth held opens MAP CONTROL");
     ev(SMK_FADER, 2, 20);                               /* (the first reading only learns where it is) */
     ev(SMK_FADER, 2, 30);
-    CHECK(mapui.row == MAP_F3, "moving fader 3 picks its row");
+    CHECK(mapui.row == map_row_of(MAP_F3), "moving fader 3 picks its row");
     uint8_t before = cmap.target[MAP_F3];
     ev(SMK_ENCODER, 1, 1);                              /* PRESETS */
     CHECK(cmap.target[MAP_F3] == before + 1, "PRESETS changes the target");
     ev(SMK_ENCODER, 1, -1);
     ev(SMK_ENCODER, 0, 1);                              /* SELECT: next row */
-    CHECK(mapui.row == MAP_F4, "SELECT moves the row");
+    CHECK(mapui.row == map_row_of(MAP_F4), "SELECT moves the row");
     int map_writes = flash_writes;
     tap(SMK_BUTTON, SMK_B_BACK);                   /* a tap closes it */
     CHECK(!map_is_open(), "a tap on Bluetooth closes it");

@@ -16,7 +16,7 @@ d'[OpenVALive CORE](https://github.com/Tom-Rfid/OpenVALive_CORE) (MIT), inclus i
  smk37_app.c        la plateforme qu'attend l'app (l'API plat.h de fm1-base) + les ajouts du SMK-37 + inclut l'app
  app.h              nom, splash, APP_TOUCH, APP_OVERLOAD, tests hôte ; inclut va/app/openvalive_app.h
       │                                                                      ── le sous-module : va/ (MIT)
- va/app             l'instrument : pages, couches, CONTROL MAP, SOUND EDIT, sauvegarde, MIDI   (une unité, -Oz)
+ va/app             l'instrument : pages, couches, MAP CONTROL, SOUND EDIT, sauvegarde, MIDI   (une unité, -Oz)
  va/core/live       le Live Core : horloge, 4 pistes, REC, CAPTURE, undo, scènes, Morph, Creative Engine
  va/core/engines    VA (2 osc + sub + bruit, filtre, 2 env, 2 LFO, matrice de modulation, effets) · DRUM (famille 808)
  va/core/dsp        PolyBLEP, ZDF SVF, ADSR, LFO, delay, chorus, phaser    (va/app/ols_dsp.c, -O2)
@@ -38,8 +38,8 @@ d'[OpenVALive CORE](https://github.com/Tom-Rfid/OpenVALive_CORE) (MIT), inclus i
 
 | Quoi | Où |
 |---|---|
-| Pads PERFORM / PLAY, faders (niveaux, macros, USER), molettes, pédale, MASTER, bouton Bluetooth = TAP / CONTROL MAP | `smk37_app.c` |
-| Deux crochets dans l'app commune : `APP_KEY_LAYER(k)` (pads comme touches de couche), `APP_MAP_SLOTS 10` (faders et molettes dans la CONTROL MAP) | `smk37_app.c`, avant d'inclure l'app |
+| Pads PERFORM / PLAY, faders (niveaux, macros, USER), molettes, pédale, MASTER, bouton Bluetooth = TAP / MAP CONTROL | `smk37_app.c` |
+| Deux crochets dans l'app commune : `APP_KEY_LAYER(k)` (pads comme touches de couche), `APP_MAP_SLOTS 10` (faders et molettes dans la MAP CONTROL) | `smk37_app.c`, avant d'inclure l'app |
 | Stockage : 5 objets, 2 copies chacun avec CRC, dans les emplacements de projets d'Open (jamais la calibration ni l'appairage) | `smk37_app.c` |
 | Un paquet par modèle (`SMK-37 Elite_8XXYYZZ` / `Pro`), identique à l'octet près à celui du `Package.cs` de M-VAVE | `build.py` |
 

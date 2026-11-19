@@ -16,7 +16,7 @@ propriétaire, avec le plan de test plus bas.
   ([17 — publication](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_FR/17-publication.md)).
 - **Calibration** : la vélocité de chaque touche et de chaque pad vient de la calibration d'usine. Le scanner de
   M-VAVE la **lit** ; OpenVALive ne l'écrit jamais.
-- **Bluetooth** : aucun. Le firmware est compilé sans la pile Bluetooth de M-VAVE (`targets/smk37/no_bluetooth.py` : ~180 Ko de flash et ~10 Ko de RAM rendus, le logo d'accueil avec) ; `build.py --bluetooth` la remet. Le bouton Bluetooth sert au TAP tempo et ouvre le CONTROL MAP.
+- **Bluetooth** : aucun. Le firmware est compilé sans la pile Bluetooth de M-VAVE (`targets/smk37/no_bluetooth.py` : ~180 Ko de flash et ~10 Ko de RAM rendus, le logo d'accueil avec) ; `build.py --bluetooth` la remet. Le bouton Bluetooth sert au TAP tempo et ouvre MAP CONTROL.
 - **Touches à l'écran** : les touches n'ont pas de voyants, alors tant qu'un bouton de couche (SELECT, SEQ, ARP, GLO, SAVE, HOME, FX) est tenu, l'écran montre ses touches à la place de l'oscilloscope, allumées comme les voyants du FM-1 (KEYS ON SCREEN dans les réglages).
 - **Touches de batterie** : carte ORIGINAL ou GM ([doc 20 du FM-1](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_FR/20-sons-et-touches-batterie.md)) ; les pads en mode PLAY sur une piste de batterie jouent les notes GM 36 à 51, comme les boîtes à rythmes.
 - **Tes données M-VAVE Open** : OpenVALive garde son set dans les emplacements de projets **6 à 16** d'Open. Les
@@ -63,18 +63,18 @@ Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware d
 | pads + un bouton de couche tenu | les 16 emplacements de la couche, quel que soit le mode : GLO + pads 1–8 rappellent les scènes, 9–16 les mémorisent… |
 | HOME + touche blanche 15 | **LOOP EDIT** : les notes de la boucle une par une (SELECT, une touche = hauteur, K1–K4 position / longueur / vélocité / hauteur, REC efface, EDIT ajoute) |
 | **les 12 boutons de droite** | dans l'ordre du FM-1. En haut : ARP, NOTE REPEAT = SEL, SCALE = ENV (annuler), CHORD = LFO (refaire), GLOBE = EDIT, BT = GLO. En bas : PATCH = HOME, PARA = SAVE, FX, SEQ, PLAY, REC |
-| **boutons de gauche** | KNOB BANK = SHIFT, FADER BANK ; **<** = TAP (tenu : CONTROL MAP), **>** = le mode des pads |
+| **boutons de gauche** | KNOB BANK = SHIFT, FADER BANK ; **<** = TAP (tenu : MAP CONTROL), **>** = le mode des pads |
 | **8 boutons rotatifs** | K1 la piste (SELECT), K2 le son (PRESET), K3–K6 les K1–K4 du FM-1, K7 le tempo, K8 MASTER |
 | **pads** | leur propre mode seulement (PERFORM / PLAY / SCÈNES) : ils ne suivent jamais un bouton de couche tenu (les touches et l'écran le font) |
 | **4 faders** | volume des pistes 1 à 4 (100 % aux 4/5 de la course) |
-| **FADER BANK** | fait tourner trois banques : **volumes** → **macros** ENERGY, SPACE, TENSION, DENSITY (voyant allumé) → **USER**, ce que le CONTROL MAP leur donne (voyant qui clignote) |
-| **HOME** + touche blanche 14, HOME relâché d'abord | **SOUNDS** : les sons que PRESET propose. L'écran reste ouvert HOME relâché (les deux mains libres). Une ligne par famille F1–F7 : toute la ligne rouge = famille masquée, « F2 » en bleu = en partie, en vert = tout proposé ; un carré par son ; sur la ligne choisie, le nom du son choisi (et sous le titre sa position « 3/5 », sa famille et ON / HIDDEN). Le nom de chaque famille prend sa couleur. SELECT la ligne, PRESET le son, SEL proposé (vert) / masqué (rouge), OCT− / OCT+ toute la famille masquée / proposée. Dernière ligne **MENU** : PRESET ou OCT passe aux **SETTINGS** (et la ligne MENU des SETTINGS revient ici). N'importe quel bouton de menu (HOME, FX, ARP, SEQ, GLO, SAVE) ferme et enregistre. Un son masqué continue de jouer là où il est ; PRESET et les sauts de famille le sautent |
+| **FADER BANK** | fait tourner trois banques : **volumes** → **macros** ENERGY, SPACE, TENSION, DENSITY (voyant allumé) → **USER**, ce que MAP CONTROL leur donne (voyant qui clignote) |
+| **HOME** + touche blanche 14, HOME relâché d'abord | **SOUNDS** : les sons que PRESET propose. L'écran reste ouvert HOME relâché (les deux mains libres). Une ligne par famille F1–F9 : toute la ligne rouge = famille masquée, « F2 » en bleu = en partie, en vert = tout proposé ; un carré par son ; sur la ligne choisie, le nom du son choisi (et sous le titre sa position « 3/5 », sa famille et ON / HIDDEN). Le nom de chaque famille prend sa couleur. SELECT la ligne, PRESET le son, SEL proposé (vert) / masqué (rouge), OCT− / OCT+ toute la famille masquée / proposée. Dernière ligne **MENU** : PRESET ou OCT passe à **MAP CONTROL** (OCT− : **OPTION CONTROL**), qui ont la même ligne MENU. N'importe quel bouton de menu (HOME, FX, ARP, SEQ, GLO, SAVE) ferme et enregistre. Un son masqué continue de jouer là où il est ; PRESET et les sauts de famille le sautent |
 | **FX** + touche blanche 14, FX relâché d'abord | la molette de pitch : **BEND** ↔ **PAN** (gardé). En PAN, la molette envoie la piste choisie à gauche (vers le haut) ou à droite (vers le bas), au centre au repos |
 | **vélocité des touches** | courbée : le jeu doux a plus de nuances (moitié linéaire, moitié racine carrée) |
-| **molette de pitch** | par défaut ±2 demi-tons sur la piste sélectionnée (au repos : rien) ; réglable dans le CONTROL MAP |
+| **molette de pitch** | par défaut ±2 demi-tons sur la piste sélectionnée (au repos : rien) ; réglable dans MAP CONTROL |
 | **molette de modulation** | par défaut **MORPH** entre les deux dernières scènes rappelées (sinon aftertouch) ; réglable |
 | **pédale** | tient les notes (sustain) |
-| K1–K4 | la page de boutons affichée (SEL change de page : SOUND, MACRO, LIVE, SETUP, **USER** = le CONTROL MAP) |
+| K1–K4 | la page de boutons affichée (FX change de page : SOUND, MACRO, LIVE, SETUP, USER, **EQ** (la sortie : BASS, MID, TREBLE, MID FREQ), DRUM EQ ; ordre et pages affichées : MAP CONTROL) |
 | **SHIFT + K1–K4** | la page LIVE (MORPH, SWING, PUMP, LEVEL), sans quitter la page affichée |
 | SELECT / PAGE / PRESETS | piste / tempo / son (comme SELECT, ALGO, PRESET sur le FM-1) |
 | **MASTER** (8e encodeur) | volume général |
@@ -82,15 +82,18 @@ Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware d
 | **SHIFT + SELECT** (ou ARP + SELECT) | **SOUND EDIT** : tous les paramètres du son, LFO calés sur le tempo, matrice de modulation (voir le manuel) |
 | SELECT (tenu : couche des pistes — ses touches noires comme celles du FM-1 : 1re (Do#3) MUET LES 4, 4e (Sol#3) A VOL ; appuyé : valide un son en attente ; tenu + molette SELECT : pointer une ligne, depuis A : échange), SEQ (tenu : couche des effets), FX (pages des boutons) | comme sur le FM-1 |
 | HOME, SAVE, ARP, GLO, PLAY, REC, EDIT | comme sur le FM-1 ([05](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_FR/05-utilisation-fm1.md)) |
-| **Bluetooth** | tapé : TAP tempo ; **tenu une demi-seconde : le CONTROL MAP** |
+| **Bluetooth** | tapé : TAP tempo ; **tenu une demi-seconde : MAP CONTROL** |
 | **MIDI OUT** (prise TRS) | horloge, START/STOP et notes : tout ce qui sort en USB sort aussi là |
 
-### Le CONTROL MAP : choisir ce que font les faders, les molettes et les boutons
+### MAP CONTROL et OPTION CONTROL : les pages, ce que font les faders, les molettes et les boutons
 
-**Tiens le bouton Bluetooth** (ou GLO + SEL) : la page CONTROL MAP s'ouvre, avec ses 10 lignes : K1 à K4 (la page
-USER des boutons), FADER 1 à 4 (la banque USER) et les molettes PITCH et MOD ; en dessous, les réglages : DRUM KEYS
-(ORIGINAL / GM), DRUM D# et DRUM G# (les deux sons choisis de la carte originale), KEYS ON SCREEN. Sur une ligne de
-réglage, PRESETS ou PAGE la change ; elle est gardée à la fermeture, sans SAVE.
+**Tiens le bouton Bluetooth** (ou GLO + SEL) : **MAP CONTROL** s'ouvre. D'abord les pages de boutons dans l'ordre de
+FX (PRESETS en déplace une, PAGE l'affiche / la masque), puis les boutons de MACRO, LIVE, EQ et USER (K1 à K4
+chacune), FADER 1 à 4 (la banque USER) et les molettes PITCH et MOD. **HOME + touche blanche 16** ouvre **OPTION
+CONTROL** : DRUM KEYS (ORIGINAL / GM), **PERC 1–6** (chaque touche ré# / sol# du clavier de batterie, de Ré#3 à Sol#5,
+sa propre percussion), KEYS ON SCREEN, et pour T1–T4 et A la page qu'amène un nouveau son (KEEP : aucune). Sur une
+ligne **EDIT** remet sa valeur par défaut ; la dernière ligne, MENU, passe à SOUNDS / MAP CONTROL / OPTION CONTROL
+avec PRESETS ou OCT. Gardé à la fermeture, sans SAVE.
 
 | Geste dans la page | Effet |
 |---|---|
@@ -98,7 +101,8 @@ réglage, PRESETS ou PAGE la change ; elle est gardée à la fermeture, sans SAV
 | SELECT | ligne précédente / suivante |
 | PRESETS | la cible : LEVEL, ENERGY, SPACE, TENSION, DENSITY, MORPH, SWING, PUMP, **FILTER, RESO, DRIVE, DELAY, CHORUS, CRUSH, DECAY**, SOUND (un bouton du son de la piste), TEMPO (60–180), BEND, AFTER (aftertouch), **MIDI CC**, -- (rien) |
 | PAGE | l'option : la piste (1–4, ou la piste sélectionnée), ALL (toutes les pistes, pour les effets), le bouton du son, le numéro de CC (0–127, par exemple pour piloter la T-8) |
-| tape sur Bluetooth, HOME, SEL ou GLO | ferme la page ; la carte est gardée dans la flash (et avec SAVE) |
+| EDIT | la ligne revient à sa valeur par défaut |
+| tape sur Bluetooth, ou un bouton de menu (HOME, FX, ARP, SEQ, GLO, SAVE), ou SEL | ferme la page ; la carte est gardée dans la flash (et avec SAVE) |
 
 Les **effets** tiennent leur valeur sur les pistes choisies tant que la commande est levée ; **tout en bas** (sous
 2 %), les sons reviennent tels qu'ils sont enregistrés. Réglages d'usine : K1–K4 = FILTER, RESO, DELAY, CHORUS sur
@@ -154,14 +158,14 @@ Note pour chaque ligne : ✅, ❌ (et ce qui se passe), ou ? (pas compris).
 | 2.8 | faders 1–4 | volume de chaque piste (message LEVEL n) |
 | 2.9 | FADER BANK, puis faders | ENERGY, SPACE, TENSION, DENSITY ; voyant allumé |
 | 2.9b | FADER BANK encore (USER, voyant qui clignote), fader 2 monté puis tout en bas | le delay arrive sur tout le mix, puis s'en va |
-| 2.9c | tenir Bluetooth : CONTROL MAP ; bouger le fader 1, tourner PRESETS jusqu'à MIDI CC, PAGE sur 74, taper Bluetooth | la ligne FADER 1 est choisie ; fermé ; le fader 1 (banque USER) envoie le CC 74 |
+| 2.9c | tenir Bluetooth : MAP CONTROL ; bouger le fader 1, tourner PRESETS jusqu'à MIDI CC, PAGE sur 74, taper Bluetooth | la ligne FADER 1 est choisie ; fermé ; le fader 1 (banque USER) envoie le CC 74 |
 | 2.10 | molette de pitch | la note se plie, revient au centre |
 | 2.11 | 2 scènes rappelées, molette de modulation | MORPH glisse de l'une à l'autre |
 | 2.12 | pédale | les notes tiennent jusqu'au relâchement |
 | 2.13 | les 8 encodeurs | K1–K4 la page, SELECT piste, PAGE tempo, PRESETS son, MASTER volume |
 | 2.14 | SHIFT + K3 | PUMP |
 | 2.15 | ENV, puis SHIFT + ENV | UNDO, REDO |
-| 2.16 | Bluetooth tapé 4 fois | TAP, le tempo suit (tenu : le CONTROL MAP) |
+| 2.16 | Bluetooth tapé 4 fois | TAP, le tempo suit (tenu : MAP CONTROL) |
 | 2.17 | voyants des boutons | PLAY allumé en lecture, REC en enregistrement, SAVE quand il y a à sauver |
 | **3** | **Live** | |
 | 3.1 | REC, jouer, REC | boucle enregistrée |
