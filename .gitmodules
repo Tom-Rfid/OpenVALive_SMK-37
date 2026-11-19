@@ -2,3 +2,6 @@
 	path = va
 	url = https://github.com/Tom-Rfid/OpenVALive_CORE
 	branch = dev
+[submodule "recovery"]
+	path = recovery
+	url = https://github.com/Tom-Rfid/jieli-usbkey-unbrick

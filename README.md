@@ -32,7 +32,7 @@ On [The Firmware Hub](https://thefirmwarehub.com): **FM-1_037** (this firmware) 
 | **install it** | the latest [release](https://github.com/Tom-Rfid/OpenVALive_SMK-37/releases): `OpenVALive-SMK37-Elite-X.Y.Z.zip` (or Pro), then `FLASH-SMK37.bat` ([guide](docs/_EN/02-the-smk37.md)) |
 | **try the latest build** | [preview-dev](https://github.com/Tom-Rfid/OpenVALive_SMK-37/releases/tag/preview-dev): `openvalive-smk37-elite-X.Y.Z.fwsc` (or pro) |
 | **go back to M-VAVE's firmware** | the SMK37 OPEN web workbench: Restore factory V16 |
-| **bring back a unit that no longer starts** | [`recovery/`](recovery/README.md): a Raspberry Pi through the USB cable, the unit stays closed |
+| **bring back a unit that no longer starts** | [jieli-usbkey-unbrick](https://github.com/Tom-Rfid/jieli-usbkey-unbrick) (also in `recovery/`): a Raspberry Pi through the USB cable, the unit stays closed |
 | **build it** | `git clone --recursive`, then [02 — building it yourself](docs/_EN/02-the-smk37.md#building-it-yourself) |
 
 ## Repository map
@@ -42,7 +42,7 @@ targets/smk37/   the SMK-37 target: app.h, smk37_app.c (platform + extras), smk3
                  board/ (panel, audio), build.py (compile, link, package), tests/host_test.c, SMK37_OPEN_COMMIT
 va/              OpenVALive CORE, a git submodule pinned to one version (sh scripts/va.sh status)
 scripts/         va.sh / va.ps1 (the submodule), windows/ (FLASH-SMK37.bat, flash-smk37.ps1)
-recovery/        bring back a unit that no longer starts (Raspberry Pi, JieLi USB key, M-Flasher)
+recovery/        jieli-usbkey-unbrick (submodule): bring back a unit that no longer starts
 tests/           run_tests.sh: OpenVALive CORE's tests, then the SMK-37 host test
 docs/            _EN (English) and _FR (français)
 ```

@@ -49,3 +49,8 @@ Actions > build > Run workflow with "release" ticked). A release pins a **tag** 
 - The render runs from the flash (M-VAVE's instrument ran from RAM): a freeze while saving would point there.
 - No Bluetooth by default: `no_bluetooth.py` patches M-VAVE's engine object (its calls into the stack go to
   `groove_midi_panel_reset`, ours) in the build directory; if smk37_open changes, it stops rather than guess.
+
+## Bluetooth
+
+Bluetooth is dropped for good on the SMK-37 (and the FM-1): the firmware is built without M-VAVE's stack;
+the `--bluetooth` link is no longer maintained or tested. Do not develop Bluetooth features.
