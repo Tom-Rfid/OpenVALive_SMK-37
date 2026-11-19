@@ -1,5 +1,12 @@
 # Changelog
 
+## 19 November 2026 — A plays its own sound, SAVE in one pause, chords
+
+- Fixed: with A selected, the keys and the pads played the last track's sound (T4) instead of A's own; now A's voice
+  (MIDI channel 5), as on the FM-1. Host test: a key held while moving to A, then a key on A.
+- SAVE (PARA): one short silence instead of a choppy sound (the flash writes pause the audio).
+- GLOBE (EDIT) blinks while recording; the infinity sign shows with the pink line; LOOP EDIT chords; UNDER.
+
 ## 19 November 2026 — 12 new sounds, families by character
 
 As on the FM-1 (48 sounds; ACID, PSY, BASSES, DRUMS, PUNCH, SFX, DARK, SOFT, USER).

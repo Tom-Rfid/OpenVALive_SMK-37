@@ -37,6 +37,9 @@ int fm1_flash_write(uint32_t off, const void *d, size_t n)
     return 0;
 }
 int fm1_bluetooth_configure(unsigned f) { (void)f; return 0; }
+static int audio_paused;
+void fm1_audio_suspend(void) { audio_paused++; }
+void fm1_audio_resume(void) { audio_paused--; }
 void smk_panel_init(void) {}
 void smk_panel_poll(void) {}
 void smk_panel_service(void) {}
@@ -101,6 +104,26 @@ int main(void)
     ev(SMK_KEY, 0, 0);
     run_ms(2000);
     CHECK(voices_sounding() == 0, "the key let go is silent");
+
+    /* A (SELECT past track 4): the keys play A's own voice, not the last track (a key held over the move too) */
+    ev(SMK_KEY, 2, 100);                                /* held on track 1 ... */
+    for (int i = 0; i < 4; i++)
+        ev(SMK_ENCODER, 0, 1);                          /* ... SELECT to A */
+    run_ms(50);
+    CHECK(ui.on_a, "SELECT past track 4: A");
+    ev(SMK_KEY, 2, 0);
+    run_ms(2000);
+    ev(SMK_KEY, 4, 100);
+    run_ms(30);
+    int a_voices = 0;
+    for (int i = 0; i < VA_VOICES; i++)
+        a_voices += lv.voice[i].amp.stage != ENV_IDLE;
+    CHECK(a_voices > 0 && voices_sounding() == 0, "on A a key plays A's voice, no track");
+    ev(SMK_KEY, 4, 0);
+    run_ms(2000);
+    for (int i = 0; i < 4; i++)
+        ev(SMK_ENCODER, 0, -1);                         /* back to track 1 */
+    run_ms(50);
 
     /* PERFORM pads (the default): pad 1 = LOOP 1 BAR while held, a tap latches */
     ev(SMK_BUTTON, SMK_B_PLAY, 1); ev(SMK_BUTTON, SMK_B_PLAY, 0);

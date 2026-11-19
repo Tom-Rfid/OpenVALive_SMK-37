@@ -338,6 +338,13 @@ int plat_store_save(uint32_t obj, const void *src, uint32_t len)
     return fm1_flash_write(at, &h, sizeof h) ? -2 : 0;   /* the head last: a copy counts once complete */
 }
 
+/* SAVE writes several flash objects; the SDK pauses the audio around each: one pause around them all is one short
+ * clean silence (board/audio_ols.c counts the nested pauses) */
+void fm1_audio_suspend(void);
+void fm1_audio_resume(void);
+#define APP_SAVE_BEGIN() fm1_audio_suspend()
+#define APP_SAVE_END() fm1_audio_resume()
+
 /* ------------------------------------------------------------------ the app (OpenVALive CORE) */
 
 #include "../../va/app/openvalive_app.c"
@@ -429,17 +436,23 @@ static uint32_t smk_key_layer(uint32_t k)
 
 /* --- notes (keys, and pads in PLAY mode): straight to the selected track, out over MIDI too --- */
 
+/* where a key or a pad plays: A's own voice when A is selected (live, not recorded), else the selected track */
+static uint8_t play_target(void)
+{
+    return ui.on_a ? T_LIVE : mirror.track;
+}
+
 static void note_on(uint8_t track, uint32_t note, uint32_t velocity)
 {
     if (!set.controller)
         send_note_on(track, (uint8_t)note, (uint8_t)velocity);
-    midi_out_note_on(track, note, velocity);
+    midi_out_note_on(track == T_LIVE ? TRACKS : track, note, velocity);    /* A: MIDI channel 5, as the FM-1 */
 }
 
 static void note_off(uint8_t track, uint32_t note)
 {
     send_note_off(track, (uint8_t)note);
-    midi_out_note_off(track, note);
+    midi_out_note_off(track == T_LIVE ? TRACKS : track, note);
 }
 
 /* The keys' velocity, curved: soft playing gets more of the range (the scanner's is linear and feels hard; the
@@ -487,7 +500,7 @@ static void key_event(uint32_t id, int velocity)
         }
         smk.key_slot[id] = 0xFF;
         smk.key_note[id] = app_play_note((uint32_t)clamp(FIRST_SMK_NOTE + (int32_t)id + 12 * *line_octave(), 0, 127));
-        smk.key_track[id] = mirror.track;
+        smk.key_track[id] = play_target();
         note_on(smk.key_track[id], smk.key_note[id], (uint32_t)velocity);
         ui.redraw = 1;
         return;
@@ -518,7 +531,7 @@ static void pedal_event(int value)
 /* PLAY mode: the pads play the selected track; on drums, 16 sounds from C2 (36), as most drum machines */
 static uint32_t pad_note_for(uint32_t pad)
 {
-    if (live.track[mirror.track].kind == OLS_KIND_DRUM)
+    if (!ui.on_a && live.track[mirror.track].kind == OLS_KIND_DRUM)
         return 36u + pad;
     return (uint32_t)clamp(FIRST_SMK_NOTE + (int32_t)pad + 12 * *line_octave(), 0, 127);
 }
@@ -566,7 +579,7 @@ static void pad_event(uint32_t pad, int velocity)
         }
         smk.pad_slot[pad] = 0xFF;
         smk.pad_note[pad] = (uint8_t)pad_note_for(pad);
-        smk.pad_track[pad] = mirror.track;
+        smk.pad_track[pad] = play_target();
         smk.pad_vel[pad] = (uint8_t)velocity;
         smk.roll_level[pad] = 0;
         note_on(smk.pad_track[pad], smk.pad_note[pad], (uint32_t)velocity);
@@ -582,7 +595,7 @@ static void pad_event(uint32_t pad, int velocity)
         note_off(smk.pad_track[pad], smk.pad_note[pad]);
         if (smk.pad_press[pad]) {                 /* the pressure it gave goes back to rest */
             push_event(EV_PRESSURE, smk.pad_track[pad], 0, 0, 0, 0.0f);
-            midi_out_pressure(smk.pad_track[pad], 0);
+            midi_out_pressure(smk.pad_track[pad] == T_LIVE ? TRACKS : smk.pad_track[pad], 0);
         }
     }
     smk.pad_press[pad] = 0;
@@ -661,13 +674,14 @@ static void pressure_event(uint32_t pad, int value)
     }
     if (smk.pad_slot[pad] == 0xFE)
         return;
-    if (live.track[smk.pad_track[pad]].kind == OLS_KIND_DRUM) {
+    uint8_t t = smk.pad_track[pad];
+    if (t < TRACKS && live.track[t].kind == OLS_KIND_DRUM) {
         roll_pressure(pad, value);
         return;
     }
     if (!set.controller)
-        push_event(EV_PRESSURE, smk.pad_track[pad], 0, 0, 0, p);
-    midi_out_pressure(smk.pad_track[pad], (uint32_t)value);
+        push_event(EV_PRESSURE, t, 0, 0, 0, p);                 /* (A: its own voice) */
+    midi_out_pressure(t == T_LIVE ? TRACKS : t, (uint32_t)value);
 }
 
 /* Faders: the four track levels, the four macros ENERGY SPACE TENSION DENSITY, or (USER) what the CONTROL MAP

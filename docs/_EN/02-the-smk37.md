@@ -59,7 +59,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **pressure** on a drum pad (PLAY) | a **roll** on the beat grid, faster the harder: 1/8, 1/16, 1/32 (the screen says which); eased off, it stops. In time with PLAY, or with the tempo when stopped |
 | pads in **SCENES** | pads 1–8 recall scenes 1–8 (on the next bar when playing; bright: the last one, dim: stored, dark: empty); **SHIFT** + pads 1–8 store them (purple); pads 9–12 mute / unmute tracks 1–4, pad 13 all four (fast red blink while all are out), pad 14 **A VOL** (the levels brought together over the longest loop, as on the FM-1; green swell while it runs). At once, no button to hold |
 | pads + a layer button held | that layer's 16 slots, in any mode: GLO + pads 1–8 recall the scenes, 9–16 store them… |
-| HOME + white key 15 | **LOOP EDIT**: the loop's notes one at a time (SELECT, a key = pitch, K1–K4 position / length / velocity / pitch, REC deletes, EDIT adds) |
+| HOME + white key 15 | **LOOP EDIT**: the loop's notes one at a time (SELECT, a key = pitch, K1–K4 position / length / velocity / pitch, REC deletes, EDIT adds, EDIT held + keys: a chord) |
 | **the 12 buttons on the right** | in the FM-1's order. Top: ARP, NOTE REPEAT = SEL, SCALE = ENV (undo), CHORD = LFO (redo), GLOBE = EDIT, BT = GLO. Below: PATCH = HOME, PARA = SAVE, FX, SEQ, PLAY, REC |
 | **left buttons** | KNOB BANK = SHIFT, FADER BANK; **<** = TAP (held: MAP CONTROL), **>** = the pads' mode |
 | **8 knobs** | K1 the track (SELECT), K2 the sound (PRESET), K3–K6 the FM-1's K1–K4, K7 the tempo, K8 MASTER |
