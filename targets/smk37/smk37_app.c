@@ -499,9 +499,10 @@ static void key_event(uint32_t id, int velocity)
             smk.key_held_by_pedal[id] = 0;
         }
         smk.key_slot[id] = 0xFF;
-        smk.key_note[id] = app_play_note((uint32_t)clamp(FIRST_SMK_NOTE + (int32_t)id + 12 * *line_octave(), 0, 127));
+        uint32_t key_note = (uint32_t)clamp(FIRST_SMK_NOTE + (int32_t)id + 12 * *line_octave(), 0, 127);
+        smk.key_note[id] = app_play_note(key_note);
         smk.key_track[id] = play_target();
-        note_on(smk.key_track[id], smk.key_note[id], (uint32_t)velocity);
+        note_on(smk.key_track[id], smk.key_note[id], app_play_vel(key_note, (uint32_t)velocity));
         ui.redraw = 1;
         return;
     }

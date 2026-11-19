@@ -154,6 +154,32 @@ int main(void)
     run_ms(100);
     CHECK(live.scene[0].valid, "GLO + white key 9 (GLO let go first) stores scene 1");
 
+    /* every layer valid on release: the button + a key, the button let go first (the key still held) takes it */
+    ev(SMK_BUTTON, SMK_B_ARP, 1);                       /* ARP + white key 3 (E3): FILL */
+    ev(SMK_KEY, 4, 100);
+    run_ms(30);
+    CHECK(ui.key_role[WHITE_KEY[2]] == KEY_ARMED_ARP, "ARP + key: armed");
+    ev(SMK_BUTTON, SMK_B_ARP, 0);
+    run_ms(30);
+    CHECK(ui.msg_style == MSG_TAKEN, "ARP let go first: taken");
+    ev(SMK_KEY, 4, 0);
+    run_ms(100);
+    ev(SMK_BUTTON, SMK_B_SEQ, 1);                       /* SEQ + white key 8 (C4): FILTER SHUT, latched */
+    ev(SMK_KEY, 12, 100);
+    run_ms(30);
+    ev(SMK_BUTTON, SMK_B_SEQ, 0);
+    run_ms(30);
+    CHECK(ui.fx_on[7] && ui.fx_latched[7], "SEQ let go first: taken, latched");
+    ev(SMK_KEY, 12, 0);
+    run_ms(50);
+    ev(SMK_BUTTON, SMK_B_SEQ, 1);
+    ev(SMK_KEY, 12, 100);
+    run_ms(30);
+    ev(SMK_BUTTON, SMK_B_SEQ, 0);
+    ev(SMK_KEY, 12, 0);
+    run_ms(50);
+    CHECK(!ui.fx_on[7], "...and again: off");
+
     /* SELECT + white key 1 (C3): mute track 1 */
     ev(SMK_BUTTON, SMK_B_SELECT, 1);
     tap(SMK_KEY, 0);
@@ -212,6 +238,7 @@ int main(void)
     run_ms(100);
     CHECK(mirror.scene_last == 1, "pad 2 recalls scene 2");
     CHECK(pad_rgb[1] == 0x60A0FF, "the scene just recalled is the bright pad");
+    run_ms(2100);                                       /* (the recall lands on the next bar: its mutes with it) */
     tap(SMK_PAD, 8);
     run_ms(50);
     CHECK(live.track[0].mute, "pad 9 mutes track 1");
@@ -323,11 +350,12 @@ int main(void)
     ev(SMK_BUTTON, SMK_B_ENV, 0);
     ev(SMK_BUTTON, SMK_B_SHIFT, 0);
 
-    /* the MIDI OUT jack: clock and start for a drum machine (SELECT + white key 9 = CLOCK OUT) */
+    /* the MIDI OUT jack: clock and start for a drum machine (SELECT + white key 9 = CLOCK OUT, SELECT let go first) */
     if (!live.send_clock) {
         ev(SMK_BUTTON, SMK_B_SELECT, 1);
-        tap(SMK_KEY, 14);                               /* 9th white key from C3: D4 */
-        ev(SMK_BUTTON, SMK_B_SELECT, 0);
+        ev(SMK_KEY, 14, 100);                           /* 9th white key from C3: D4 */
+        ev(SMK_BUTTON, SMK_B_SELECT, 0);                /* (valid on release: SELECT let go first) */
+        ev(SMK_KEY, 14, 0);
     }
     CHECK(live.send_clock, "clock out on");
     ev(SMK_BUTTON, SMK_B_PLAY, 1); ev(SMK_BUTTON, SMK_B_PLAY, 0);   /* stop */

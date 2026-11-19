@@ -1,5 +1,10 @@
 # Changelog
 
+## 19 November 2026 — SEL (NOTE REPEAT) valid on release, lights, drum levels
+
+As on the FM-1; NOTE REPEAT blinks fast while a sound waits for it. Host test: every layer valid on release (ARP,
+SEQ, GLO, SEL).
+
 ## 19 November 2026 — A plays its own sound, SAVE in one pause, chords
 
 - Fixed: with A selected, the keys and the pads played the last track's sound (T4) instead of A's own; now A's voice
