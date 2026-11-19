@@ -1,5 +1,9 @@
 # Changelog
 
+## 19 November 2026 — 12 new sounds, families by character
+
+As on the FM-1 (48 sounds; ACID, PSY, BASSES, DRUMS, PUNCH, SFX, DARK, SOFT, USER).
+
 ## 19 November 2026 — recording's pink from the first note
 
 As on the FM-1.
