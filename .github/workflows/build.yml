@@ -27,7 +27,7 @@ jobs:
           submodules: true
 
       - name: Packages
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq python3-numpy python3-pil zip
+        run: (sudo apt-get update -qq || true) && (sudo apt-get install -y -qq python3-numpy python3-pil zip || python3 -m pip install -q --break-system-packages pillow numpy)
 
       - name: fm1-base (fonts, plat.h, the JieLi toolchain script)
         run: git clone --recursive --depth 1 https://github.com/charlesvestal/fm1-base "$HOME/fm1-base"
