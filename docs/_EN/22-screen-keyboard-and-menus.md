@@ -228,7 +228,7 @@ Three levels. 1 — every mode in full words, in the pads’ colours:
 
 <p align="center"><img src="../img/pads-all-modes-short.png" width="560" alt="pads"></p>
 
-3 — each pad with the key it stands for, as the screen keyboard draws it (same function, same colour: pink = valid on release on the keyboard, mint = acts at once, violet = a track playing; a black key between its two white keys in dark grey). The pad’s background shows that key’s light by default, layer held, playing, the four tracks playing: light grey off, a grey dot at the bottom offered, bright white on, white rays on grey blinking (DRUMS, a drum track: kicks and the open hat blink, snares and the closed hat lit):
+3 — each pad with the key it stands for, as the screen keyboard draws it (same function, same colour: pink = valid on release on the keyboard, mint = acts at once, violet = a track playing; a black key between its two white keys in dark grey). The pad’s background shows that key’s light by default, layer held, playing, the four tracks playing: light grey off, a white band at the bottom offered, bright white on, white rays on grey blinking (DRUMS, a drum track: kicks and the open hat blink, snares and the closed hat lit):
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
 
