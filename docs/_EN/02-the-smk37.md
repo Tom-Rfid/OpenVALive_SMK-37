@@ -88,7 +88,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 **Hold the Bluetooth button** (or GLO + SEL): **MAP CONTROL** opens. First the knob pages in FX's order (PRESETS
 moves one up / down, PAGE shows / hides it), then the knobs of MACRO, LIVE, EQ and USER (K1 to K4 each), FADER 1 to 4
 (the USER bank) and the PITCH and MOD wheels. **HOME + white key 7 (B3)** opens **OPTION CONTROL**: DRUM KEYS (ORIGINAL /
-GM), **PERC 1–6** (each D# / G# key of the drum keyboard, D#3 to G#5, its own percussion), KEYS ON SCREEN, and for
+GM), **PERC 1–6** (each D# / G# key of the drum keyboard, D#3 to G#5, its own percussion), KEYS ON SCREEN, HELP AT START (the help pages after the logo), and for
 T1–T4 and A the page a new sound brings (SAME PAGE: none). On a row **EDIT** puts its default back; the last row, MENU,
 goes on to SOUNDS / MAP CONTROL / OPTION CONTROL with PRESETS or OCT. Kept when the page closes, without SAVE.
 

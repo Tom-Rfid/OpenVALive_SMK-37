@@ -1,5 +1,12 @@
 # Changelog
 
+## 20 November 2026 — help pages at start
+
+- After the logo, two help pages in turn every 3 s: KEY COLOURS (blue set-up screens, pink on release, mint ready)
+  and IN PLAY (EDIT: push FULL LOOP AT END, hold PART LIVE LOOP; REC: LIVE OVERDUB, adds notes on top). Notes and
+  SEL (NOTE on the SMK-37) leave them up; any other button or a knob closes them and does its job. A logo cut short
+  skips them. OPTION CONTROL: HELP AT START ON / OFF (in a byte that was padding: the settings format stays OLSF).
+
 ## 20 November 2026 — key names on the screen keyboard
 
 - The screen keyboard writes each key's name, 3 characters at most, stacked down the key in a 3x5 font (white keys

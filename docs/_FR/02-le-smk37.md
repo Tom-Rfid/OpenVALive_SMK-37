@@ -91,7 +91,7 @@ Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware d
 FX (PRESETS en déplace une, PAGE l'affiche / la masque), puis les boutons de MACRO, LIVE, EQ et USER (K1 à K4
 chacune), FADER 1 à 4 (la banque USER) et les molettes PITCH et MOD. **HOME + touche blanche 7 (Si3)** ouvre **OPTION
 CONTROL** : DRUM KEYS (ORIGINAL / GM), **PERC 1–6** (chaque touche ré# / sol# du clavier de batterie, de Ré#3 à Sol#5,
-sa propre percussion), KEYS ON SCREEN, et pour T1–T4 et A la page qu'amène un nouveau son (SAME PAGE : aucune). Sur une
+sa propre percussion), KEYS ON SCREEN, HELP AT START (les pages d'aide après le logo), et pour T1–T4 et A la page qu'amène un nouveau son (SAME PAGE : aucune). Sur une
 ligne **EDIT** remet sa valeur par défaut ; la dernière ligne, MENU, passe à SOUNDS / MAP CONTROL / OPTION CONTROL
 avec PRESETS ou OCT. Gardé à la fermeture, sans SAVE.
 
