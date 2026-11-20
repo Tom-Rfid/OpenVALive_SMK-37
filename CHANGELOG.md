@@ -1,5 +1,10 @@
 # Changelog
 
+## 20 November 2026 — USER sounds named after their origin
+
+- A USER sound shows the factory sound it was made from: "U3 ACID 303" (in place of "F9 USER 3"); one kept before
+  shows "U3 USER". Settings OLSE (OLSD moved, the origins unknown).
+
 ## 20 November 2026 — SLICER, LOOP 1/32 by OCT+, effects at once
 
 - PERFORM key 6 is the **SLICER** (the whole mix cut in 1/16s on the beat, smoothed edges). LOOP 1/32 has no key:
