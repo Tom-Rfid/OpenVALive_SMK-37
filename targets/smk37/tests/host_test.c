@@ -134,7 +134,8 @@ int main(void)
      * fading on the three pads behind */
     {
         uint32_t before = now_ms;
-        now_ms = (now_ms / 1600u + 1u) * 1600u + 350u;  /* 3.5 pads into a lap: the light on pad 3 */
+        now_ms = smk.wave_t0 + ((now_ms - smk.wave_t0) / 1600u + 1u) * 1600u + 350u;   /* 3.5 pads into a lap:
+                                                         * the light on pad 3 */
         int lit = 0;
         for (uint32_t pad = 0; pad < SMK_PADS; pad++)
             lit += pad_colour(pad) != 0;
@@ -147,6 +148,32 @@ int main(void)
         now_ms += 500u;                                 /* five pads on: the bottom right, REC */
         CHECK(pad_colour(15) != 0 && pad_colour(1) == 0, "...going round");
         now_ms = before;
+    }
+
+    /* a pad while the light goes round (logo, help): it ends both and does nothing; then the pads rest 0.5 s */
+    {
+        uint32_t loops = 0;
+        for (int w = 0; w < FX_ALL; w++)
+            loops += ui.fx_on[w];
+        run_ms(400);                                    /* (past the first half second, where a touch is noise) */
+        CHECK(smk.wave_on, "(the light is going round)");
+        ev(SMK_PAD, 0, 100);
+        uint32_t after = 0;
+        for (int w = 0; w < FX_ALL; w++)
+            after += ui.fx_on[w];
+        CHECK(after == loops, "a pad pressed while it goes round starts nothing");
+        ev(SMK_PAD, 0, 0);
+        run_ms(100);
+        CHECK(ui.splash_until == 0 && !ui.help && !smk.wave_on, "...and ends the logo and the help");
+        uint32_t lit = 0;
+        for (uint32_t pad = 0; pad < SMK_PADS; pad++)
+            lit |= pad_colour(pad);
+        CHECK(lit == 0, "then every pad off a moment");
+        run_ms(500);
+        lit = 0;
+        for (uint32_t pad = 0; pad < SMK_PADS; pad++)
+            lit |= pad_colour(pad);
+        CHECK(lit != 0, "...and back in their mode after half a second");
     }
 
     /* SEQ + REC held at power-on: the update mode (it is checked before the app starts) */
@@ -199,18 +226,26 @@ int main(void)
     run_ms(400);
     ev(SMK_PAD, 0, 0);
     CHECK(!ui.fx_on[0], "a held pad let go ends it");
-    tap(SMK_PAD, 6);                                    /* FILTER SHUT (pad 6: the SLICER), tapped: latched */
+    tap(SMK_PAD, 6);                                    /* DELAY THROW (pad 6), tapped: latched */
     CHECK(ui.fx_on[6] && ui.fx_latched[6], "a tapped pad latches its effect");
     CHECK(pad_rgb[6] == perform_colour(6) && pad_rgb[6] != perform_colour(5), "the pad shows the effect running");
-    CHECK(pad_rgb[PAD_MODE] == dim(0xFF6000, 110u), "MODE shows PERFORM's orange");
+    CHECK(pad_rgb[PAD_MODE] == dim(0x20FFA0, 110u), "MODE shows PERFORM's mint");
     tap(SMK_PAD, 14);                                   /* ALL FX OFF (the 14th playing pad) */
     CHECK(!ui.fx_on[6], "ALL FX OFF");
+    run_ms(50);
 
-    /* pressure on a held filter pad goes part of the way, then all the way */
-    ev(SMK_PAD, 9, 100);                                /* DELAY THROW */
+    /* pressure on a held filter pad goes part of the way, then all the way; let go, nothing stays held */
+    ev(SMK_PAD, 9, 100);                                /* FILTER OPEN */
     ev(SMK_PRESSURE, 9, 127);
-    CHECK(ui.fx_on[8], "delay throw held");
+
+    CHECK(ui.fx_on[8], "filter open held");
+    run_ms(400);                                        /* (held, not tapped: a tap latches) */
     ev(SMK_PAD, 9, 0);
+    run_ms(20);
+    int left = 0;
+    for (int i = 0; i < OLS_OVERRIDES; i++)
+        left += live.ovr[i].active;
+    CHECK(left == 0, "...let go: every track back as it was (the pressure acted on the pad's own track)");
 
     /* GLO + white key 9 (D4), GLO let go first: store scene 1 (the pads do not follow a held layer) */
     ev(SMK_BUTTON, SMK_B_GLO, 1);
@@ -264,7 +299,7 @@ int main(void)
     tap(SMK_KEY, 0);
     run_ms(50);
     CHECK(!live.track[0].mute, "...and back");
-    CHECK(smk_screen_key(1) == KEY_MUTE_ALL && smk_screen_key(8) == KEY_AVOL && smk_screen_key(0) == WHITE_KEY[0]
+    CHECK(smk_screen_key(1) == KEY_MUTE_ALL && smk_screen_key(8) == KEY_SEL_CLEAR && smk_screen_key(0) == WHITE_KEY[0]
           && smk_screen_key(26) == WHITE_KEY[15] && smk_screen_key(28) == -1,
           "the screen keyboard: white keys 1-16 and the black keys stand for the FM-1's");
     tap(SMK_KEY, 1);                                    /* the first black key (C#3): MUTE ALL, as the FM-1's F#3 */
@@ -313,17 +348,11 @@ int main(void)
     CHECK(pad_rgb[1] == 0x60A0FF, "the scene just recalled is the bright pad");
     run_ms(2100);                                       /* (the recall lands on the next bar: its mutes with it) */
     ev(SMK_PAD, PAD_REC, 100);
-    ev(SMK_PAD, 3, 100);
-    ev(SMK_PAD, 3, 0);                                  /* the pad let go first: given up */
-    ev(SMK_PAD, PAD_REC, 0);
+    ev(SMK_PAD, 2, 100);                                /* REC + pad: at once */
     run_ms(100);
-    CHECK(!live.scene[3].valid && ui.msg_style == MSG_NOT_TAKEN, "REC + pad 4, the pad let go first: not stored");
-    ev(SMK_PAD, PAD_REC, 100);
-    ev(SMK_PAD, 2, 100);
-    ev(SMK_PAD, PAD_REC, 0);                            /* REC let go first: taken */
+    CHECK(live.scene[2].valid, "REC + pad 3: scene 3 stored at once");
     ev(SMK_PAD, 2, 0);
-    run_ms(100);
-    CHECK(live.scene[2].valid, "REC + pad 3, REC let go first: scene 3 stored");
+    ev(SMK_PAD, PAD_REC, 0);
     tap(SMK_PAD, 9);
     run_ms(50);
     CHECK(live.track[0].mute, "the 2nd row's 2nd pad mutes track 1");
@@ -357,10 +386,10 @@ int main(void)
     CHECK(mirror.track == 3, "SELECT turns to track 4");
     ev(SMK_PAD, PAD_REC, 100);
     ev(SMK_PAD, 0, 100);
-    ev(SMK_PAD, PAD_REC, 0);
-    ev(SMK_PAD, 0, 0);
     run_ms(20);
-    CHECK(crec.slot == 0 && crec.line == 3 && !crec.started, "REC + pad 1: the clip armed on track 4");
+    CHECK(crec.slot == 0 && crec.line == 3 && !crec.started, "REC + pad 1: the clip armed on track 4, at once");
+    ev(SMK_PAD, 0, 0);
+    ev(SMK_PAD, PAD_REC, 0);
     CHECK(pad_rgb[0] == 0xFF0000 || pad_rgb[0] == 0x100000, "the pad taking blinks red");
     run_ms(300);
     CHECK(!crec.started, "nothing played: not started");
@@ -384,25 +413,25 @@ int main(void)
     }
     CHECK(heard > 0, "the clip sounds");
     CHECK(!clips[0].playing, "SINGLE: once through, it stops");
-    ev(SMK_PAD, PAD_MODE, 100);
-    tap(SMK_PAD, 0);
-    ev(SMK_PAD, PAD_MODE, 0);
+    ev(SMK_PAD, 0, 100);                                /* the pad held (it plays once), then REC: LOOP */
+    ev(SMK_PAD, PAD_REC, 100);
+    ev(SMK_PAD, PAD_REC, 0);
+    ev(SMK_PAD, 0, 0);
     run_ms(20);
-    CHECK(clips[0].playing && clips[0].loop && clips[0].origin % OLS_PPQN == 0 && smk.pad_mode == PADS_CLIPS,
-          "MODE + pad: LOOP, from the beat (and the mode stays)");
+    CHECK(clips[0].playing && clips[0].loop && smk.pad_mode == PADS_CLIPS && crec.slot < 0,
+          "pad held + REC: LOOP (nothing recorded)");
     CHECK(pad_rgb[0] == 0x8020FF || pad_rgb[0] == 0x00FF40, "a LOOP blinks green / violet");
     run_ms(3000);
     CHECK(clips[0].playing, "a LOOP goes on");
     tap(SMK_PAD, 0);
     run_ms(20);
-    CHECK(!clips[0].playing, "a tap lets the LOOP go");
-    ev(SMK_PAD, 0, 100);                                /* SINGLE, held, then MODE: it latches */
-    ev(SMK_PAD, PAD_MODE, 100);
-    ev(SMK_PAD, PAD_MODE, 0);
-    ev(SMK_PAD, 0, 0);
-    run_ms(20);
-    CHECK(clips[0].playing && clips[0].loop && smk.pad_mode == PADS_CLIPS, "pad held + MODE: LOOP");
+    CHECK(!clips[0].playing, "the pad again stops it");
     tap(SMK_PAD, 0);
+    run_ms(20);
+    CHECK(clips[0].playing, "a tap plays it once");
+    tap(SMK_PAD, 0);
+    run_ms(20);
+    CHECK(!clips[0].playing, "...and the pad again stops it before its end");
     ev(SMK_BUTTON, SMK_B_SHIFT, 1);
     tap(SMK_PAD, 0);
     ev(SMK_BUTTON, SMK_B_SHIFT, 0);
@@ -421,22 +450,23 @@ int main(void)
     ev(SMK_PAD, 8, 0);
     ev(SMK_PAD, PAD_REC, 100);
     ev(SMK_PAD, 2, 100);
-    CHECK(pad_rgb[1] == 0x300800 && pad_rgb[0] == 0xFF2000 && pad_rgb[6] == 0, "REC held: the five kits on the pads");
+    CHECK(set.pad_kit == 2, "REC + pad 3: the pads' kit is the 3rd, at once");
+    CHECK(pad_rgb[2] == 0xFF2000 && pad_rgb[0] == 0x300800 && pad_rgb[6] == 0, "REC held: the five kits on the pads");
     ev(SMK_PAD, PAD_REC, 0);
     ev(SMK_PAD, 2, 0);
-    run_ms(20);
-    CHECK(set.pad_kit == 2, "REC + pad 3: the pads' kit is the 3rd");
 
     /* a drum pad pressed harder rolls on the grid (1/8, 1/16, 1/32), back to a plain hit when eased off */
     if (!live.clock.running)
         tap(SMK_BUTTON, SMK_B_PLAY);
     midi_sent_n[FM1_MIDI_USB] = 0;
     ev(SMK_PAD, 2, 100);
-    ev(SMK_PRESSURE, 2, 120);                           /* 1/16 */
-    CHECK(smk.roll_level[2] == 2, "pressed harder: a 1/16 roll");
-    run_ms(1000);
+    ev(SMK_PRESSURE, 2, 120);                           /* 1/16 asked: 1/8 first, a step later 1/16 */
+    CHECK(smk.roll_level[2] == 1, "pressed harder: a 1/8 roll first");
+    run_ms(300);
+    CHECK(smk.roll_level[2] == 2, "...then 1/16 (a step at a time, not straight to 1/32)");
+    run_ms(700);
     int rolled = note_ons(FM1_MIDI_USB, 0x99, (uint8_t)smk.pad_note[2]);
-    CHECK(rolled >= 6 && rolled <= 11, "the roll repeats the drum on the grid");
+    CHECK(rolled >= 5 && rolled <= 11, "the roll repeats the drum on the grid");
     ev(SMK_PRESSURE, 2, 0);
     run_ms(500);
     CHECK(note_ons(FM1_MIDI_USB, 0x99, (uint8_t)smk.pad_note[2]) == rolled, "eased off: the roll stops");

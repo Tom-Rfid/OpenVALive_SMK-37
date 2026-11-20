@@ -35,7 +35,7 @@ The mutes act at once; the rest is valid on release (let NOTE REPEAT go first).
 | Key | Function |
 |---|---|
 | **M1–M4** | Mute / unmute tracks 1 to 4 |
-| **CLR** | CLEAR: the selected track wiped |
+| **AV** | White key 6: A VOL, the levels brought together |
 | **QNT** | QUANTIZE |
 | **CKI** | CLOCK IN: follows the external MIDI clock |
 | **CKO** | CLOCK OUT: sends the MIDI clock |
@@ -43,11 +43,12 @@ The mutes act at once; the rest is valid on release (let NOTE REPEAT go first).
 | **E6–E8** | Euclid 6, 7, 8 hits |
 | **MID** | FULL MIDI mode (controller) |
 | **MA** | Black key 1: MUTE ALL, the four tracks |
-| **AV** | Black key 4: A VOL, the levels brought together |
+| **LE** (blue) | Black key 3: LOOP EDIT, at once (violet) |
+| **CLR** (red) | Black key 4: CLEAR TRACK, the selected track wiped |
 
 ### Perform — SEQ held
 
-Loops valid on release (OCT+ from L16: 1/32); the effects act at once. Held = while held, short tap = latched.
+In groups: time (loops, slicer, delay), the filters, the sound (drive, crush), the cuts. Loops valid on release (OCT+ from L16: 1/32); the effects act at once. Held = while held, short tap = latched.
 
 ![Perform](../img/keys-seq.png)
 
@@ -56,16 +57,16 @@ Loops valid on release (OCT+ from L16: 1/32); the effects act at once. Held = wh
 | **L1** | Loop 1 bar |
 | **L2 L4 L8** | Loops 1/2, 1/4, 1/8 |
 | **L16** | Loop 1/16 |
-| **SLC** | SLICER: the mix cut in 1/16s |
-| **FL-** | Filter shut |
-| **FL+** | Filter open |
-| **DLY** | Delay throw |
-| **DRV** | Drive |
-| **CRU** | Crush |
-| **BRK** | Break: drums out |
-| **SOL** | Solo the track |
-| **DRM** | Drums only |
-| **OUT** | All out |
+| **SLC** (violet) | SLICER: the selected track cut in 1/16s (on A: the whole mix); OCT− / OCT+ longer / shorter |
+| **DLY** (yellow) | Delay throw |
+| **FL-** (orange) | Filter shut |
+| **FL+** (orange) | Filter open |
+| **DRV** (yellow) | Drive |
+| **CRU** (yellow) | Crush |
+| **BRK** (red) | Break: drums out |
+| **SOL** (red) | Solo the track |
+| **DRM** (red) | Drums only |
+| **OUT** (red) | All out |
 | **OFF** | Every effect off |
 
 ### Scenes — BT held
@@ -126,9 +127,9 @@ Valid on release.
 | Key | Function |
 |---|---|
 | **RST** (red) | The line reset |
+| **ORG** | White key 6: drum keys ORIGINAL |
+| **GM** | White key 7: drum keys GM |
 | **PAN** | White key 14: the wheel pans (SMK-37 only) |
-| **ORG** | Drum keys ORIGINAL |
-| **GM** | Drum keys GM |
 
 ### Save — PARA held
 
@@ -194,7 +195,7 @@ The sounds PRESET offers, family by family (green: offered). SEL takes a sound o
 
 ### LOOP EDIT
 
-**Open:** PATCH + black key 4
+**Open:** PATCH + black key 4, or NOTE + black key 3
 
 The notes of the track's loop: POS, LEN, VEL, NOTE. REC deletes the note, EDIT adds one; EDIT + keys: a chord.
 
@@ -238,7 +239,7 @@ MODE held alone a moment: the mode’s pads on the screen, in place of the scope
 
 ### CLIPS
 
-14 clips: REC + pad arms one, the first note starts the take (4 bars at most). Tap = SINGLE, MODE + pad = LOOP latched. SHIFT + pad: delete. A clip's colour: red drums, green acid, pink USER, blue the others.
+14 clips: REC + pad arms one at once, the first note starts the take (4 bars at most), the pad or REC ends it (it blinks every 1/4 s). Tap = SINGLE; the pad again = stop; pad held + REC = LOOP latched, in time. SHIFT + pad: delete. A clip's colour: red drums, green acid, pink USER, blue the others.
 
 ![CLIPS](../img/pads-clips.png)
 
@@ -246,7 +247,7 @@ MODE held alone a moment: the mode’s pads on the screen, in place of the scope
 
 ### DRUMS
 
-The pads' own drum kit, out on MIDI channel 10. REC held: the 5 kits on the first 5 pads. Pressure makes a roll: 1/8, 1/16, 1/32.
+The pads' own drum kit, out on MIDI channel 10. REC held: the 5 kits on the first 5 pads, REC + pad takes one. Pressing harder makes a roll: 1/8, then 1/16, then 1/32, a step every 1/4 s.
 
 ![DRUMS](../img/pads-drums.png)
 
@@ -254,11 +255,11 @@ The pads' own drum kit, out on MIDI channel 10. REC held: the 5 kits on the firs
 
 ### PERFORM
 
-The default. SEQ's effects on the pads (DRIVE and DRUMS ONLY stay on the keys). Pressure on a held filter, delay or crush: 40 to 100 %.
+The default, in mint (the live colour). SEQ's effects on the pads, by colour: on top the time ones (cyan loops blinking at their length, violet slicer, yellow delay), below the filters (orange), crush (yellow), the cuts (red) and OFF. DRIVE and DRUMS ONLY stay on the keys. Pressure on a held filter, delay or crush: 40 to 100 %.
 
 ![PERFORM](../img/pads-perform.png)
 
-**L1** Loop 1 bar, **L2** Loop 1/2, **L4** Loop 1/4, **L8** Loop 1/8, **L16** Loop 1/16, **SLC** Slicer, **FL-** Filter shut, **FL+** Filter open, **DLY** Delay, **CRU** Crush, **BRK** Break, **SOL** Solo, **OUT** All out, **OFF** Every effect off.
+**L1** Loop 1 bar, **L2** Loop 1/2, **L4** Loop 1/4, **L8** Loop 1/8, **L16** Loop 1/16, **SLC** Slicer, **DLY** Delay, **FL-** Filter shut, **FL+** Filter open, **CRU** Crush, **BRK** Break, **SOL** Solo, **OUT** All out, **OFF** Every effect off.
 
 ### SCENES
 

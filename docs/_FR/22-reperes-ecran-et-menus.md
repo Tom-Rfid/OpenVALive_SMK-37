@@ -35,7 +35,7 @@ Les mutes agissent tout de suite ; le reste est validé au relâché (lâcher NO
 | Touche | Fonction |
 |---|---|
 | **M1–M4** | Mute / unmute des pistes 1 à 4 |
-| **CLR** | CLEAR : efface la piste sélectionnée |
+| **AV** | Blanche 6 : A VOL, les niveaux ramenés ensemble |
 | **QNT** | QUANTIZE |
 | **CKI** | CLOCK IN : suit l’horloge MIDI externe |
 | **CKO** | CLOCK OUT : envoie l’horloge MIDI |
@@ -43,11 +43,12 @@ Les mutes agissent tout de suite ; le reste est validé au relâché (lâcher NO
 | **E6–E8** | Euclide 6, 7, 8 coups |
 | **MID** | Mode FULL MIDI (contrôleur) |
 | **MA** | Noire 1 : MUTE ALL, les quatre pistes |
-| **AV** | Noire 4 : A VOL, les niveaux ramenés ensemble |
+| **LE** (bleu) | Noire 3 : LOOP EDIT, tout de suite (violet) |
+| **CLR** (rouge) | Noire 4 : CLEAR TRACK, efface la piste sélectionnée |
 
 ### Perform — SEQ tenu
 
-Boucles validées au relâché (OCT+ depuis L16 : 1/32) ; les effets agissent tout de suite. Tenir = tant que tenu, tape courte = verrouillé.
+Par groupes : le temps (boucles, slicer, delay), les filtres, le son (drive, crush), les coupures. Boucles validées au relâché (OCT+ depuis L16 : 1/32) ; les effets agissent tout de suite. Tenir = tant que tenu, tape courte = verrouillé.
 
 ![Perform](../img/keys-seq.png)
 
@@ -56,16 +57,16 @@ Boucles validées au relâché (OCT+ depuis L16 : 1/32) ; les effets agissent to
 | **L1** | Boucle 1 mesure |
 | **L2 L4 L8** | Boucles 1/2, 1/4, 1/8 |
 | **L16** | Boucle 1/16 |
-| **SLC** | SLICER : le mix coupé en 1/16 |
-| **FL-** | Filtre fermé |
-| **FL+** | Filtre ouvert |
-| **DLY** | Delay throw |
-| **DRV** | Drive |
-| **CRU** | Crush |
-| **BRK** | Break : batterie coupée |
-| **SOL** | Solo de la piste |
-| **DRM** | Drums only |
-| **OUT** | All out : tout coupé |
+| **SLC** (violet) | SLICER : la piste choisie coupée en 1/16 (sur A : tout le mix) ; OCT− / OCT+ plus long / plus court |
+| **DLY** (jaune) | Delay throw |
+| **FL-** (orange) | Filtre fermé |
+| **FL+** (orange) | Filtre ouvert |
+| **DRV** (jaune) | Drive |
+| **CRU** (jaune) | Crush |
+| **BRK** (rouge) | Break : batterie coupée |
+| **SOL** (rouge) | Solo de la piste |
+| **DRM** (rouge) | Drums only |
+| **OUT** (rouge) | All out : tout coupé |
 | **OFF** | Tous les effets arrêtés |
 
 ### Scènes — BT tenu
@@ -126,9 +127,9 @@ Validé au relâché.
 | Touche | Fonction |
 |---|---|
 | **RST** (rouge) | Remise à zéro de la ligne |
+| **ORG** | Blanche 6 : carte batterie ORIGINAL |
+| **GM** | Blanche 7 : carte batterie GM |
 | **PAN** | Blanche 14 : la molette fait le pan (SMK-37 seulement) |
-| **ORG** | Carte batterie ORIGINAL |
-| **GM** | Carte batterie GM |
 
 ### Save — PARA tenu
 
@@ -194,7 +195,7 @@ Les sons que PRESET propose, famille par famille (vert : proposé). SEL coupe ou
 
 ### LOOP EDIT
 
-**Ouvrir :** PATCH + 4e noire
+**Ouvrir :** PATCH + 4e noire, ou NOTE + 3e noire
 
 Les notes de la boucle de la piste : POS, LEN, VEL, NOTE. REC efface la note, EDIT en ajoute une ; EDIT + touches : un accord.
 
@@ -238,7 +239,7 @@ MODE tenu seul un instant : la carte des pads du mode à l’écran, à la place
 
 ### CLIPS
 
-14 clips : REC + pad pour l’armer, la première note lance la prise (4 mesures au plus). Tape = SINGLE, MODE + pad = LOOP verrouillé. SHIFT + pad : effacer. Couleur du clip : rouge batterie, vert acid, rose USER, bleu les autres.
+14 clips : REC + pad l’arme tout de suite, la première note lance la prise (4 mesures au plus), le pad ou REC la termine (clignote 1/4 s). Tape = SINGLE ; le pad encore = stop ; pad tenu + REC = LOOP verrouillé, en mesure. SHIFT + pad : effacer. Couleur du clip : rouge batterie, vert acid, rose USER, bleu les autres.
 
 ![CLIPS](../img/pads-clips.png)
 
@@ -246,7 +247,7 @@ MODE tenu seul un instant : la carte des pads du mode à l’écran, à la place
 
 ### DRUMS
 
-Le kit propre aux pads, sortie canal MIDI 10. REC tenu : les 5 kits sur les 5 premiers pads. La pression fait un roulement 1/8, 1/16, 1/32.
+Le kit propre aux pads, sortie canal MIDI 10. REC tenu : les 5 kits sur les 5 premiers pads, REC + pad le prend. Appuyer plus fort fait un roulement : 1/8, puis 1/16, puis 1/32, un cran tous les 1/4 s.
 
 ![DRUMS](../img/pads-drums.png)
 
@@ -254,11 +255,11 @@ Le kit propre aux pads, sortie canal MIDI 10. REC tenu : les 5 kits sur les 5 pr
 
 ### PERFORM
 
-Mode par défaut. Les effets de SEQ sur les pads (DRIVE et DRUMS ONLY restent sur les touches). Pression sur un filtre, delay ou crush tenu : 40 à 100 %.
+Mode par défaut, en menthe (la couleur du live). Les effets de SEQ sur les pads, par couleur : en haut le temps (boucles cyan qui clignotent à leur longueur, slicer violet, delay jaune), en bas les filtres (orange), le crush (jaune), les coupures (rouge) et OFF. DRIVE et DRUMS ONLY restent sur les touches. Pression sur un filtre, delay ou crush tenu : 40 à 100 %.
 
 ![PERFORM](../img/pads-perform.png)
 
-**L1** Boucle 1 mesure, **L2** Boucle 1/2, **L4** Boucle 1/4, **L8** Boucle 1/8, **L16** Boucle 1/16, **SLC** Slicer, **FL-** Filtre fermé, **FL+** Filtre ouvert, **DLY** Delay, **CRU** Crush, **BRK** Break, **SOL** Solo, **OUT** All out, **OFF** Tous les effets arrêtés.
+**L1** Boucle 1 mesure, **L2** Boucle 1/2, **L4** Boucle 1/4, **L8** Boucle 1/8, **L16** Boucle 1/16, **SLC** Slicer, **DLY** Delay, **FL-** Filtre fermé, **FL+** Filtre ouvert, **CRU** Crush, **BRK** Break, **SOL** Solo, **OUT** All out, **OFF** Tous les effets arrêtés.
 
 ### SCÈNES
 

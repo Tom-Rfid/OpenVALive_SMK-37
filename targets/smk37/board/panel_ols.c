@@ -32,6 +32,8 @@ void smk37_controls_panic(void) { smk_input_panic(); }
 void smk_panel_init(void)
 {
     smk37_scan_init();          /* also starts TIMER4, the 24 MHz counter */
+    fm1_lcd_hw_init();          /* SPI1 first, and the pads off before the screen's set-up (~0.3 s): they keep */
+    smk37_rgb_service();        /* whatever the last firmware left, or light at random, until told */
     fm1_screen_init();
     for (unsigned i = 0; i < 18; ++i)
         smk37_led(i, 0);

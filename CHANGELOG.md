@@ -1,5 +1,26 @@
 # Changelog
 
+## 20 November 2026 — the sounds levelled by measure; the slicer on a track; SEL and SEQ rearranged
+
+- Every synth sound levelled by measure (`tools/level_sounds.py`: a K-weighted level, each note by its loudest 100 ms,
+  to the median, 3 dB of headroom at the peak): 50 of 59 within 0.1 dB; it replaces the levels set by ear today.
+- SLICER: the selected track only (on A, the whole mix as before); OCT- / OCT+ while it runs: 1/4 … 1/64.
+- SEL layer: A VOL on the 6th white key, CLEAR TRACK on the 4th black key (red name), LOOP EDIT on the 3rd black key
+  (at once). SEL + SELECT: "SWAP TRACK" / "SELECT LINE" in the title; OCT- / OCT+ give it up.
+- SEQ layer in groups: the loops, SLICER, DELAY (time), FILTER shut / open, DRIVE, CRUSH, the cuts, OFF; the names
+  coloured by group. FX: the drum keys ORIGINAL / GM on the 6th / 7th white keys.
+- SEQ lit with FX and SEL; SAVE no longer lit for something to save (its SAVE ALL key blinks).
+- The C lines on the screen keyboard 2 pixels wide.
+- A setting kept at once (HELP AT START...) is written with the sound paused and tried again if the flash refuses.
+- SAVE can go in one step behind a fade (APP_SAVE_ONE_GO, the SMK-37).
+- SMK-37 pads: PERFORM mint, CLIPS yellow; PERFORM grouped by colour (cyan loops blinking at their length, violet
+  slicer, yellow delay / crush, orange filters, red cuts); REC + pad acts at once; a clip pad again stops it, held then
+  REC = LOOP; the take blinks every 1/4 s; rolls go faster a step at a time (no more straight to 1/32); a pad's
+  pressure acts on its effect's own track.
+- SMK-37 boot: the pads off before the screen's set-up; the light starts on the top left pad; a pad pressed then ends
+  the logo and the help and does nothing else; every pad off half a second after.
+- SMK-37: SAVE ALL in one go behind a short fade (it stuttered).
+
 ## 20 November 2026 — bigger key names on the screen keyboard
 
 - The keys' names on the screen keyboard in a 5x7 font (was 3x5): easier to read. The black keys are 20 % shorter

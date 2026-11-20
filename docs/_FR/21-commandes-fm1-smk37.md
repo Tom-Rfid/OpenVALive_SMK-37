@@ -12,9 +12,9 @@ pédale, plus de touches).
 
 | Bouton de l'app | FM-1 | SMK-37 | Seul | Tenu (couche) |
 |---|---|---|---|---|
-| `B_FX` (`BTN_PAGES`) | FX | FX | page de boutons suivante (ordre de MAP CONTROL) | remise à zéro de la ligne (touche 1), molette BEND / PAN (14), carte batterie (15 / 16) |
-| `B_SEL` (`BTN_TRACKS`, `BTN_VALIDATE`) | SEL | NOTE REPEAT | prend un son en attente | couche pistes : mutes (tout de suite), puis CLEAR, QUANTIZE, CLOCK, EUCLID, CONTROLLER (validés au relâché) ; touches noires MUTE ALL, A VOL ; clignote vite quand un son l'attend (+SEL) |
-| `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapé : la boucle se relâche | couche jeu, titre « ∞ DIV / FILTER » : boucles 1–5 validées au relâché (1/32 par OCT+), SLICER et les autres effets tout de suite |
+| `B_FX` (`BTN_PAGES`) | FX | FX | page de boutons suivante (ordre de MAP CONTROL) | remise à zéro de la ligne (touche 1), carte batterie (6 / 7), molette BEND / PAN (14) |
+| `B_SEL` (`BTN_TRACKS`, `BTN_VALIDATE`) | SEL | NOTE REPEAT | prend un son en attente | couche pistes : mutes (tout de suite), puis A VOL, QUANTIZE, CLOCK, EUCLID, CONTROLLER (validés au relâché) ; touches noires MUTE ALL, LOOP EDIT (tout de suite), CLEAR TRACK ; tenu + SELECT : « SWAP TRACK » / « SELECT LINE » dans le titre, OCT- / OCT+ l'annulent ; clignote vite quand un son l'attend (+SEL) |
+| `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapé : la boucle se relâche | couche jeu, titre « ∞ DIV / FILTER » : boucles 1–5 validées au relâché (1/32 par OCT+), SLICER (la piste choisie ; OCT- / OCT+ sa longueur) et les autres effets tout de suite, par groupes : temps, filtres, son, coupures |
 | `B_ARP` | ARP | ARP | sur A : mode d'arpège | couche créative |
 | `B_GLO` | GLO | BT | — | couche scènes : 1–8 LOAD, 9–16 SAVE (roses) ; GLO + SEL : MAP CONTROL ; GLO + PLAY : chaîne |
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (touche blanche 7), SOUNDS (touche blanche 8), LOOP EDIT (4e touche noire) : validés au relâché |
@@ -27,7 +27,7 @@ pédale, plus de touches).
 | — | — | FADER BANK | faders : volumes → macros → USER | — |
 | — | — | < (Bluetooth) | TAP tempo | tenu 0,5 s : MAP CONTROL |
 | — | — | > (PAD/STEP) | pads : CLIPS → DRUMS → PERFORM → SCÈNES → MIDI | — |
-| — | — | pad MODE (en haut à droite) | pareil : une tape = le mode suivant (sa couleur) | tenu seul 0,4 s : la carte des pads à l'écran à la place de l'oscilloscope (le relâcher garde le mode) ; MODE + pad (CLIPS) : LOOP (verrouillé, depuis le temps) ; une tape seule : SINGLE |
+| — | — | pad MODE (en haut à droite) | pareil : une tape = le mode suivant (sa couleur) | tenu seul 0,4 s : la carte des pads à l'écran à la place de l'oscilloscope (le relâcher garde le mode). CLIPS : un pad de clip tapé = SINGLE, encore = stop, tenu puis REC = LOOP (en mesure) ; REC + pad = enregistrer, tout de suite |
 | — | — | pad REC (en bas à droite) | — | REC + pad, REC lâché en premier : enregistrer un clip / sauver une scène / choisir le kit des pads |
 
 ## Boutons rotatifs
@@ -47,7 +47,9 @@ pédale, plus de touches).
 | emplacements 1–16 | les 16 touches blanches Fa3 … Sol5 | les 16 premières blanches Do3 … Ré5 |
 | touches noires (`BLACK_KEY[]`) | Fa#3 Sol#3 La#3 Do#4 Ré#4 Fa#4 … (11) | Do#3 Ré#3 Fa#3 Sol#3 La#3 … (la n-ième noire = la n-ième du FM-1) |
 | SEL + 1re noire : MUTE ALL | Fa#3 | Do#3 (et 13e pad de jeu en SCÈNES) |
-| SEL + 4e noire : A VOL (validé au relâché) | Do#4 | Sol#3 (et 14e pad de jeu en SCÈNES) |
+| SEL + 6e blanche : A VOL (validé au relâché) | Ré4 | La3 (et 14e pad de jeu en SCÈNES) |
+| SEL + 3e noire : LOOP EDIT (tout de suite) | La#3 | Fa#3 |
+| SEL + 4e noire : CLEAR TRACK (validé au relâché) | Do#4 | Sol#3 |
 | touches PERC de batterie (OPTION CONTROL) | PERC 1–4 : Sol#3 Ré#4 Sol#4 Ré#5 | PERC 1–6 : Ré#3 Sol#3 Ré#4 Sol#4 Ré#5 Sol#5 (`APP_PERC_FIRST` / `APP_PERC_COUNT`) |
 | lumières des touches | les LED des touches | le clavier à l'écran (KEYS ON SCREEN), couche tenue |
 
@@ -64,22 +66,23 @@ pédale, plus de touches).
 
 ## Voyants
 
-Boutons : **FX** et **SEL** allumés ; disponible mais pas actif = faible, actif = allumé, quelques-uns clignotent vite (MUTE ALL…), rien ne respire ;
-**EDIT** allumé en lecture (clignote pendant l'enregistrement) ; **SAVE** allumé quand il y a quelque
-chose à sauver (un mute ne compte pas), clignote pendant la sauvegarde (par étapes sur environ une seconde, chaque
-partie seulement si elle a changé).
+Boutons : **FX**, **SEL** et **SEQ** allumés (SEQ clignote tant qu'un effet est verrouillé, scintille tant qu'une
+boucle tourne) ; disponible mais pas actif = faible, actif = allumé, quelques-uns clignotent vite (MUTE ALL…), rien ne
+respire ; **EDIT** allumé en lecture (clignote pendant l'enregistrement) ; **SAVE** clignote pendant la sauvegarde
+(chaque partie seulement si elle a changé ; sur le SMK-37 tout d'un coup, le son coupé en fondu un instant) ; quelque
+chose à sauver : SAVE + sa 6e noire (SAVE ALL) clignote.
 Clavier à l'écran (et les touches du FM-1 quand elles le peuvent) : Couleurs : **jaune** appuyée ; **violet** quelque chose d'actif (une piste qui joue, un effet en cours…) ; **menthe** disponible, pas actif ; **rose** validé au relâché (lâcher le bouton en premier pour le prendre) ; **menthe / rose en alternance** validé au relâché et actif (A VOL en cours…) ; **bleu** les écrans de réglage (SOUNDS, LOOP EDIT, OPTIONS) ; **rouge** une piste coupée (SEL).
 
-Noms des touches à l'écran (3 caractères au plus, écrits de haut en bas ; blanches en bas, noires en haut ; un trait orange foncé à gauche de chaque do) :
+Noms des touches à l'écran (3 caractères au plus, 5x7 pixels, écrits de haut en bas ; blanches en bas, sous les noires, noires en haut ; un trait orange foncé de 2 pixels à gauche de chaque do) :
 
 | Couche | Touches blanches 1 → 16 | Touches noires |
 |---|---|---|
-| SEL | M1 M2 M3 M4 · — · CLR QNT CKI CKO · E3 E4 E5 (jaune) E6 E7 E8 · MID | 1re MA · 4e AV |
-| SEQ | L1 L2 L4 L8 L16 · SLC FL- FL+ DLY DRV CRU BRK SOL DRM OUT OFF | — |
+| SEL | M1 M2 M3 M4 · — · AV QNT CKI CKO · E3 E4 E5 (jaune) E6 E7 E8 · MID | 1re MA · 3e LE (bleu, touche violette) · 4e CLR (rouge) |
+| SEQ | L1 L2 L4 L8 L16 · SLC (violet) DLY (jaune) · FL- FL+ (orange) · DRV CRU (jaune) · BRK SOL DRM OUT (rouge) · OFF | — |
 | GLO | SC1–SC8 · SV1–SV8 (jaune) | — |
 | ARP | MUT HUM FIL SMP RO< RO> REV · T-1 (rouge) T+1 (vert) · EXP CON CHA RAT · O- (rouge) O+ (vert) | — |
 | HOME | PNC · RST (vert) · STP (rouge) · 7e OPT · 8e SND | 4e LE |
-| FX | RST (rouge) · 14e PAN (SMK-37) · 15e ORG · 16e GM | — |
+| FX | RST (rouge) · 6e ORG · 7e GM · 14e PAN (SMK-37) | — |
 | SAVE | U1–U8 · SU1–SU8 | 6e ALL |
 | REC | RST | — |
 
