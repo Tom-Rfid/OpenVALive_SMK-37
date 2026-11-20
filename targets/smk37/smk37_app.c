@@ -807,7 +807,7 @@ static uint32_t roll_now(void)
 /* 0 a plain hit, 1 1/8, 2 1/16, 3 1/32; a little lower to go back down (no flicker on a threshold) */
 static uint32_t roll_level(int pressure, uint32_t now_level)
 {
-    static const int AT[3] = { 48, 84, 112 };
+    static const int AT[3] = { 100, 116, 126 };   /* (a hand resting on a pad presses ~60-100: no roll) */
     uint32_t l = 0;
     while (l < 3u && pressure >= AT[l])
         l++;

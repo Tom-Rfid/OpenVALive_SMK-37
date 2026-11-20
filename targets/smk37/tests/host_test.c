@@ -333,7 +333,7 @@ int main(void)
         tap(SMK_BUTTON, SMK_B_PLAY);
     midi_sent_n[FM1_MIDI_USB] = 0;
     ev(SMK_PAD, 2, 100);
-    ev(SMK_PRESSURE, 2, 100);                           /* 1/16 */
+    ev(SMK_PRESSURE, 2, 120);                           /* 1/16 */
     CHECK(smk.roll_level[2] == 2, "pressed harder: a 1/16 roll");
     run_ms(1000);
     int rolled = note_ons(FM1_MIDI_USB, 0x99, (uint8_t)smk.pad_note[2]);
