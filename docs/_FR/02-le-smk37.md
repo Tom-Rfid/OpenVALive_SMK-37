@@ -150,8 +150,8 @@ Note pour chaque ligne : ✅, ❌ (et ce qui se passe), ou ? (pas compris).
 | 2.1 | chaque touche, doux puis fort | toutes jouent ; la vélocité change le son |
 | 2.2 | OCT− / OCT+ | l'octave change (affichée) |
 | 2.3 | pads en PERFORM : tenir le pad 1 en lecture | boucle d'une mesure tant que tenu ; pad bleu vif |
-| 2.4 | taper le pad 6 | FILTRE FERMÉ verrouillé ; le 2e pad en partant de la droite en bas (ALL OFF) l'arrête |
-| 2.5 | tenir le 1er pad du bas (DELAY) et appuyer de plus en plus | le delay monte avec la pression |
+| 2.4 | taper le pad 7 (FL-) | FILTRE FERMÉ verrouillé ; le 2e pad en partant de la droite en bas (ALL OFF) l'arrête |
+| 2.5 | tenir le 2e pad du bas (DLY) et appuyer de plus en plus | le delay monte avec la pression |
 | 2.6 | MODE (en haut à droite) jusqu'à DRUMS (rouge) ; tenir REC, pad 2, lâcher REC | les pads jouent leur kit, grosse caisse en bas à gauche ; REC tenu : 5 pads rouges ; le kit 2 est pris |
 | 2.6b | sur la batterie, tenir un pad en appuyant de plus en plus fort, puis relâcher la pression | roulement 1/8, puis 1/16, puis 1/32 (affiché ROLL) ; il s'arrête |
 | 2.6c | MODE jusqu'à SCÈNES (bleu) : REC + pad 2, REC lâché en premier, puis pad 2, puis le 2e pad du bas deux fois | scène 2 enregistrée (titre vert), rappelée (pad bleu vif) ; piste 1 coupée puis remise |
