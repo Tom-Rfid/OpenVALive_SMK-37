@@ -1,5 +1,12 @@
 # Changelog
 
+## 20 November 2026 — key names on the screen keyboard
+
+- The screen keyboard writes each key's name, 3 characters at most, stacked down the key in a 3x5 font (white keys
+  at the bottom, every name starting on the same line; black keys at the top). Some names are coloured: E3–E5 and
+  SV1–SV8 yellow, STP / FX's RST / T-1 / O- red, HOME's RST / T+1 / O+ green. A dark orange line marks each C.
+- SAVE ALL moves to the 6th black key (C#4), between LOAD 8 and SAVE 1.
+
 ## 20 November 2026 — WORLD family, RAVE SAX, LUTE, FLUTE, BAGPIPE, DROPS (65 sounds)
 
 - New family **WORLD** (instruments in the module's electro / underground style): RAVE SAX, LUTE, FLUTE, BAGPIPE.

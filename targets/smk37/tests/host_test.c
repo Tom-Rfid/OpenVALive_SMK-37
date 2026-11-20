@@ -485,10 +485,10 @@ int main(void)
     tap(SMK_BUTTON, SMK_B_SAVE);
     run_ms(1200);
     CHECK(flash_writes == writes, "SAVE (PARA) tapped alone writes nothing");
-    ev(SMK_BUTTON, SMK_B_SAVE, 1);                      /* SAVE + the 1st black key (SAVE ALL), SAVE let go first */
-    ev(SMK_KEY, 1, 100);
+    ev(SMK_BUTTON, SMK_B_SAVE, 1);                      /* SAVE + C#4 (SAVE ALL), SAVE let go first */
+    ev(SMK_KEY, 13, 100);
     ev(SMK_BUTTON, SMK_B_SAVE, 0);
-    ev(SMK_KEY, 1, 0);
+    ev(SMK_KEY, 13, 0);
     run_ms(1200);                                       /* (in steps over about a second) */
     CHECK(flash_writes > writes, "SAVE ALL writes the flash");
     settings_t back;

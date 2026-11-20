@@ -18,7 +18,7 @@ pédale, plus de touches).
 | `B_ARP` | ARP | ARP | sur A : mode d'arpège | couche créative |
 | `B_GLO` | GLO | BT | — | couche scènes : 1–8 LOAD, 9–16 SAVE (roses) ; GLO + SEL : MAP CONTROL ; GLO + PLAY : chaîne |
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (touche blanche 7), SOUNDS (touche blanche 8), LOOP EDIT (4e touche noire) : validés au relâché |
-| `B_SAVE` | SAVE | PARA | — (seul : rien) | validé au relâché : touches blanches 1–8 LOAD USER 1–8, 9–16 SAVE en USER 1–8, 1re touche noire **SAVE ALL** (le live set ; clignote quand il y a quelque chose à sauver) |
+| `B_SAVE` | SAVE | PARA | — (seul : rien) | validé au relâché : touches blanches 1–8 LOAD USER 1–8, 9–16 SAVE en USER 1–8, 6e touche noire, entre LOAD 8 et SAVE 1, **SAVE ALL** (le live set ; clignote quand il y a quelque chose à sauver) |
 | `B_ENV` / `B_LFO` | ENV / LFO | SCALE / CHORD | UNDO / REDO | — |
 | `B_EDIT` | EDIT | GLOBE | CAPTURE (ENV l'annule) ; dans un menu : valeur par défaut de la ligne ; clignote pendant l'enregistrement | EDIT + note : punch ; LOOP EDIT : EDIT + touches = accord |
 | `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / enregistrement (REC et CAPTURE seulement en lecture) | SEL + PLAY tap tempo, SEL + REC métronome ; REC + touche blanche 1 (validé au relâché) : RESET de la piste |
@@ -68,6 +68,19 @@ Boutons : **FX** et **SEL** allumés ; disponible mais pas actif = faible, actif
 chose à sauver (un mute ne compte pas), clignote pendant la sauvegarde (par étapes sur environ une seconde, chaque
 partie seulement si elle a changé).
 Clavier à l'écran (et les touches du FM-1 quand elles le peuvent) : Couleurs : **jaune** appuyée ; **violet** quelque chose d'actif (une piste qui joue, un effet en cours…) ; **menthe** disponible, pas actif ; **rose** validé au relâché (lâcher le bouton en premier pour le prendre) ; **menthe / rose en alternance** validé au relâché et actif (A VOL en cours…) ; **bleu** les écrans de réglage (SOUNDS, LOOP EDIT, OPTIONS) ; **rouge** une piste coupée (SEL).
+
+Noms des touches à l'écran (3 caractères au plus, écrits de haut en bas ; blanches en bas, noires en haut ; un trait orange foncé à gauche de chaque do) :
+
+| Couche | Touches blanches 1 → 16 | Touches noires |
+|---|---|---|
+| SEL | M1 M2 M3 M4 · — · CLR QNT CKI CKO · E3 E4 E5 (jaune) E6 E7 E8 · MID | 1re MA · 4e AV |
+| SEQ | L1 L2 L4 L8 L16 · SLC FL- FL+ DLY DRV CRU BRK SOL DRM OUT OFF | — |
+| GLO | SC1–SC8 · SV1–SV8 (jaune) | — |
+| ARP | MUT HUM FIL SMP RO< RO> REV · T-1 (rouge) T+1 (vert) · EXP CON CHA RAT · O- (rouge) O+ (vert) | — |
+| HOME | PNC · RST (vert) · STP (rouge) · 7e OPT · 8e SND | 4e LE |
+| FX | RST (rouge) · 14e PAN (SMK-37) · 15e ORG · 16e GM | — |
+| SAVE | U1–U8 · SU1–SU8 | 6e ALL |
+| REC | RST | — |
 
 ## Seulement sur le SMK-37 (ses commandes en plus, rien dont le FM-1 a besoin)
 

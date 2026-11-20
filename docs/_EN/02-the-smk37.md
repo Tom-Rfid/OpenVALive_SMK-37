@@ -139,7 +139,7 @@ table; the steps are:
 | 2 | every key soft then hard; OCT; pads PERFORM (hold, tap, pressure); MODE (top right pad) to DRUMS, a pad pressed harder (roll); SCENES (REC + pad 2, REC let go first, stores; pad 2 recalls; the bottom row's 2nd pad mutes track 1); CLIPS (REC + pad 1, play, pad 1: once (SINGLE); MODE + pad 1: LOOP on the beat, green / violet; a tap lets it go); DRUMS: REC held + pad 2 = kit 2; MIDI (channel 16, silent); faders; FADER BANK; wheels; pedal; the 8 encoders; SHIFT + K3; ENV / SHIFT + ENV; Bluetooth taps; button LEDs | as in the table above |
 | 3 | REC; EDIT (CAPTURE); GLO + pads (scenes); GLO + PLAY (chain); ARP + pads | as on the FM-1 |
 | 4 | T-8 on MIDI OUT, SELECT + pad 9, PLAY, change tempo, STOP | the T-8 follows |
-| 5 | PARA (SAVE) + C#3 (SAVE ALL), PARA let go first; power off and on | the set comes back |
+| 5 | PARA (SAVE) + C#4 (SAVE ALL), PARA let go first; power off and on | the set comes back |
 | 6 | a DAW: MIDI port, USB audio both ways | notes, clock and sound |
 | 7 | 4 busy tracks | no crackles; CPU on screen under 80 % |
 | 8 | (if needed) the workbench: *Switch to Open firmware* / *Restore factory V16* | M-VAVE's firmware back |

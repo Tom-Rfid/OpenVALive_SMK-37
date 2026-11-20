@@ -17,7 +17,7 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 | `B_ARP` | ARP | ARP | on A: arpeggio mode | creative layer |
 | `B_GLO` | GLO | BT | — | scenes layer: 1–8 LOAD, 9–16 SAVE (pink); GLO + SEL: MAP CONTROL; GLO + PLAY: chain |
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (white key 7), SOUNDS (white key 8), LOOP EDIT (4th black key): valid on release (set-up keys blue) |
-| `B_SAVE` | SAVE | PARA | — (alone: nothing) | valid on release: white keys 1–8 LOAD USER 1–8, 9–16 SAVE as USER 1–8, 1st black key **SAVE ALL** (the live set; blinks when something is to be saved) |
+| `B_SAVE` | SAVE | PARA | — (alone: nothing) | valid on release: white keys 1–8 LOAD USER 1–8, 9–16 SAVE as USER 1–8, 6th black key, between LOAD 8 and SAVE 1, **SAVE ALL** (the live set; blinks when something is to be saved) |
 | `B_ENV` / `B_LFO` | ENV / LFO | SCALE / CHORD | UNDO / REDO | — |
 | `B_EDIT` | EDIT | GLOBE | CAPTURE (ENV undoes it); in a menu: the row's default; blinks while recording | EDIT + note: punch; LOOP EDIT: EDIT + keys = chord |
 | `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / record (REC and CAPTURE only while playing) | SEL + PLAY tap tempo, SEL + REC metronome; REC + white key 1 (valid on release): RESET the track |
@@ -66,6 +66,19 @@ Buttons: **FX** and **SEL** lit; offered but not on = dim, on = lit, a few blink
 **EDIT** lit while playing (blinking while recording); **SAVE** lit when something is to be saved (a mute is not),
 blinking while it saves (in steps over about a second, each part only if it changed).
 Screen keyboard (and the FM-1's keys where they can): Colours: **yellow** pressed; **violet** something on (a track playing, an effect running…); **mint** offered, not on; **pink** valid on release (let the button go first to take it); **mint / pink in turn** valid on release and on now (A VOL running…); **blue** the set-up screens (SOUNDS, LOOP EDIT, OPTIONS); **red** a muted track (SEL).
+
+Key names on the screen (3 characters at most, written top to bottom; white keys at the bottom, black keys at the top; a dark orange line left of each C):
+
+| Layer | White keys 1 → 16 | Black keys |
+|---|---|---|
+| SEL | M1 M2 M3 M4 · — · CLR QNT CKI CKO · E3 E4 E5 (yellow) E6 E7 E8 · MID | 1st MA · 4th AV |
+| SEQ | L1 L2 L4 L8 L16 · SLC FL- FL+ DLY DRV CRU BRK SOL DRM OUT OFF | — |
+| GLO | SC1–SC8 · SV1–SV8 (yellow) | — |
+| ARP | MUT HUM FIL SMP RO< RO> REV · T-1 (red) T+1 (green) · EXP CON CHA RAT · O- (red) O+ (green) | — |
+| HOME | PNC · RST (green) · STP (red) · 7th OPT · 8th SND | 4th LE |
+| FX | RST (red) · 14th PAN (SMK-37) · 15th ORG · 16th GM | — |
+| SAVE | U1–U8 · SU1–SU8 | 6th ALL |
+| REC | RST | — |
 
 ## Only on the SMK-37 (its own controls, nothing the FM-1 needs)
 
