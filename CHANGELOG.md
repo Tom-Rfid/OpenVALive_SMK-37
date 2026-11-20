@@ -1,5 +1,15 @@
 # Changelog
 
+## 20 November 2026 — more RAM for the firmware update, CAPTURE shows what it takes
+
+- Playing on the selected track (not recording), from the first note the line paints green as the playhead goes (what
+  CAPTURE would take: you see when the loop comes round), the red infinity sign shows and EDIT blinks fast; CAPTURE
+  (EDIT tapped) puts the line back at once. A stop, REC or another line ends it too.
+- Clips keep their notes in one pool (160 notes for the 14): 3 KB of RAM less.
+- The firmware update did not start from the 20 November builds (0 requests): the SDK's heap had shrunk from 58 KB to
+  52 KB (clips, the pads' kit). Clips' pool and smaller MIDI rings give 4.4 KB back; the build now refuses less than
+  54 KB of heap.
+
 ## 20 November 2026 — REC + key 1: RESET
 
 - REC is a layer too: REC + the leftmost white key, REC let go first, RESETs (clears) the selected track's loop (ENV

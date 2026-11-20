@@ -153,7 +153,7 @@ static void slot_up(uint32_t k)
 
 /* --- MIDI: in from the routing task (time-stamped), out from the audio and the UI to USB and the MIDI OUT jack --- */
 
-#define MIDI_RING 128u
+#define MIDI_RING 64u                           /* (RAM: the SDK's heap needs it for the firmware update) */
 static struct { uint32_t pkt, t24; uint8_t port; } midi_in_ring[MIDI_RING];
 static volatile uint32_t midi_in_head, midi_in_tail;
 static uint32_t midi_in_last_t24;
