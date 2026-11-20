@@ -1,5 +1,11 @@
 # Changelog
 
+## 20 November 2026 — SAVE in steps, colours by meaning
+
+As OpenVALive CORE: SAVE in steps (each pause short, only what changed), SAVE not lit by a mute, FX / NOTE REPEAT
+lit, GLOBE lit while playing, A VOL valid on release; the screen keyboard's colours (yellow pressed, violet on, mint
+offered, pink valid on release, blue set-up). The SMK-37's LEDs have one level: no breathing on its buttons.
+
 ## 20 November 2026 — SINGLE / LOOP clips, the pads' own drum kit, LOAD / SAVE
 
 - CLIPS: a tap plays once (SINGLE); MODE + pad, or the pad held then MODE, latches a LOOP from the next beat

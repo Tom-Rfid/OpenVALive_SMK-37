@@ -17,7 +17,7 @@ propriétaire, avec le plan de test plus bas.
 - **Calibration** : la vélocité de chaque touche et de chaque pad vient de la calibration d'usine. Le scanner de
   M-VAVE la **lit** ; OpenVALive ne l'écrit jamais.
 - **Bluetooth** : aucun. Le firmware est compilé sans la pile Bluetooth de M-VAVE (`targets/smk37/no_bluetooth.py` : ~180 Ko de flash et ~10 Ko de RAM rendus, le logo d'accueil avec) ; `build.py --bluetooth` la remet. Le bouton Bluetooth sert au TAP tempo et ouvre MAP CONTROL.
-- **Touches à l'écran** : les touches n'ont pas de voyants, alors tant qu'un bouton de couche (SELECT, SEQ, ARP, GLO, SAVE, HOME, FX) est tenu, l'écran montre ses touches à la place de l'oscilloscope, allumées comme les voyants du FM-1 (KEYS ON SCREEN dans les réglages).
+- **Touches à l'écran** : les touches n'ont pas de voyants, alors tant qu'un bouton de couche (SELECT, SEQ, ARP, GLO, SAVE, HOME, FX) est tenu, l'écran montre ses touches à la place de l'oscilloscope, allumées comme les voyants du FM-1 (KEYS ON SCREEN dans les réglages). Couleurs : **jaune** appuyée ; **violet** quelque chose d'actif (une piste qui joue, un effet en cours…) ; **menthe** disponible, pas actif ; **rose** validé au relâché (lâcher le bouton en premier pour le prendre) ; **menthe / rose en alternance** validé au relâché et actif (A VOL en cours…) ; **bleu** les écrans de réglage (SOUNDS, LOOP EDIT, OPTIONS) ; **rouge** une piste coupée (SEL).
 - **Touches de batterie** : carte ORIGINAL ou GM ([doc 20 du FM-1](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_FR/20-sons-et-touches-batterie.md)) ; les pads en mode DRUMS jouent les notes GM 36 à 49 sur la première piste de batterie, comme les boîtes à rythmes.
 - **Tes données M-VAVE Open** : OpenVALive garde son set dans les emplacements de projets **6 à 16** d'Open. Les
   projets 1 à 5, les réglages et les samples d'Open ne sont pas touchés. Sauvegarde-les quand même avec l'atelier
@@ -91,7 +91,7 @@ Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware d
 FX (PRESETS en déplace une, PAGE l'affiche / la masque), puis les boutons de MACRO, LIVE, EQ et USER (K1 à K4
 chacune), FADER 1 à 4 (la banque USER) et les molettes PITCH et MOD. **HOME + touche blanche 10** ouvre **OPTION
 CONTROL** : DRUM KEYS (ORIGINAL / GM), **PERC 1–6** (chaque touche ré# / sol# du clavier de batterie, de Ré#3 à Sol#5,
-sa propre percussion), KEYS ON SCREEN, et pour T1–T4 et A la page qu'amène un nouveau son (KEEP : aucune). Sur une
+sa propre percussion), KEYS ON SCREEN, et pour T1–T4 et A la page qu'amène un nouveau son (SAME PAGE : aucune). Sur une
 ligne **EDIT** remet sa valeur par défaut ; la dernière ligne, MENU, passe à SOUNDS / MAP CONTROL / OPTION CONTROL
 avec PRESETS ou OCT. Gardé à la fermeture, sans SAVE.
 

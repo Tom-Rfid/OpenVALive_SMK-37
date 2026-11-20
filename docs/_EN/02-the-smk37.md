@@ -15,7 +15,7 @@ has run on a real SMK-37 yet**: the first test is on the owner's Elite, with the
 - **Calibration**: each key's and pad's velocity comes from the factory calibration. M-VAVE's scanner **reads** it;
   OpenVALive never writes it.
 - **Bluetooth**: none. The firmware is built without M-VAVE's Bluetooth stack (`targets/smk37/no_bluetooth.py`: ~180 KB of flash and ~10 KB of RAM back, the boot logo with them); `build.py --bluetooth` links it as before. The Bluetooth button taps the tempo and opens the MAP CONTROL.
-- **Keys on screen**: the keys have no lights, so while a layer button (SELECT, SEQ, ARP, GLO, SAVE, HOME, FX) is held the screen shows its keys in place of the scope, lit as the FM-1 lights them (KEYS ON SCREEN in the settings rows).
+- **Keys on screen**: the keys have no lights, so while a layer button (SELECT, SEQ, ARP, GLO, SAVE, HOME, FX) is held the screen shows its keys in place of the scope, lit as the FM-1 lights them (KEYS ON SCREEN in the settings rows). Colours: **yellow** pressed; **violet** something on (a track playing, an effect running…); **mint** offered, not on; **pink** valid on release (let the button go first to take it); **mint / pink in turn** valid on release and on now (A VOL running…); **blue** the set-up screens (SOUNDS, LOOP EDIT, OPTIONS); **red** a muted track (SEL).
 - **Drum keys**: ORIGINAL or GM map ([FM-1 doc 20](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_EN/20-sounds-and-drum-keys.md)); the pads in DRUMS mode play GM 36 to 49 on the first drum track, as drum machines do.
 - **Your M-VAVE Open data**: OpenVALive keeps its set in Open's project slots **6 to 16**. Open's projects 1 to 5,
   settings and samples are not touched. Back them up with the web workbench anyway before installing.
@@ -89,7 +89,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 moves one up / down, PAGE shows / hides it), then the knobs of MACRO, LIVE, EQ and USER (K1 to K4 each), FADER 1 to 4
 (the USER bank) and the PITCH and MOD wheels. **HOME + white key 10** opens **OPTION CONTROL**: DRUM KEYS (ORIGINAL /
 GM), **PERC 1–6** (each D# / G# key of the drum keyboard, D#3 to G#5, its own percussion), KEYS ON SCREEN, and for
-T1–T4 and A the page a new sound brings (KEEP: none). On a row **EDIT** puts its default back; the last row, MENU,
+T1–T4 and A the page a new sound brings (SAME PAGE: none). On a row **EDIT** puts its default back; the last row, MENU,
 goes on to SOUNDS / MAP CONTROL / OPTION CONTROL with PRESETS or OCT. Kept when the page closes, without SAVE.
 
 | In the page | Does |

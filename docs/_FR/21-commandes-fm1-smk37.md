@@ -47,7 +47,7 @@ pédale, plus de touches).
 | emplacements 1–16 | les 16 touches blanches Fa3 … Sol5 | les 16 premières blanches Do3 … Ré5 |
 | touches noires (`BLACK_KEY[]`) | Fa#3 Sol#3 La#3 Do#4 Ré#4 Fa#4 … (11) | Do#3 Ré#3 Fa#3 Sol#3 La#3 … (la n-ième noire = la n-ième du FM-1) |
 | SEL + 1re noire : MUTE ALL | Fa#3 | Do#3 (et 13e pad de jeu en SCÈNES) |
-| SEL + 4e noire : A VOL | Do#4 | Sol#3 (et 14e pad de jeu en SCÈNES) |
+| SEL + 4e noire : A VOL (validé au relâché) | Do#4 | Sol#3 (et 14e pad de jeu en SCÈNES) |
 | touches PERC de batterie (OPTION CONTROL) | PERC 1–4 : Sol#3 Ré#4 Sol#4 Ré#5 | PERC 1–6 : Ré#3 Sol#3 Ré#4 Sol#4 Ré#5 Sol#5 (`APP_PERC_FIRST` / `APP_PERC_COUNT`) |
 | lumières des touches | les LED des touches | le clavier à l'écran (KEYS ON SCREEN), couche tenue |
 
@@ -59,7 +59,15 @@ pédale, plus de touches).
 | DRUM KEYS | ORIGINAL / GM | la carte des touches de batterie |
 | PERC 1–4 (FM-1) / 1–6 (SMK-37) | 10 percussions | ce que joue chaque Ré# / Sol# de la batterie |
 | KEYS ON SCREEN | ON / OFF | le clavier à l'écran quand une couche est tenue |
-| T1–T4, A NEW SOUND | KEEP / une page | la page de boutons qu'amène un nouveau son |
+| T1–T4, A NEW SOUND | SAME PAGE / une page | la page de boutons qu'amène un nouveau son |
+
+## Voyants
+
+Boutons : **FX** et **SEL** allumés ; **ARP**, **SEQ**, **GLO** respirent sur 2 s (FM-1 ; les voyants du SMK-37 n'ont
+qu'un niveau) ; **EDIT** allumé en lecture (clignote pendant l'enregistrement) ; **SAVE** allumé quand il y a quelque
+chose à sauver (un mute ne compte pas), clignote pendant la sauvegarde (par étapes sur environ une seconde, chaque
+partie seulement si elle a changé).
+Clavier à l'écran (et les touches du FM-1 quand elles le peuvent) : Couleurs : **jaune** appuyée ; **violet** quelque chose d'actif (une piste qui joue, un effet en cours…) ; **menthe** disponible, pas actif ; **rose** validé au relâché (lâcher le bouton en premier pour le prendre) ; **menthe / rose en alternance** validé au relâché et actif (A VOL en cours…) ; **bleu** les écrans de réglage (SOUNDS, LOOP EDIT, OPTIONS) ; **rouge** une piste coupée (SEL).
 
 ## Seulement sur le SMK-37 (ses commandes en plus, rien dont le FM-1 a besoin)
 

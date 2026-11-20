@@ -46,7 +46,7 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 | layer slots 1–16 | the 16 white keys F3 … G5 | the first 16 white keys C3 … D5 |
 | black keys (`BLACK_KEY[]`) | F#3 G#3 A#3 C#4 D#4 F#4 … (11) | C#3 D#3 F#3 G#3 A#3 … (the n-th black = the FM-1's n-th) |
 | SEL + 1st black key: MUTE ALL | F#3 | C#3 (and the 13th playing pad in SCENES) |
-| SEL + 4th black key: A VOL | C#4 | G#3 (and the 14th playing pad in SCENES) |
+| SEL + 4th black key: A VOL (valid on release) | C#4 | G#3 (and the 14th playing pad in SCENES) |
 | drum PERC keys (OPTION CONTROL) | PERC 1–4: G#3 D#4 G#4 D#5 | PERC 1–6: D#3 G#3 D#4 G#4 D#5 G#5 (`APP_PERC_FIRST` / `APP_PERC_COUNT`) |
 | key lights | the keys' LEDs | the screen keyboard (KEYS ON SCREEN), while a layer is held |
 
@@ -58,7 +58,14 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 | DRUM KEYS | ORIGINAL / GM | the drum keys' map |
 | PERC 1–4 (FM-1) / 1–6 (SMK-37) | 10 percussions | what each drum D# / G# plays |
 | KEYS ON SCREEN | ON / OFF | the screen keyboard while a layer is held |
-| T1–T4, A NEW SOUND | KEEP / a page | the knob page a new sound brings |
+| T1–T4, A NEW SOUND | SAME PAGE / a page | the knob page a new sound brings |
+
+## Lights
+
+Buttons: **FX** and **SEL** lit; **ARP**, **SEQ**, **GLO** breathe over 2 s (FM-1; the SMK-37's LEDs have one level);
+**EDIT** lit while playing (blinking while recording); **SAVE** lit when something is to be saved (a mute is not),
+blinking while it saves (in steps over about a second, each part only if it changed).
+Screen keyboard (and the FM-1's keys where they can): Colours: **yellow** pressed; **violet** something on (a track playing, an effect running…); **mint** offered, not on; **pink** valid on release (let the button go first to take it); **mint / pink in turn** valid on release and on now (A VOL running…); **blue** the set-up screens (SOUNDS, LOOP EDIT, OPTIONS); **red** a muted track (SEL).
 
 ## Only on the SMK-37 (its own controls, nothing the FM-1 needs)
 
