@@ -10,6 +10,7 @@
 - **PERFORM** on 14 pads (LOOP 1/32 and DRIVE stay on the keys); **MIDI**: channel 16 only.
 - Fixed: keys played at power-on did not end the boot logo. PERFORM's title: "∞ DIV / FILTER".
 - Host test: 90 checks (clips, REC valid on release, MODE, MIDI, DRUMS, the boot screen).
+- OPTION CONTROL: **PLAY MODE** LIVE (default) / FULL MIDI. Doc 21: the FM-1 ↔ SMK-37 controls side by side.
 
 ## 20 November 2026 — breathing keys on the screen keyboard
 

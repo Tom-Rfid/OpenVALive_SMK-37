@@ -41,6 +41,8 @@ Actions > build > Run workflow with "release" ticked). A release pins a **tag** 
   VirtualAnalog's CLAUDE.md. GPL code from `smk37_open` may be used **here** (never in OpenVALive CORE).
 - Docs: EN and FR together; only what is done or in progress; every "tested" says where.
 - Rules for people, git and The Firmware Hub: `docs/_EN/18-rules-git-and-publishing.md`.
+- `docs/_*/21-…` (FM-1 ↔ SMK-37 controls) is a copy of OpenVALive CORE's doc 19: keep it the same. The FM-1 sets the
+  common functions; a gesture the FM-1 cannot have is SMK-37 only, listed there, and told to Thomas.
 
 ## Known pitfalls
 
