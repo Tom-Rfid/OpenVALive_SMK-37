@@ -40,6 +40,8 @@ int fm1_bluetooth_configure(unsigned f) { (void)f; return 0; }
 static int audio_paused;
 void fm1_audio_suspend(void) { audio_paused++; }
 void fm1_audio_resume(void) { audio_paused--; }
+static int recovery_asked;
+void fm1_device_recovery(void) { recovery_asked++; }   /* the update mode (the chip restarts there) */
 void smk_panel_init(void) {}
 void smk_panel_poll(void) {}
 void smk_panel_service(void) {}
@@ -141,6 +143,18 @@ int main(void)
         now_ms += 500u;                                 /* five pads on: the bottom right, REC */
         CHECK(pad_colour(15) != 0 && pad_colour(1) == 0, "...going round");
         now_ms = before;
+    }
+
+    /* SEQ + REC held at power-on: the update mode (it is checked before the app starts) */
+    {
+        uint32_t phys = smk.phys;
+        CHECK(!update_mode_held() && recovery_asked == 0, "no update mode without SEQ + REC held");
+        smk.phys = (1u << SMK_B_SEQ) | (1u << SMK_B_REC);
+        CHECK(update_mode_held(), "SEQ + REC held: the update mode");
+        update_mode();
+        CHECK(recovery_asked == 1, "...the chip asked to restart in it");
+        smk.phys = phys;
+        ui.redraw = 1;
     }
 
     /* keys: C3 on the selected track, velocity kept */

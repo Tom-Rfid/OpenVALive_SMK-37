@@ -23,6 +23,10 @@ has run on a real SMK-37 yet**: the first test is on the owner's Elite, with the
   refuses the other model's package.
 - **The way back**: M-VAVE's SMK37 OPEN workbench (<https://open.m-vave.com/smk37-workbench>, Chrome or Edge):
   *Restore factory V16* (factory firmware) or *Switch to Open firmware*.
+- **If it does not start**: hold **SEQ + REC** while switching it on: "UPDATE MODE" on the screen, the chip's own USB
+  loader; [M-Flasher](https://github.com/jvitkauskas/m-flasher) then writes a firmware from any computer, then switch
+  it off and on. If the screen stays dark, [jieli-usbkey-unbrick](https://github.com/Tom-Rfid/jieli-usbkey-unbrick)
+  reaches the same loader from a Raspberry Pi.
 
 ## Installing (Windows)
 
@@ -135,7 +139,7 @@ table; the steps are:
 | # | Step | Expected |
 |---|---|---|
 | 0 | `fm1_install.py --port SMK --info`, install, `--info` again | `SMK-37 Elite_8000300` after |
-| 1 | power on; play a key; power on holding HOME | splash then the FM-1 screen; sound; "SAFE START" |
+| 1 | power on; play a key; power on holding HOME; power on holding SEQ + REC | splash then the FM-1 screen; sound; "SAFE START"; "UPDATE MODE", M-Flasher sees the unit |
 | 2 | every key soft then hard; OCT; pads PERFORM (hold, tap, pressure); MODE (top right pad) to DRUMS, a pad pressed harder (roll); SCENES (REC + pad 2, REC let go first, stores; pad 2 recalls; the bottom row's 2nd pad mutes track 1); CLIPS (REC + pad 1, play, pad 1: once (SINGLE); MODE + pad 1: LOOP on the beat, green / violet; a tap lets it go); DRUMS: REC held + pad 2 = kit 2; MIDI (channel 16, silent); faders; FADER BANK; wheels; pedal; the 8 encoders; SHIFT + K3; ENV / SHIFT + ENV; Bluetooth taps; button LEDs | as in the table above |
 | 3 | REC; EDIT (CAPTURE); GLO + pads (scenes); GLO + PLAY (chain); ARP + pads | as on the FM-1 |
 | 4 | T-8 on MIDI OUT, SELECT + pad 9, PLAY, change tempo, STOP | the T-8 follows |

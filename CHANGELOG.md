@@ -1,5 +1,11 @@
 # Changelog
 
+## 20 November 2026 — SEQ + REC at power-on: the update mode
+
+- SEQ + REC held while switching on: "UPDATE MODE" on the screen and the chip's own USB loader (download mode), checked
+  before the app starts. M-Flasher then writes a firmware from any computer, with no USB key and nothing opened (the
+  same keys as m-bootloader's, which takes them first when installed).
+
 ## 20 November 2026 — the top left pad no longer flashes green during the logo
 
 - The pads' LED chain gets a longer reset before each update (200 bytes, was 36): the top left pad, first on the
