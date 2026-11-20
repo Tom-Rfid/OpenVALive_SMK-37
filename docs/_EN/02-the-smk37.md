@@ -16,7 +16,7 @@ has run on a real SMK-37 yet**: the first test is on the owner's Elite, with the
   OpenVALive never writes it.
 - **Bluetooth**: none. The firmware is built without M-VAVE's Bluetooth stack (`targets/smk37/no_bluetooth.py`: ~180 KB of flash and ~10 KB of RAM back, the boot logo with them); `build.py --bluetooth` links it as before. The Bluetooth button taps the tempo and opens the MAP CONTROL.
 - **Keys on screen**: the keys have no lights, so while a layer button (SELECT, SEQ, ARP, GLO, SAVE, HOME, FX) is held the screen shows its keys in place of the scope, lit as the FM-1 lights them (KEYS ON SCREEN in the settings rows).
-- **Drum keys**: ORIGINAL or GM map ([FM-1 doc 20](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_EN/20-sounds-and-drum-keys.md)); the pads in PLAY mode on a drum track play GM 36 to 51, as drum machines do.
+- **Drum keys**: ORIGINAL or GM map ([FM-1 doc 20](https://github.com/Tom-Rfid/OpenVALive_FM-1/blob/dev/docs/_EN/20-sounds-and-drum-keys.md)); the pads in DRUMS mode play GM 36 to 49 on the first drum track, as drum machines do.
 - **Your M-VAVE Open data**: OpenVALive keeps its set in Open's project slots **6 to 16**. Open's projects 1 to 5,
   settings and samples are not touched. Back them up with the web workbench anyway before installing.
 - **One package per model**: `openvalive-smk37-elite-X.Y.Z.fwsc` for the Elite, `-pro-` for the Pro. The keyboard
@@ -52,18 +52,18 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 |---|---|
 | **37 keys** (C3 to C6) | play the selected track, with velocity; OCT− / OCT+ shift the selected line an octave (T1..T4 and A each their own; a USER sound brings back its octave) |
 | white keys + a layer button held | the FM-1's 16 "layer keys" (GLO scenes, ARP Creative, SELECT tracks, SEQ effects, SAVE sounds): 1st white key = 1. On a track, ARP / SEQ / GLO + white key names the gesture: let ARP / SEQ / GLO go first to apply it (mint), the key first to give it up |
-| **16 pads**, **PERFORM** mode (the default) | the 16 perform effects: loops 1 bar to 1/32, filter shut / open, delay, drive, crush, break, solo, drums only, all out, all off. Hold = while held; a short tap = latched (the pads act at once) |
-| **pressure** on a held effect pad | how far the effect goes (filter, delay, drive, crush): a light touch = 40 %, a full press = 100 % |
-| **PAD/STEP** | goes round three pad modes: **PERFORM** (LED off) → **PLAY** (LED lit) → **SCENES** (LED blinking) |
-| pads in **PLAY** | they play the track (on the drums: 16 sounds from C2, like a drum machine); pressure = aftertouch (filter, vibrato) |
-| **pressure** on a drum pad (PLAY) | a **roll** on the beat grid, faster the harder: 1/8, 1/16, 1/32 (the screen says which); eased off, it stops. In time with PLAY, or with the tempo when stopped |
-| pads in **SCENES** | pads 1–8 recall scenes 1–8 (on the next bar when playing; bright: the last one, dim: stored, dark: empty); **SHIFT** + pads 1–8 store them (purple); pads 9–12 mute / unmute tracks 1–4, pad 13 all four (fast red blink while all are out), pad 14 **A VOL** (the levels brought together over the longest loop, as on the FM-1; green swell while it runs). At once, no button to hold |
+| **16 pads**: 2 set-up pads on the right, 14 playing pads | top right **MODE**: a tap goes round **CLIPS** (mint) → **DRUMS** (red) → **PERFORM** (orange) → **SCENES** (blue) → **MIDI** (white); the pad shows the mode's colour. Bottom right **REC**: REC + a pad, **REC let go first** = keep in that pad (a clip, a scene), the pad let go first = given up (red title). **PAD/STEP** goes round the modes too (LED off: PERFORM) |
+| pads in **CLIPS** | a clip = a phrase played on the selected line (a track or A), with its sound. **REC + pad** arms it (pad blinking red 4 times a second, the line goes dark green on screen); the **first note** starts the take (bright green filling the line, the full width = 4 bars, the longest); **any pad, MODE, REC or a button** ends it, its own pad ends it and plays it at once. Length rounded to the beat, at most **4 bars / 48 notes**, 14 clips. A tap: plays at once from its first note, looping; again: stops. **MODE held + pad**: starts on the next beat. **REC + a full pad**: REPLACE (the old one stays until the first note). **SHIFT + pad**: deleted. Colours: off = empty, red = drums, green = acid, pink = USER sound, blue = the others; bright = playing. Clips play on the line's sound as it is now, are not recorded in the loop, and are not saved (power off: gone) |
+| pads in **DRUMS** | the first drum track's 14 sounds, C2 (kick) on the bottom left, as drum machines; pressure = a **roll** on the beat grid, faster the harder: 1/8, 1/16, 1/32 (the screen says which); eased off, it stops |
+| pads in **PERFORM** (the default) | 14 perform effects: loops 1 bar to 1/16, filter shut / open, delay, crush, break, solo, drums only, all out, all off (LOOP 1/32 and DRIVE stay on the keys). Hold = while held; a short tap = latched. **Pressure** on a held filter / delay / crush: a light touch = 40 %, a full press = 100 % |
+| pads in **SCENES** | top row + the bottom left: scenes 1–8 (on the next bar when playing; bright: the last one, dim: stored, dark: empty); **REC + pad** (or SHIFT + pad) stores (purple); then mute / unmute tracks 1–4, all four (fast red blink while all are out), **A VOL** (green swell while it runs) |
+| pads in **MIDI** | 14 notes from C2 on **MIDI channel 16** only (USB and the MIDI OUT jack), no sound inside: for a drum machine or a sampler |
 | pads + a layer button held | that layer's 16 slots, in any mode: GLO + pads 1–8 recall the scenes, 9–16 store them… |
 | HOME + white key 9 | **LOOP EDIT**: the loop's notes one at a time (SELECT, a key = pitch, K1–K4 position / length / velocity / pitch, REC deletes, EDIT adds, EDIT held + keys: a chord) |
 | **the 12 buttons on the right** | in the FM-1's order. Top: ARP, NOTE REPEAT = SEL, SCALE = ENV (undo), CHORD = LFO (redo), GLOBE = EDIT, BT = GLO. Below: PATCH = HOME, PARA = SAVE, FX, SEQ, PLAY, REC |
 | **left buttons** | KNOB BANK = SHIFT, FADER BANK; **<** = TAP (held: MAP CONTROL), **>** = the pads' mode |
 | **8 knobs** | K1 the track (SELECT), K2 the sound (PRESET), K3–K6 the FM-1's K1–K4, K7 the tempo, K8 MASTER |
-| **pads** | their own mode only (PERFORM / PLAY / SCENES): they never follow a held layer button (the keys and the screen do) |
+| **pads** | their own mode only (CLIPS / DRUMS / PERFORM / SCENES / MIDI): they never follow a held layer button (the keys and the screen do) |
 | **4 faders** | the levels of tracks 1 to 4 (100 % at 4/5 of the travel) |
 | **FADER BANK** | goes round three banks: **levels** → **macros** ENERGY, SPACE, TENSION, DENSITY (LED lit) → **USER**, what MAP CONTROL gives them (LED blinking) |
 | **HOME** + white key 8, HOME let go first | **SOUNDS**: which sounds PRESET offers. The screen stays open with HOME let go (both hands free). One line a family F1–F9: the whole line red = family hidden, “F2” blue = partly, green = all offered; a square a sound; on the chosen line, the chosen sound's name (and under the title its place “3/5”, its family and ON / HIDDEN). Each family's name takes its colour. SELECT the line, PRESET the sound, SEL offered (green) / hidden (red), OCT− / OCT+ the whole family hidden / offered. Last line **MENU**: PRESET or OCT goes on to **MAP CONTROL** (OCT−: **OPTION CONTROL**), which have the same MENU line. Any menu button (HOME, FX, ARP, SEQ, GLO, SAVE) closes and saves. A hidden sound still plays where it is; PRESET and the family jumps skip it |
@@ -107,7 +107,8 @@ FILTER, DELAY, DRIVE, CRUSH on the whole mix; PITCH = BEND; MOD = MORPH.
 
 Pad colours: effects **blue** (loops), **orange** (filter, delay, drive, crush), **red** (breaks), white (all off);
 bright = running, medium = latched. GLO: stored scenes in blue, the last one lighter. SELECT: tracks in green (red =
-muted). ARP: purple. SAVE: kept sounds in amber. PLAY: green (orange on the drums), a pad lights while hit.
+muted). ARP: purple. SAVE: kept sounds in amber. DRUMS: red, a pad lights while hit. CLIPS: by the sound (red drums,
+green acid, pink USER, blue the others), bright while playing, blinking red while taking. MIDI: white.
 
 ## A, the live line
 
@@ -135,7 +136,7 @@ table; the steps are:
 |---|---|---|
 | 0 | `fm1_install.py --port SMK --info`, install, `--info` again | `SMK-37 Elite_8000300` after |
 | 1 | power on; play a key; power on holding HOME | splash then the FM-1 screen; sound; "SAFE START" |
-| 2 | every key soft then hard; OCT; pads PERFORM (hold, tap, pressure); PAD/STEP on drums, a pad pressed harder (roll); PAD/STEP again: SCENES (SHIFT + pad 2 stores, pad 2 recalls, pad 9 mutes track 1); faders; FADER BANK; wheels; pedal; the 8 encoders; SHIFT + K3; ENV / SHIFT + ENV; Bluetooth taps; button LEDs | as in the table above |
+| 2 | every key soft then hard; OCT; pads PERFORM (hold, tap, pressure); MODE (top right pad) to DRUMS, a pad pressed harder (roll); SCENES (REC + pad 2, REC let go first, stores; pad 2 recalls; the bottom row's 2nd pad mutes track 1); CLIPS (REC + pad 1, play, pad 1: loops; again: stop; MODE held + pad 1: on the beat); MIDI (channel 16, silent); faders; FADER BANK; wheels; pedal; the 8 encoders; SHIFT + K3; ENV / SHIFT + ENV; Bluetooth taps; button LEDs | as in the table above |
 | 3 | REC; EDIT (CAPTURE); GLO + pads (scenes); GLO + PLAY (chain); ARP + pads | as on the FM-1 |
 | 4 | T-8 on MIDI OUT, SELECT + pad 9, PLAY, change tempo, STOP | the T-8 follows |
 | 5 | SAVE, power off and on | the set comes back |

@@ -102,7 +102,9 @@ int main(void)
     CHECK(voices_sounding() > 0, "a key sounds");
     CHECK(midi_has(FM1_MIDI_USB, 0x90) && midi_has(FM1_MIDI_DIN, 0x90), "the key goes out on USB and the MIDI OUT jack");
     ev(SMK_KEY, 0, 0);
-    run_ms(2000);
+    run_ms(400);
+    CHECK(ui.splash_until == 0, "a key played: the boot screen goes");
+    run_ms(1600);
     CHECK(voices_sounding() == 0, "the key let go is silent");
 
     /* A (SELECT past track 4): the keys play A's own voice, not the last track (a key held over the move too) */
@@ -133,10 +135,11 @@ int main(void)
     run_ms(400);
     ev(SMK_PAD, 0, 0);
     CHECK(!ui.fx_on[0], "a held pad let go ends it");
-    tap(SMK_PAD, 6);                                    /* FILTER SHUT, tapped: latched */
+    tap(SMK_PAD, 5);                                    /* FILTER SHUT (LOOP 1/32 is not on the pads), tapped: latched */
     CHECK(ui.fx_on[6] && ui.fx_latched[6], "a tapped pad latches its effect");
-    CHECK(pad_rgb[6] != 0 && pad_rgb[6] != perform_colour(5), "the pad shows the effect running");
-    tap(SMK_PAD, 15);                                   /* ALL FX OFF */
+    CHECK(pad_rgb[5] == perform_colour(6) && pad_rgb[5] != perform_colour(5), "the pad shows the effect running");
+    CHECK(pad_rgb[PAD_MODE] == dim(0xFF6000, 110u), "MODE shows PERFORM's orange");
+    tap(SMK_PAD, 14);                                   /* ALL FX OFF (the 14th playing pad) */
     CHECK(!ui.fx_on[6], "ALL FX OFF");
 
     /* pressure on a held filter pad goes part of the way, then all the way */
@@ -199,17 +202,110 @@ int main(void)
     CHECK(!live.track[0].mute && !live.track[3].mute, "...and back");
     ev(SMK_BUTTON, SMK_B_SELECT, 0);
 
-    /* PAD/STEP: the pads play; on the drum track, a kick from pad 1 */
+    /* PAD/STEP: SCENES. Pads 1-8 recall, SHIFT + them store (or REC + them, valid on release), 9-12 mute the tracks */
     tap(SMK_BUTTON, SMK_B_PAD_STEP);
-    CHECK(smk.pad_mode == PADS_PLAY, "PAD/STEP: pads play");
-    v_enc[EN_SELECT] = 0;
+    CHECK(smk.pad_mode == PADS_SCENES, "PAD/STEP: scenes");
+    ev(SMK_BUTTON, SMK_B_SHIFT, 1);
+    tap(SMK_PAD, 1);
+    ev(SMK_BUTTON, SMK_B_SHIFT, 0);
+    run_ms(100);
+    CHECK(live.scene[1].valid, "SHIFT + pad 2 stores scene 2");
+    tap(SMK_PAD, 1);
+    run_ms(100);
+    CHECK(mirror.scene_last == 1, "pad 2 recalls scene 2");
+    CHECK(pad_rgb[1] == 0x60A0FF, "the scene just recalled is the bright pad");
+    run_ms(2100);                                       /* (the recall lands on the next bar: its mutes with it) */
+    ev(SMK_PAD, PAD_REC, 100);
+    ev(SMK_PAD, 3, 100);
+    ev(SMK_PAD, 3, 0);                                  /* the pad let go first: given up */
+    ev(SMK_PAD, PAD_REC, 0);
+    run_ms(100);
+    CHECK(!live.scene[3].valid && ui.msg_style == MSG_NOT_TAKEN, "REC + pad 4, the pad let go first: not stored");
+    ev(SMK_PAD, PAD_REC, 100);
+    ev(SMK_PAD, 2, 100);
+    ev(SMK_PAD, PAD_REC, 0);                            /* REC let go first: taken */
+    ev(SMK_PAD, 2, 0);
+    run_ms(100);
+    CHECK(live.scene[2].valid, "REC + pad 3, REC let go first: scene 3 stored");
+    tap(SMK_PAD, 9);
+    run_ms(50);
+    CHECK(live.track[0].mute, "the 2nd row's 2nd pad mutes track 1");
+    tap(SMK_PAD, 9);
+    run_ms(50);
+    CHECK(!live.track[0].mute, "...and back");
+    tap(SMK_PAD, 13);
+    run_ms(50);
+    CHECK(live.track[0].mute && live.track[2].mute, "the 13th playing pad mutes all four");
+    tap(SMK_PAD, 13);
+    run_ms(50);
+    CHECK(!live.track[0].mute, "...and back");
+
+    /* MODE (top right) tapped: MIDI, the pads' notes out on channel 16 only */
+    tap(SMK_PAD, PAD_MODE);
+    CHECK(smk.pad_mode == PADS_MIDI, "MODE: MIDI");
+    run_ms(2000);
+    midi_sent_n[FM1_MIDI_USB] = 0;
+    ev(SMK_PAD, 8, 100);
+    CHECK(note_ons(FM1_MIDI_USB, 0x9F, 36) == 1 && voices_sounding() == 0, "MIDI: the bottom left pad sends C2 on channel 16, silent");
+    ev(SMK_PAD, 8, 0);
+
+    /* CLIPS: REC + pad 1 arms; the first note starts the take; the pad again ends it and plays it, looping */
+    tap(SMK_PAD, PAD_MODE);
+    CHECK(smk.pad_mode == PADS_CLIPS, "MODE: CLIPS");
     for (int i = 0; i < 3; i++)
         ev(SMK_ENCODER, 0, 1);                          /* SELECT, 3 detents: track 4 */
     run_ms(50);
     CHECK(mirror.track == 3, "SELECT turns to track 4");
-    ev(SMK_PAD, 0, 120);
-    CHECK(voices_sounding() > 0, "pad 1 plays the kick");
+    ev(SMK_PAD, PAD_REC, 100);
+    ev(SMK_PAD, 0, 100);
+    ev(SMK_PAD, PAD_REC, 0);
     ev(SMK_PAD, 0, 0);
+    run_ms(20);
+    CHECK(crec.slot == 0 && crec.line == 3 && !crec.started, "REC + pad 1: the clip armed on track 4");
+    CHECK(pad_rgb[0] == 0xFF0000 || pad_rgb[0] == 0x100000, "the pad taking blinks red");
+    run_ms(300);
+    CHECK(!crec.started, "nothing played: not started");
+    ev(SMK_KEY, 0, 110);                                /* the take starts here */
+    CHECK(crec.started, "the first note starts the take");
+    ev(SMK_KEY, 0, 0);
+    run_ms(250);
+    ev(SMK_KEY, 2, 100);
+    ev(SMK_KEY, 2, 0);
+    run_ms(600);                                        /* ~ 1.8 beats at 120 */
+    tap(SMK_PAD, 0);
+    run_ms(20);
+    CHECK(crec.slot < 0 && clips[0].used && clips[0].count == 2, "the pad again: the take kept, two notes");
+    CHECK(clips[0].length % OLS_PPQN == 0 && clips[0].length >= OLS_PPQN, "its length rounded to the beat");
+    CHECK(clips[0].playing, "...and it plays");
+    int heard = 0;
+    for (int i = 0; i < 300; i++) {
+        run_ms(10);
+        heard += voices_sounding() > 0;
+    }
+    CHECK(heard > 0, "the clip sounds, looping");
+    CHECK(pad_rgb[0] == 0xFF0010, "a drum clip playing: bright red");
+    tap(SMK_PAD, 0);
+    run_ms(20);
+    CHECK(!clips[0].playing, "a tap stops it");
+    ev(SMK_PAD, PAD_MODE, 100);
+    tap(SMK_PAD, 0);
+    ev(SMK_PAD, PAD_MODE, 0);
+    run_ms(20);
+    CHECK(clips[0].playing && clips[0].origin % OLS_PPQN == 0 && smk.pad_mode == PADS_CLIPS,
+          "MODE + pad: it starts on the beat (and the mode stays)");
+    tap(SMK_PAD, 0);
+    ev(SMK_BUTTON, SMK_B_SHIFT, 1);
+    tap(SMK_PAD, 0);
+    ev(SMK_BUTTON, SMK_B_SHIFT, 0);
+    run_ms(20);
+    CHECK(!clips[0].used, "SHIFT + pad: the clip deleted");
+
+    /* DRUMS: the first drum track's 14 sounds, C2 on the bottom left */
+    tap(SMK_PAD, PAD_MODE);
+    CHECK(smk.pad_mode == PADS_DRUMS, "MODE: DRUMS");
+    ev(SMK_PAD, 8, 120);
+    CHECK(voices_sounding() > 0 && smk.pad_note[8] == 36, "the bottom left pad plays the kick");
+    ev(SMK_PAD, 8, 0);
 
     /* a drum pad pressed harder rolls on the grid (1/8, 1/16, 1/32), back to a plain hit when eased off */
     if (!live.clock.running)
@@ -225,34 +321,6 @@ int main(void)
     run_ms(500);
     CHECK(note_ons(FM1_MIDI_USB, 0x93, (uint8_t)smk.pad_note[2]) == rolled, "eased off: the roll stops");
     ev(SMK_PAD, 2, 0);
-
-    /* PAD/STEP again: SCENES. Pads 1-8 recall, SHIFT + them store, 9-12 mute the tracks */
-    tap(SMK_BUTTON, SMK_B_PAD_STEP);
-    CHECK(smk.pad_mode == PADS_SCENES, "PAD/STEP: scenes");
-    ev(SMK_BUTTON, SMK_B_SHIFT, 1);
-    tap(SMK_PAD, 1);
-    ev(SMK_BUTTON, SMK_B_SHIFT, 0);
-    run_ms(100);
-    CHECK(live.scene[1].valid, "SHIFT + pad 2 stores scene 2");
-    tap(SMK_PAD, 1);
-    run_ms(100);
-    CHECK(mirror.scene_last == 1, "pad 2 recalls scene 2");
-    CHECK(pad_rgb[1] == 0x60A0FF, "the scene just recalled is the bright pad");
-    run_ms(2100);                                       /* (the recall lands on the next bar: its mutes with it) */
-    tap(SMK_PAD, 8);
-    run_ms(50);
-    CHECK(live.track[0].mute, "pad 9 mutes track 1");
-    tap(SMK_PAD, 8);
-    run_ms(50);
-    CHECK(!live.track[0].mute, "...and back");
-    tap(SMK_PAD, 12);
-    run_ms(50);
-    CHECK(live.track[0].mute && live.track[2].mute, "pad 13 mutes all four");
-    tap(SMK_PAD, 12);
-    run_ms(50);
-    CHECK(!live.track[0].mute, "...and back");
-    tap(SMK_PAD, 14);
-    CHECK(!ui.fx_on[14], "pad 15 does nothing in SCENES");
     tap(SMK_BUTTON, SMK_B_PAD_STEP);
     CHECK(smk.pad_mode == PADS_PERFORM, "PAD/STEP goes round to PERFORM");
 

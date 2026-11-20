@@ -29,6 +29,7 @@ static uint32_t smk_master_pct(void);
 #ifdef OLS_NO_BLUETOOTH
 #define APP_SPLASH              /* the boot logo (va/app/src/splash.c): room for it without the Bluetooth stack */
 #endif
+#define APP_CLIPS               /* the pads keep clips: va/app/src/clips.c */
 #define APP_TOUCH               /* key velocity and pressure: the SMK-37's calibrated keys, the pads */
 #define APP_OVERLOAD            /* rendering over 90 % of its time: app_overload() sheds a voice */
 #ifdef OLS_VERSION

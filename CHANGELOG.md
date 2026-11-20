@@ -1,5 +1,16 @@
 # Changelog
 
+## 21 November 2026 — the pads redone: MODE, REC, CLIPS, DRUMS, MIDI
+
+- The two right pads set up the others: **MODE** (top right, a tap: CLIPS → DRUMS → PERFORM → SCENES → MIDI, in the
+  mode's colour) and **REC** (bottom right: REC + pad, REC let go first, records a clip or stores a scene).
+- **CLIPS**: 14 phrases on a pad; the take starts at the first note, any pad / button ends it, its own pad plays it;
+  rounded to the beat, 4 bars at most; MODE + pad starts on the beat; SHIFT + pad deletes. Colours by sound.
+- **DRUMS** replaces PLAY (the pads no longer copy the keyboard): the first drum track, kick bottom left, rolls kept.
+- **PERFORM** on 14 pads (LOOP 1/32 and DRIVE stay on the keys); **MIDI**: channel 16 only.
+- Fixed: keys played at power-on did not end the boot logo. PERFORM's title: "∞ DIV / FILTER".
+- Host test: 90 checks (clips, REC valid on release, MODE, MIDI, DRUMS, the boot screen).
+
 ## 20 November 2026 — breathing keys on the screen keyboard
 
 As on the FM-1, on the screen keyboard (the SMK-37's LEDs have one level).
