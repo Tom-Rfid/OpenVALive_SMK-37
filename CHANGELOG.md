@@ -1,5 +1,11 @@
 # Changelog
 
+## 20 November 2026 — the top left pad no longer flashes green during the logo
+
+- The pads' LED chain gets a longer reset before each update (200 bytes, was 36): the top left pad, first on the
+  chain, flashed green during the logo and the help.
+- LOAD USER (CORE) takes the sound at once, also while the loop plays.
+
 ## 20 November 2026 — sound levels evened out
 
 - Louder: DEEP SUB, ARP and DUB CHORD by 20 %; RUBBER, PLUCK, POLY, VINTAGE KEYS, LUTE and the whole F7 family (PAD,

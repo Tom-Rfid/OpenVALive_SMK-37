@@ -10,7 +10,12 @@
 #include "lcd.inc"
 #include "../glue.h"
 
-static uint8_t rgb_buffer[420] __attribute__((aligned(4)));
+/* the pads' LED chain: a low "reset" first, then 24 bits a pad, a byte of SPI a bit. M-VAVE's 36 bytes of reset are
+ * short (about 54 us if a byte takes 1.5 us; the newer WS2812 want 280 us): the top left pad, the first on the chain,
+ * flashed green during the logo and the help, when the pads change at every screen transfer. A longer reset is the
+ * usual cure: 200 bytes. */
+#define RGB_RESET 200u
+static uint8_t rgb_buffer[RGB_RESET + 16u * 24u] __attribute__((aligned(4)));
 static uint32_t rgb_colors[16];
 static unsigned rgb_dirty = 0xffff;
 /* the pads' order on the LED chain */
@@ -63,7 +68,7 @@ void smk37_rgb_service(void)
         unsigned rgb = rgb_colors[i], grb = ((rgb & 0xff00) << 8) | ((rgb >> 8) & 0xff00) | (rgb & 255);
         for (unsigned n = 0; n < 6; ++n) {
             uint32_t word = nibble[(grb >> (20 - 4 * n)) & 15];
-            memcpy(rgb_buffer + 36 + 24 * rgb_map[i] + 4 * n, &word, 4);
+            memcpy(rgb_buffer + RGB_RESET + 24 * rgb_map[i] + 4 * n, &word, 4);
         }
     }
     fm1_lcd_deselect();
