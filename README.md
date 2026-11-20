@@ -50,6 +50,10 @@ playing: light grey off, a white band at the bottom offered, bright white on, wh
 
 <p align="center"><img src="docs/img/pads-all-modes-keys.png" width="560" alt="Each pad with the key it stands for, in the screen keyboard's colours"></p>
 
+MODE held alone a moment shows the pads of the mode on the screen:
+
+<p align="center"><img src="docs/img/screen-pad-map.png" width="320" alt="The SMK-37's screen with MODE held: the PERFORM pads, each in its colour with its short name"></p>
+
 Every layer, the buttons, the set-up menus, the pads and the sounds:
 **[22 — At a glance](docs/_EN/22-screen-keyboard-and-menus.md)** · 🇫🇷 **[22 — Repères](docs/_FR/22-reperes-ecran-et-menus.md)**
 

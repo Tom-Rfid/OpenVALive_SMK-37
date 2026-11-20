@@ -18,7 +18,7 @@ Each key shows its name (3 characters at most, written top to bottom); a dark or
 
 ## Help at start
 
-Two pages in turn every 3 s. Notes leave them up; SEL (NOTE on the SMK-37) turns them off for good; any other button or a knob closes them and does its job. A logo cut short skips them. OPTION CONTROL: HELP AT START.
+Two pages in turn every 3 s. Notes leave them up; SEL (NOTE on the SMK-37) turns them off for good; any other button or a knob closes them and does its job. A logo cut short skips them; after three rounds (18 s) they go by themselves. OPTION CONTROL: HELP AT START.
 
 <p><img src="../img/screen-help-1.png" width="320" alt="KEY COLOURS"> <img src="../img/screen-help-2.png" width="320" alt="IN PLAY"></p>
 
@@ -218,7 +218,7 @@ Every parameter of the line's sound: oscillators, filter, envelopes, then the mo
 
 ## The pads
 
-16 pads: 14 to play, and on the right (framed) MODE at the top, SWITCH: a tap = the next mode, the pad takes its colour; REC at the bottom: REC + a pad. The > button (PAD/STEP) also goes round the modes.
+16 pads: 14 to play, and on the right (framed) MODE at the top, SWITCH: a tap = the next mode, the pad takes its colour, held a moment = the pads’ map on the screen; REC at the bottom: REC + a pad. The > button (PAD/STEP) also goes round the modes.
 
 Three levels. 1 — every mode in full words, in the pads’ colours:
 
@@ -231,6 +231,10 @@ Three levels. 1 — every mode in full words, in the pads’ colours:
 3 — each pad with the key it stands for, as the screen keyboard draws it (same function, same colour: pink = valid on release on the keyboard, mint = acts at once, violet = a track playing; a black key between its two white keys in dark grey). The pad’s background shows that key’s light by default, layer held, playing, the four tracks playing: light grey off, a white band at the bottom offered, bright white on, white rays on grey blinking (DRUMS, a drum track: kicks and the open hat blink, snares and the closed hat lit):
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
+
+MODE held alone a moment: the mode’s pads on the screen, in place of the scope:
+
+<p><img src="../img/screen-pad-map.png" width="320" alt="the pads map on the screen"></p>
 
 ### CLIPS
 

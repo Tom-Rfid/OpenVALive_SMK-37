@@ -345,6 +345,10 @@ void fm1_audio_resume(void);
 #define APP_SAVE_BEGIN() fm1_audio_suspend()
 #define APP_SAVE_END() fm1_audio_resume()
 
+/* MODE held a moment (no pad with it): the pads' map in place of the scope (smk_pad_map, below) */
+static int smk_pad_map(void);
+#define APP_SCOPE_OVERLAY() smk_pad_map()
+
 /* ------------------------------------------------------------------ the app (OpenVALive CORE) */
 
 #include "../../va/app/openvalive_app.c"
@@ -403,6 +407,8 @@ static struct {
     uint32_t last_frame;
     int8_t rec_target;                          /* REC + this pad, waiting for REC to be let go (valid on release) */
     uint8_t mode_used;                          /* MODE held served a pad: letting it go does not change the mode */
+    uint8_t mode_map;                           /* MODE held long: its map shown, letting it go changes nothing */
+    uint32_t mode_down_at;                      /* when MODE was pressed */
 } smk = { .master_q12 = 2867u, .pad_mode = PADS_PERFORM, .rec_target = -1 };
 
 static int shift_held(void) { return (smk.phys >> SMK_B_SHIFT) & 1u; }
@@ -620,6 +626,8 @@ static void setup_pad(uint32_t pad, int down)
 {
     if (pad == PAD_MODE) {
         if (down) {
+            smk.mode_down_at = fm1_millis();
+            smk.mode_map = 0;
             smk.mode_used = (uint8_t)clip_take_end();
             if (smk.pad_mode == PADS_CLIPS) {   /* a clip pad held, then MODE: that clip goes on looping (LOOP) */
                 for (uint32_t p = 0; p < SMK_PADS; p++) {
@@ -633,8 +641,11 @@ static void setup_pad(uint32_t pad, int down)
             }
             return;
         }
-        if (smk.mode_used)
+        if (smk.mode_used || smk.mode_map) {    /* (a pad with it, or its map looked at: no change) */
+            smk.mode_map = 0;
+            ui.redraw = 1;
             return;
+        }
         static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "PERFORM", "SCENES", "MIDI CH 16" };
         smk.pad_mode = (uint8_t)((smk.pad_mode + 1u) % PAD_MODES);
         app_say("PADS", NAME[smk.pad_mode]);
@@ -1083,6 +1094,79 @@ static uint32_t clip_colour(const clip_t *c)
 
 /* the pads' modes' colours (the MODE pad shows the one it is in) */
 static const uint32_t MODE_COLOUR[PAD_MODES] = { 0x20FFA0, 0xFF1010, 0xFF6000, 0x2040FF, 0xC0C0C0 };
+
+#define MODE_MAP_MS 400u                        /* MODE held this long, alone: the pads' map shows */
+
+/* the pads' map shown while MODE is held (generated from the docs' pads sheet): each pad's short name and type */
+static const struct { char name[4]; uint8_t type; } PAD_MAP[PAD_MODES][SMK_PADS] = {
+    {
+        { "C1", 4 }, { "C2", 4 }, { "C3", 4 }, { "C4", 4 },
+        { "C5", 4 }, { "C6", 4 }, { "C7", 4 }, { "SW", 10 },
+        { "C8", 4 }, { "C9", 4 }, { "C10", 4 }, { "C11", 4 },
+        { "C12", 4 }, { "C13", 4 }, { "C14", 4 }, { "REC", 11 },
+    },
+    {
+        { "HFT", 5 }, { "PHH", 5 }, { "LT", 5 }, { "OHH", 5 },
+        { "LMT", 5 }, { "HMT", 5 }, { "CRS", 5 }, { "SW", 10 },
+        { "KCK", 5 }, { "RIM", 5 }, { "SNR", 5 }, { "CLP", 5 },
+        { "SN2", 5 }, { "LFT", 5 }, { "CHH", 5 }, { "REC", 11 },
+    },
+    {
+        { "L1", 0 }, { "L2", 0 }, { "L4", 0 }, { "L8", 0 },
+        { "L16", 0 }, { "SLC", 1 }, { "FL-", 1 }, { "SW", 10 },
+        { "FL+", 1 }, { "DLY", 1 }, { "CRU", 1 }, { "BRK", 2 },
+        { "SOL", 2 }, { "OUT", 2 }, { "OFF", 3 }, { "REC", 11 },
+    },
+    {
+        { "SC1", 7 }, { "SC2", 7 }, { "SC3", 7 }, { "SC4", 7 },
+        { "SC5", 7 }, { "SC6", 7 }, { "SC7", 7 }, { "SW", 10 },
+        { "SC8", 7 }, { "M1", 8 }, { "M2", 8 }, { "M3", 8 },
+        { "M4", 8 }, { "MA", 8 }, { "AV", 9 }, { "REC", 11 },
+    },
+    {
+        { "G2", 6 }, { "G#2", 6 }, { "A2", 6 }, { "A#2", 6 },
+        { "B2", 6 }, { "C3", 6 }, { "C#3", 6 }, { "SW", 10 },
+        { "C2", 6 }, { "C#2", 6 }, { "D2", 6 }, { "D#2", 6 },
+        { "E2", 6 }, { "F2", 6 }, { "F#2", 6 }, { "REC", 11 },
+    },
+};
+
+
+/* MODE held alone a moment: the pads of the mode they are in, drawn small in place of the scope (as the keyboard is
+ * for a layer button), each in its colour with its short name, MODE and REC framed on the right */
+static int smk_pad_map(void)
+{
+    if (!((smk.pad_down >> PAD_MODE) & 1u) || smk.mode_used || fm1_millis() - smk.mode_down_at < MODE_MAP_MS)
+        return 0;
+    static const uint32_t TYPE_RGB[12] = { 0x00C0FF, 0xFF7000, 0xFF1A2E, 0xF2F2F2, 0x20FFA0, 0xFF3A20, 0xC8C8C8,
+                                           0x4A7DFF, 0x22B04A, 0x00E070, 0, 0xFF1010 };
+    if (!smk.mode_map) {
+        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "PERFORM", "SCENES", "MIDI CH 16" };
+        app_say("PADS", NAME[smk.pad_mode]);
+        ui.msg_until = plat_ms() + 60000u;      /* (while MODE is held) */
+    }
+    smk.mode_map = 1;
+    const int32_t pw = 25, ph = 24, gap = 3, side = 5;
+    const int32_t x0 = (240 - (8 * pw + 7 * gap + side)) / 2, y0 = (SCOPE_H - (2 * ph + gap)) / 2;
+    cv_begin(240, SCOPE_H, C_BLACK);
+    for (uint32_t p = 0; p < SMK_PADS; p++) {
+        int32_t col = (int32_t)(p % 8u), row = (int32_t)(p / 8u);
+        int32_t x = x0 + col * (pw + gap) + (col == 7 ? side : 0), y = y0 + row * (ph + gap);
+        uint8_t t = PAD_MAP[smk.pad_mode][p].type;
+        uint32_t c = t == 10u ? MODE_COLOUR[smk.pad_mode] : (t < 12u ? TYPE_RGB[t] : 0x24252Cu);
+        cv_rect(x, y, pw, ph, RGB((c >> 16) & 255u, (c >> 8) & 255u, c & 255u));
+        const char *n = PAD_MAP[smk.pad_mode][p].name;
+        cv_text(x + (pw - text_w(&FONT_XS, n)) / 2, y + (ph - (int32_t)FONT_XS.h) / 2, &FONT_XS, n, C_BLACK);
+    }
+    int32_t fx = x0 + 7 * (pw + gap) + side - 3, fy = y0 - 3, fw = pw + 6, fh = 2 * ph + gap + 6;
+    cv_rect(fx, fy, fw, 1, C_WHITE);            /* MODE and REC, framed */
+    cv_rect(fx, fy + fh - 1, fw, 1, C_WHITE);
+    cv_rect(fx, fy, 1, fh, C_WHITE);
+    cv_rect(fx + fw - 1, fy, 1, fh, C_WHITE);
+    cv_blit(0, SCOPE_Y);
+    ui.redraw = 1;
+    return 1;
+}
 
 /* the boot screen's time (and the help pages after it): two pads go round the 16 clockwise (the top row left to
  * right, the bottom row right to left), one lap a second, in the next mode's colour each lap */

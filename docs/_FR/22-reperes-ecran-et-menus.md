@@ -18,7 +18,7 @@ Chaque touche porte son nom (3 caractères au plus, écrits de haut en bas) ; un
 
 ## L’aide au démarrage
 
-Deux pages qui alternent toutes les 3 s. Les notes les laissent ; SEL (NOTE sur le SMK-37) les coupe pour de bon ; tout autre bouton ou un bouton rotatif les ferme et fait son travail. Un logo coupé avant la fin les saute. Se règle dans OPTION CONTROL : HELP AT START.
+Deux pages qui alternent toutes les 3 s. Les notes les laissent ; SEL (NOTE sur le SMK-37) les coupe pour de bon ; tout autre bouton ou un bouton rotatif les ferme et fait son travail. Un logo coupé avant la fin les saute ; après trois tours (18 s), elles s'en vont seules. Se règle dans OPTION CONTROL : HELP AT START.
 
 <p><img src="../img/screen-help-1.png" width="320" alt="KEY COLOURS"> <img src="../img/screen-help-2.png" width="320" alt="IN PLAY"></p>
 
@@ -218,7 +218,7 @@ Tous les paramètres du son de la ligne : oscillateurs, filtre, enveloppes, puis
 
 ## Les pads
 
-16 pads : 14 de jeu, et à droite (encadrés) MODE en haut, SWITCH : une tape = le mode suivant, le pad prend sa couleur ; REC en bas : REC + un pad. Le bouton > (PAD/STEP) fait aussi le tour des modes.
+16 pads : 14 de jeu, et à droite (encadrés) MODE en haut, SWITCH : une tape = le mode suivant, le pad prend sa couleur, tenu un instant = la carte des pads à l’écran ; REC en bas : REC + un pad. Le bouton > (PAD/STEP) fait aussi le tour des modes.
 
 Trois niveaux de lecture. 1 — tous les modes en toutes lettres, dans les couleurs des pads :
 
@@ -231,6 +231,10 @@ Trois niveaux de lecture. 1 — tous les modes en toutes lettres, dans les coule
 3 — chaque pad avec la touche qu’il remplace, comme le clavier à l’écran la dessine (même fonction, même couleur : rose = validé au relâché sur le clavier, menthe = agit tout de suite, violet = piste qui joue ; une touche noire entre ses deux blanches gris foncé). Le fond du pad montre la lumière de cette touche par défaut, couche tenue, en lecture, les quatre pistes qui jouent : gris clair éteinte, bandeau blanc en bas proposée, blanc vif allumée, rayons blancs sur gris clignotante (en DRUMS, une piste de batterie : grosses caisses et charley ouvert clignotent, caisses claires et charley fermé allumés) :
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
+
+MODE tenu seul un instant : la carte des pads du mode à l’écran, à la place de l’oscilloscope :
+
+<p><img src="../img/screen-pad-map.png" width="320" alt="the pads map on the screen"></p>
 
 ### CLIPS
 

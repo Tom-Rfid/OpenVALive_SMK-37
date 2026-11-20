@@ -1,5 +1,13 @@
 # Changelog
 
+## 20 November 2026 — the help pages go by themselves; GOA LEAD and METAL 10 % lower; MODE held shows the pads' map
+
+- The help pages go by themselves after three rounds (six pages, 18 s).
+- GOA LEAD and METAL 10 % lower.
+- SMK-37: MODE held alone a moment shows the pads' map on the screen, in place of the scope (each pad in its colour
+  with its short name, MODE and REC framed); letting it go keeps the mode, a tap still changes it. (CORE: a target may
+  draw in place of the scope, APP_SCOPE_OVERLAY.)
+
 ## 20 November 2026 — the pads during the logo
 
 - During the logo and the help pages, two pads go round the 16 clockwise, one lap a second, in the next mode's

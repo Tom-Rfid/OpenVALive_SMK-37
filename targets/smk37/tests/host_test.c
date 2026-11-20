@@ -45,8 +45,39 @@ void smk_panel_poll(void) {}
 void smk_panel_service(void) {}
 void smk_led(unsigned b, unsigned on) { leds_on = on ? (leds_on | 1u << b) : (leds_on & ~(1u << b)); }
 void smk_pad_rgb(unsigned p, uint32_t rgb) { pad_rgb[p] = rgb; }
-void smk_screen_fill(unsigned x, unsigned y, unsigned w, unsigned h, uint16_t c) { (void)x; (void)y; (void)w; (void)h; (void)c; }
-void smk_screen_blit_be(unsigned x, unsigned y, unsigned w, unsigned h, const uint16_t *p) { (void)x; (void)y; (void)w; (void)h; (void)p; }
+static uint16_t screen[240 * 240];               /* what the screen shows (shot(): a picture of it, SMK_SHOTS=dir) */
+void smk_screen_fill(unsigned x, unsigned y, unsigned w, unsigned h, uint16_t c)
+{
+    for (unsigned j = y; j < y + h && j < 240u; j++)
+        for (unsigned i = x; i < x + w && i < 240u; i++)
+            screen[j * 240u + i] = c;
+}
+void smk_screen_blit_be(unsigned x, unsigned y, unsigned w, unsigned h, const uint16_t *p)
+{
+    for (unsigned j = 0; j < h && y + j < 240u; j++)
+        for (unsigned i = 0; i < w && x + i < 240u; i++) {
+            uint16_t v = p[j * w + i];
+            screen[(y + j) * 240u + x + i] = (uint16_t)((v >> 8) | (v << 8));
+        }
+}
+static void shot(const char *name)
+{
+    const char *dir = getenv("SMK_SHOTS");
+    if (!dir)
+        return;
+    char path[256];
+    snprintf(path, sizeof path, "%s/%s.ppm", dir, name);
+    FILE *f = fopen(path, "wb");
+    if (!f)
+        return;
+    fprintf(f, "P6 240 240 255\n");
+    for (unsigned k = 0; k < 240u * 240u; k++) {
+        uint16_t c = screen[k];
+        unsigned char rgb[3] = { (unsigned char)((c >> 11) << 3), (unsigned char)(((c >> 5) & 63u) << 2), (unsigned char)((c & 31u) << 3) };
+        fwrite(rgb, 1, 3, f);
+    }
+    fclose(f);
+}
 uint32_t smk_ticks24(void) { return now_ms * 24000u; }
 void smk_audio_set_render(smk_render_fn fn) { render_fn = fn; }
 void smk_audio_set_master(uint32_t q12) { (void)q12; }
@@ -226,6 +257,15 @@ int main(void)
     CHECK(!live.track[0].mute && !live.track[3].mute, "...and back");
     ev(SMK_BUTTON, SMK_B_SELECT, 0);
 
+    /* MODE held alone a moment: the pads' map on the screen, and letting it go keeps the mode; a tap goes on */
+    ev(SMK_PAD, PAD_MODE, 100);
+    run_ms(600);
+    CHECK(smk.mode_map == 1, "MODE held: the pads' map shows");
+    shot("pad-map");
+    ev(SMK_PAD, PAD_MODE, 0);
+    run_ms(50);
+    CHECK(smk.pad_mode == PADS_PERFORM && smk.mode_map == 0, "...and letting it go keeps the mode");
+
     /* PAD/STEP: SCENES. Pads 1-8 recall, SHIFT + them store (or REC + them, valid on release), 9-12 mute the tracks */
     tap(SMK_BUTTON, SMK_B_PAD_STEP);
     CHECK(smk.pad_mode == PADS_SCENES, "PAD/STEP: scenes");
@@ -269,8 +309,10 @@ int main(void)
     CHECK(smk.pad_mode == PADS_MIDI, "MODE: MIDI");
     run_ms(2000);
     midi_sent_n[FM1_MIDI_USB] = 0;
+    int voices_before = voices_sounding();              /* (the loops may be playing a note right now) */
     ev(SMK_PAD, 8, 100);
-    CHECK(note_ons(FM1_MIDI_USB, 0x9F, 36) == 1 && voices_sounding() == 0, "MIDI: the bottom left pad sends C2 on channel 16, silent");
+    CHECK(note_ons(FM1_MIDI_USB, 0x9F, 36) == 1 && voices_sounding() <= voices_before,
+          "MIDI: the bottom left pad sends C2 on channel 16, silent");
     ev(SMK_PAD, 8, 0);
 
     /* CLIPS: REC + pad 1 arms; the first note starts the take; the pad again ends it and plays it, looping */
