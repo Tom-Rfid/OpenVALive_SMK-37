@@ -45,9 +45,8 @@ In short:
 <p align="center"><img src="docs/img/pads-all-modes-short.png" width="560" alt="The pads in each mode, in short, in the pads' colours"></p>
 
 And each pad as the key it stands for, drawn as the screen keyboard draws it (pink: valid on release on the keyboard,
-mint: acts at once, violet: a track playing); the pad's background shows its light by default, playing: light grey
-off, bright white on (the tracks' mutes and MUTE ALL). Only a clip armed or in LOOP, REC during a take and MUTE ALL
-when every track is out blink:
+mint: acts at once, violet: a track playing); the pad's background shows that key's light by default, layer held and
+playing: light grey off, off-white offered, bright white on, white rays blinking:
 
 <p align="center"><img src="docs/img/pads-all-modes-keys.png" width="560" alt="Each pad with the key it stands for, in the screen keyboard's colours"></p>
 

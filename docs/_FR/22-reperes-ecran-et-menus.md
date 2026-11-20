@@ -228,7 +228,7 @@ Trois niveaux de lecture. 1 — tous les modes en toutes lettres, dans les coule
 
 <p align="center"><img src="../img/pads-all-modes-short.png" width="560" alt="pads"></p>
 
-3 — chaque pad avec la touche qu’il remplace, comme le clavier à l’écran la dessine (même fonction, même couleur : rose = validé au relâché sur le clavier, menthe = agit tout de suite, violet = piste qui joue ; une touche noire entre ses deux blanches gris foncé). Le fond du pad montre sa lumière par défaut (allumé, en lecture, les quatre pistes qui jouent) : gris clair éteint, blanc vif allumé. Clignotent seulement : un clip armé (rouge rapide) ou en LOOP (vert / violet), REC pendant une prise, MUTE ALL quand toutes les pistes sont coupées (rouge rapide) :
+3 — chaque pad avec la touche qu’il remplace, comme le clavier à l’écran la dessine (même fonction, même couleur : rose = validé au relâché sur le clavier, menthe = agit tout de suite, violet = piste qui joue ; une touche noire entre ses deux blanches gris foncé). Le fond du pad montre la lumière de cette touche par défaut, couche tenue, en lecture, les quatre pistes qui jouent : gris clair éteinte, blanc cassé proposée, blanc vif allumée, rayons blancs clignotante (en DRUMS, une piste de batterie : grosses caisses et charley ouvert clignotent, caisses claires et charley fermé allumés) :
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
 
