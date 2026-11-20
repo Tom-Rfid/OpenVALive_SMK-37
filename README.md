@@ -39,6 +39,11 @@ The 16 pads, mode by mode; framed on the right, **SWITCH** (MODE: the next mode)
 
 <p align="center"><img src="docs/img/pads-all-modes.png" width="560" alt="The pads in each mode: CLIPS, DRUMS, PERFORM, SCENES, MIDI; on the right SWITCH and REC + a pad"></p>
 
+The same in short, as the screen keyboard writes them, in its colours (pink: loops and scenes, mint: acts at once,
+violet: a track playing):
+
+<p align="center"><img src="docs/img/pads-all-modes-keys.png" width="560" alt="The pads in each mode in short, in the screen keyboard's colours"></p>
+
 Every layer, the buttons, the set-up menus, the pads and the sounds:
 **[22 — At a glance](docs/_EN/22-screen-keyboard-and-menus.md)** · 🇫🇷 **[22 — Repères](docs/_FR/22-reperes-ecran-et-menus.md)**
 

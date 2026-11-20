@@ -220,6 +220,14 @@ Every parameter of the line's sound: oscillators, filter, envelopes, then the mo
 
 16 pads: 14 to play, and on the right (framed) MODE at the top, SWITCH: a tap = the next mode, the pad takes its colour; REC at the bottom: REC + a pad. The > button (PAD/STEP) also goes round the modes.
 
+Every mode in full words, in the pads’ colours:
+
+<p align="center"><img src="../img/pads-all-modes.png" width="560" alt="pads"></p>
+
+The same in short, as the screen keyboard writes them, in its colours (same function, same colour: pink = loops and scenes, mint = acts at once, violet = a track playing):
+
+<p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
+
 ### CLIPS
 
 14 clips: REC + pad arms one, the first note starts the take (4 bars at most). Tap = SINGLE, MODE + pad = LOOP latched. SHIFT + pad: delete. A clip's colour: red drums, green acid, pink USER, blue the others.
