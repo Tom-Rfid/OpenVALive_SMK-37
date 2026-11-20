@@ -228,7 +228,7 @@ Three levels. 1 — every mode in full words, in the pads’ colours:
 
 <p align="center"><img src="../img/pads-all-modes-short.png" width="560" alt="pads"></p>
 
-3 — each pad with the key it stands for, as the screen keyboard draws it (same function, same colour: pink = valid on release on the keyboard, mint = acts at once, violet = a track playing; a black key between its two white keys in grey). The pad’s background shows its light: off-white off, bright white on, white rays blinking (an example in each mode):
+3 — each pad with the key it stands for, as the screen keyboard draws it (same function, same colour: pink = valid on release on the keyboard, mint = acts at once, violet = a track playing; a black key between its two white keys in dark grey). The pad’s background shows its light by default (on, playing, the four tracks playing): light grey off, bright white on. Only these blink: a clip armed (fast red) or in LOOP (green / violet), REC during a take, MUTE ALL when every track is out (fast red):
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
 
