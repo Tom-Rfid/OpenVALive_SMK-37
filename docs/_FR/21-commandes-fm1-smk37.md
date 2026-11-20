@@ -17,7 +17,7 @@ pédale, plus de touches).
 | `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapé : la boucle se relâche | couche jeu (16 effets), titre « ∞ DIV / FILTER » |
 | `B_ARP` | ARP | ARP | sur A : mode d'arpège | couche créative |
 | `B_GLO` | GLO | BT | — | couche scènes : 1–8 LOAD, 9–16 SAVE (roses) ; GLO + SEL : MAP CONTROL ; GLO + PLAY : chaîne |
-| `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, SOUNDS (8), LOOP EDIT (9), OPTION CONTROL (10) : validés au relâché |
+| `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (touche blanche 7), SOUNDS (touche blanche 8), LOOP EDIT (4e touche noire) : validés au relâché |
 | `B_SAVE` | SAVE | PARA | — (seul : rien) | validé au relâché : touches blanches 1–8 LOAD USER 1–8, 9–16 SAVE en USER 1–8, 1re touche noire **SAVE ALL** (le live set ; clignote quand il y a quelque chose à sauver) |
 | `B_ENV` / `B_LFO` | ENV / LFO | SCALE / CHORD | UNDO / REDO | — |
 | `B_EDIT` | EDIT | GLOBE | CAPTURE (ENV l'annule) ; dans un menu : valeur par défaut de la ligne ; clignote pendant l'enregistrement | EDIT + note : punch ; LOOP EDIT : EDIT + touches = accord |

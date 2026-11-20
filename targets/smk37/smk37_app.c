@@ -677,6 +677,8 @@ static void pad_event(uint32_t pad, int velocity)
         ui.touched = 1;                         /* (the boot screen goes) */
     int i = play_index(pad);
     if (i < 0) {
+        smk.pad_slot[pad] = 0xFE;               /* (no note, no roll, no pressure) */
+        smk.roll_level[pad] = 0;
         setup_pad(pad, velocity != 0);
         return;
     }
@@ -848,8 +850,8 @@ static void pad_rolls(void)
  * and vibrato). */
 static void pressure_event(uint32_t pad, int value)
 {
-    if (pad >= SMK_PADS || value < 0)
-        return;
+    if (pad >= SMK_PADS || value < 0 || play_index(pad) < 0)
+        return;                                 /* (MODE and REC: no pressure) */
     int moved = value - smk.pad_press[pad];
     if (moved > -3 && moved < 3 && value != 0)
         return;
@@ -1078,9 +1080,20 @@ static uint32_t clip_colour(const clip_t *c)
     return f == 4 ? 0xFF0010 : (f == 1 ? 0x00FF20 : (f == FAMILIES ? 0xFF2080 : 0x0040FF));
 }
 
+/* the boot screen's time: a wave goes over the pads, left to right, the top row mint, the bottom one orange (the
+ * logo's colours); then each pad its mode's colour */
+static uint32_t boot_wave(uint32_t pad)
+{
+    uint32_t col = pad % 8u, t = (fm1_millis() / 3u + 512u - col * 48u) % 512u;
+    uint32_t level = t < 256u ? t : 511u - t;   /* 0 .. 255 .. 0 */
+    return dim(pad < 8u ? 0x20FFA0 : 0xFF5A24, level * level / 256u);
+}
+
 static uint32_t pad_colour(uint32_t pad)
 {
     /* the pads show their own mode only (a held layer is on the keys and the screen) */
+    if (ui.splash_until)
+        return boot_wave(pad);
     uint32_t held = (smk.pad_down >> pad) & 1u;
     if (pad == PAD_MODE) {                        /* MODE: the mode's colour */
         static const uint32_t MODE_COLOUR[PAD_MODES] = { 0x20FFA0, 0xFF1010, 0xFF6000, 0x2040FF, 0xC0C0C0 };
@@ -1129,11 +1142,11 @@ static uint32_t pad_colour(uint32_t pad)
         uint32_t up = ph < 1000u ? 1000u - ph : ph - 1000u;   /* 1000 .. 0 .. 1000 */
         return dim(0x00FF60, 20u + up * 235u / 1000u);
     }
-    if (smk.pad_mode == PADS_MIDI)                /* MIDI: white, lit while hit */
-        return held ? 0xFFFFFF : 0x0C0C0C;
+    if (smk.pad_mode == PADS_MIDI)                /* MIDI: white while hit, else off */
+        return held ? 0xFFFFFF : 0;
     if ((smk.pad_down >> PAD_REC) & 1u)           /* REC held: the five kits, the pads' one bright */
         return i < DR_KIT_COUNT ? (i == set.pad_kit || smk.rec_target == i ? 0xFF2000 : 0x300800) : 0;
-    return held ? 0xFF2000 : 0x280000;            /* DRUMS: red, lit while hit */
+    return held ? 0xFF2000 : 0;                   /* DRUMS: red while hit, else off */
 }
 
 static void update_lights(void)
@@ -1193,6 +1206,8 @@ void smk_app_boot(void)
     (void)fm1_bluetooth_configure(0);           /* no Bluetooth: its radio stays off */
 #endif
     smk_panel_init();
+    for (uint32_t p = 0; p < SMK_PADS; p++)
+        smk_pad_rgb(p, 0);                      /* the pads off at once (they keep the last firmware's colours) */
     palette_set(1u);                            /* (fm1-base APP_PALETTE, as on the FM-1) the screen's greys and values (fm1-base's main does it on the FM-1) */
 #ifdef APP_SPLASH
     app_splash();                               /* the logo and the version (the first thing to drop if flash is short) */

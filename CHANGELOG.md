@@ -1,5 +1,11 @@
 # Changelog
 
+## 20 November 2026 — pads at power-on, MODE / REC held
+
+- At power-on the pads go off at once, then a wave (mint on top, orange below) while the boot screen shows.
+- Fixed: MODE or REC held made a roll (a repeated note, "ROLL 1/32"): the set-up pads take no pressure.
+- DRUMS and MIDI: the pads off until hit. And OpenVALive CORE's changes (hints, HOME keys, CAPTURE, sounds).
+
 ## 20 November 2026 — scroll bars, NEXT PAGE
 
 - MAP CONTROL, OPTION CONTROL and SOUND EDIT show a scroll bar on the right when their list is longer than the screen.
