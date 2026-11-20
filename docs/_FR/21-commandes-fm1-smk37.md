@@ -14,7 +14,7 @@ pédale, plus de touches).
 |---|---|---|---|---|
 | `B_FX` (`BTN_PAGES`) | FX | FX | page de boutons suivante (ordre de MAP CONTROL) | remise à zéro de la ligne (touche 1), molette BEND / PAN (14), carte batterie (15 / 16) |
 | `B_SEL` (`BTN_TRACKS`, `BTN_VALIDATE`) | SEL | NOTE REPEAT | prend un son en attente | couche pistes : mutes (tout de suite), puis CLEAR, QUANTIZE, CLOCK, EUCLID, CONTROLLER (validés au relâché) ; touches noires MUTE ALL, A VOL ; clignote vite quand un son l'attend (+SEL) |
-| `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapé : la boucle se relâche | couche jeu (16 effets), titre « ∞ DIV / FILTER » |
+| `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapé : la boucle se relâche | couche jeu, titre « ∞ DIV / FILTER » : boucles 1–5 validées au relâché (1/32 par OCT+), SLICER et les autres effets tout de suite |
 | `B_ARP` | ARP | ARP | sur A : mode d'arpège | couche créative |
 | `B_GLO` | GLO | BT | — | couche scènes : 1–8 LOAD, 9–16 SAVE (roses) ; GLO + SEL : MAP CONTROL ; GLO + PLAY : chaîne |
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (touche blanche 7), SOUNDS (touche blanche 8), LOOP EDIT (4e touche noire) : validés au relâché |

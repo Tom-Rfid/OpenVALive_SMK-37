@@ -135,18 +135,18 @@ int main(void)
     run_ms(400);
     ev(SMK_PAD, 0, 0);
     CHECK(!ui.fx_on[0], "a held pad let go ends it");
-    tap(SMK_PAD, 5);                                    /* FILTER SHUT (LOOP 1/32 is not on the pads), tapped: latched */
+    tap(SMK_PAD, 6);                                    /* FILTER SHUT (pad 6: the SLICER), tapped: latched */
     CHECK(ui.fx_on[6] && ui.fx_latched[6], "a tapped pad latches its effect");
-    CHECK(pad_rgb[5] == perform_colour(6) && pad_rgb[5] != perform_colour(5), "the pad shows the effect running");
+    CHECK(pad_rgb[6] == perform_colour(6) && pad_rgb[6] != perform_colour(5), "the pad shows the effect running");
     CHECK(pad_rgb[PAD_MODE] == dim(0xFF6000, 110u), "MODE shows PERFORM's orange");
     tap(SMK_PAD, 14);                                   /* ALL FX OFF (the 14th playing pad) */
     CHECK(!ui.fx_on[6], "ALL FX OFF");
 
     /* pressure on a held filter pad goes part of the way, then all the way */
-    ev(SMK_PAD, 8, 100);                                /* DELAY THROW */
-    ev(SMK_PRESSURE, 8, 127);
+    ev(SMK_PAD, 9, 100);                                /* DELAY THROW */
+    ev(SMK_PRESSURE, 9, 127);
     CHECK(ui.fx_on[8], "delay throw held");
-    ev(SMK_PAD, 8, 0);
+    ev(SMK_PAD, 9, 0);
 
     /* GLO + white key 9 (D4), GLO let go first: store scene 1 (the pads do not follow a held layer) */
     ev(SMK_BUTTON, SMK_B_GLO, 1);
@@ -167,21 +167,30 @@ int main(void)
     CHECK(ui.msg_style == MSG_TAKEN, "ARP let go first: taken");
     ev(SMK_KEY, 4, 0);
     run_ms(100);
-    ev(SMK_BUTTON, SMK_B_SEQ, 1);                       /* SEQ + white key 8 (C4): FILTER SHUT, latched */
-    ev(SMK_KEY, 12, 100);
+    ev(SMK_BUTTON, SMK_B_SEQ, 1);                       /* SEQ + white key 2 (D3): LOOP 1/2, latched */
+    ev(SMK_KEY, 2, 100);
     run_ms(30);
+    CHECK(!ui.fx_on[1], "SEQ + a loop key: armed, not yet on");
     ev(SMK_BUTTON, SMK_B_SEQ, 0);
     run_ms(30);
-    CHECK(ui.fx_on[7] && ui.fx_latched[7], "SEQ let go first: taken, latched");
-    ev(SMK_KEY, 12, 0);
+    CHECK(ui.fx_on[1] && ui.fx_latched[1], "SEQ let go first: taken, latched");
+    ev(SMK_KEY, 2, 0);
     run_ms(50);
     ev(SMK_BUTTON, SMK_B_SEQ, 1);
-    ev(SMK_KEY, 12, 100);
+    ev(SMK_KEY, 2, 100);
     run_ms(30);
     ev(SMK_BUTTON, SMK_B_SEQ, 0);
-    ev(SMK_KEY, 12, 0);
+    ev(SMK_KEY, 2, 0);
     run_ms(50);
-    CHECK(!ui.fx_on[7], "...and again: off");
+    CHECK(!ui.fx_on[1], "...and again: off");
+    ev(SMK_BUTTON, SMK_B_SEQ, 1);                       /* SEQ + white key 10 (E4): DRIVE, at once while held */
+    ev(SMK_KEY, 16, 100);
+    run_ms(300);
+    CHECK(ui.fx_on[9] && !ui.fx_latched[9], "SEQ + an effect key: on at once, while held");
+    ev(SMK_KEY, 16, 0);
+    ev(SMK_BUTTON, SMK_B_SEQ, 0);
+    run_ms(50);
+    CHECK(!ui.fx_on[9], "...let go: off");
 
     /* SELECT + white key 1 (C3): mute track 1 */
     ev(SMK_BUTTON, SMK_B_SELECT, 1);

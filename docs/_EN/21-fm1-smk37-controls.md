@@ -13,7 +13,7 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 |---|---|---|---|---|
 | `B_FX` (`BTN_PAGES`) | FX | FX | next knob page (MAP CONTROL's order) | line reset (key 1), wheel BEND / PAN (key 14), drum map (keys 15 / 16) |
 | `B_SEL` (`BTN_TRACKS`, `BTN_VALIDATE`) | SEL | NOTE REPEAT | takes a waiting sound | tracks layer: mutes (at once), then CLEAR, QUANTIZE, CLOCK, EUCLID, CONTROLLER (valid on release); black keys MUTE ALL, A VOL; blinks fast while a sound waits for it (+SEL) |
-| `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapped: a loop lets go | perform layer (16 effects), title "∞ DIV / FILTER" |
+| `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapped: a loop lets go | perform layer, title "∞ DIV / FILTER": loops 1–5 valid on release (1/32 by OCT+), SLICER and the other effects at once |
 | `B_ARP` | ARP | ARP | on A: arpeggio mode | creative layer |
 | `B_GLO` | GLO | BT | — | scenes layer: 1–8 LOAD, 9–16 SAVE (pink); GLO + SEL: MAP CONTROL; GLO + PLAY: chain |
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (white key 7), SOUNDS (white key 8), LOOP EDIT (4th black key): valid on release (set-up keys blue) |

@@ -1,5 +1,13 @@
 # Changelog
 
+## 20 November 2026 — SLICER, LOOP 1/32 by OCT+, effects at once
+
+- PERFORM key 6 is the **SLICER** (the whole mix cut in 1/16s on the beat, smoothed edges). LOOP 1/32 has no key:
+  OCT+ from LOOP 1/16 reaches it, OCT- comes back.
+- On a track, only the loops are valid on release (SEQ let go first); the effects and breaks (SLICER, filters, delay,
+  DRIVE, CRUSH, BREAK, SOLO...) act at once: hold = while held, tap = latched.
+- PERFORM pads: SLICER in, DRUMS ONLY out (DRIVE was already out). Host test: 101 checks.
+
 ## 20 November 2026 — 12 new sounds (60), families by style and dynamics
 
 - New: PLATE (struck metal sheet), DUB CHORD, DEEP STAB, DEEP PAD, RUMBLE (deep, dub, underground), BOOM (808-style

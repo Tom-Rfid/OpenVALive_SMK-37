@@ -379,8 +379,8 @@ enum { PADS_CLIPS, PADS_DRUMS, PADS_PERFORM, PADS_SCENES, PADS_MIDI, PAD_MODES }
 #define PLAY_PADS 14u
 #define SCENE_PADS 8u                           /* SCENES: 1-8 the scenes, 9-12 the tracks' mutes, 13 all, 14 A VOL */
 #define MIDI_PAD_CHANNEL 15u                    /* MIDI: the pads' notes on channel 16, no sound inside */
-/* PERFORM on 14 pads: the 16 effects but LOOP 1/32 and DRIVE */
-static const uint8_t PERFORM_PAD[PLAY_PADS] = { 0, 1, 2, 3, 4, 6, 7, 8, 10, 11, 12, 13, 14, 15 };
+/* PERFORM on 14 pads: the 16 keys' effects but DRIVE and DRUMS ONLY */
+static const uint8_t PERFORM_PAD[PLAY_PADS] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 14, 15 };
 enum { FADERS_LEVEL, FADERS_MACRO, FADERS_USER, FADER_BANKS };   /* FADER BANK goes round */
 #define LONG_PRESS_MS 500u
 
@@ -1067,8 +1067,9 @@ static uint32_t dim(uint32_t rgb, uint32_t level)   /* level 0..256 */
 
 static uint32_t perform_colour(int w)
 {
-    static const uint32_t TYPE_COLOUR[4] = { 0x00C0FF, 0xFF7000, 0xFF0020, 0xFFFFFF };   /* loop, filter/fx, mute, off */
-    uint32_t c = TYPE_COLOUR[PERFORM_KEY[w].type & 3u];
+    static const uint32_t TYPE_COLOUR[5] = { 0x00C0FF, 0xFF7000, 0xFF0020, 0xFFFFFF, 0xFF7000 };   /* loop,
+                                                 * filter/fx, mute, off, slicer */
+    uint32_t c = TYPE_COLOUR[PERFORM_KEY[w].type % 5u];
     return ui.fx_on[w] ? dim(c, ui.fx_latched[w] ? 140u : 255u) : dim(c, 18u);
 }
 
