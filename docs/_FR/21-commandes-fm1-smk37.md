@@ -20,8 +20,8 @@ pédale, plus de touches).
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (touche blanche 7), SOUNDS (touche blanche 8), LOOP EDIT (4e touche noire) : validés au relâché |
 | `B_SAVE` | SAVE | PARA | — (seul : rien) | validé au relâché : touches blanches 1–8 LOAD USER 1–8, 9–16 SAVE en USER 1–8, 6e touche noire, entre LOAD 8 et SAVE 1, **SAVE ALL** (le live set ; clignote quand il y a quelque chose à sauver) |
 | `B_ENV` / `B_LFO` | ENV / LFO | SCALE / CHORD | UNDO / REDO | — |
-| `B_EDIT` | EDIT | GLOBE | CAPTURE (ENV l'annule) ; dans un menu : valeur par défaut de la ligne ; clignote pendant l'enregistrement | EDIT + note : punch ; LOOP EDIT : EDIT + touches = accord |
-| `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / enregistrement (REC et CAPTURE seulement en lecture) | SEL + PLAY tap tempo, SEL + REC métronome ; REC + touche blanche 1 (validé au relâché) : RESET de la piste |
+| `B_EDIT` | EDIT | GLOBE | tapé en lecture : LOOP REC, la première note lance la prise, EDIT ou un bouton de menu la termine (la boucle ; ENV l'annule) ; dans un menu : valeur par défaut de la ligne ; clignote pendant l'enregistrement | EDIT + note : punch ; LOOP EDIT : EDIT + touches = accord |
+| `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / enregistrement (REC et LOOP REC seulement en lecture) | SEL + PLAY tap tempo, SEL + REC métronome ; REC + touche blanche 1 (validé au relâché) : RESET de la piste |
 | `B_OCTDN` / `B_OCTUP` | OCT− / OCT+ | OCT− / OCT+ | octave ; saut de famille ; boucle ×2 / ÷2 | — |
 | — | — | KNOB BANK = SHIFT | — | SHIFT + K1–K4 : page LIVE ; SHIFT + SELECT : SOUND EDIT ; SHIFT + pad (SCÈNES) : mémoriser la scène ; SHIFT + pad (CLIPS) : effacer le clip |
 | — | — | FADER BANK | faders : volumes → macros → USER | — |

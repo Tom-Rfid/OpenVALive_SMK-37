@@ -171,7 +171,7 @@ Note pour chaque ligne : ✅, ❌ (et ce qui se passe), ou ? (pas compris).
 | 2.17 | voyants des boutons | PLAY allumé en lecture, REC en enregistrement, SAVE quand il y a à sauver |
 | **3** | **Live** | |
 | 3.1 | REC, jouer, REC | boucle enregistrée |
-| 3.2 | jouer librement, EDIT | CAPTURE : ce qui vient d'être joué devient la boucle |
+| 3.2 | en lecture : GLOBE (EDIT) tapé, jouer quelques notes, GLOBE | LOOP REC : la ligne se peint en vert dès la première note, ce qui a été joué devient la boucle |
 | 3.3 | GLO + pads 9 et 10, puis GLO + pads 1 et 2 | scènes mémorisées puis rappelées à la mesure suivante |
 | 3.4 | GLO + PLAY | la chaîne de scènes |
 | 3.5 | ARP + pads | Creative Engine (MUTATE, FILL…) |

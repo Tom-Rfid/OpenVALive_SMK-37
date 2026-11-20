@@ -19,8 +19,8 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, OPTION CONTROL (white key 7), SOUNDS (white key 8), LOOP EDIT (4th black key): valid on release (set-up keys blue) |
 | `B_SAVE` | SAVE | PARA | — (alone: nothing) | valid on release: white keys 1–8 LOAD USER 1–8, 9–16 SAVE as USER 1–8, 6th black key, between LOAD 8 and SAVE 1, **SAVE ALL** (the live set; blinks when something is to be saved) |
 | `B_ENV` / `B_LFO` | ENV / LFO | SCALE / CHORD | UNDO / REDO | — |
-| `B_EDIT` | EDIT | GLOBE | CAPTURE (ENV undoes it); in a menu: the row's default; blinks while recording | EDIT + note: punch; LOOP EDIT: EDIT + keys = chord |
-| `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / record (REC and CAPTURE only while playing) | SEL + PLAY tap tempo, SEL + REC metronome; REC + white key 1 (valid on release): RESET the track |
+| `B_EDIT` | EDIT | GLOBE | tapped while playing: LOOP REC, the first note starts the take, EDIT or a menu button ends it (the loop; ENV undoes it); in a menu: the row's default; blinks while recording | EDIT + note: punch; LOOP EDIT: EDIT + keys = chord |
+| `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / record (REC and LOOP REC only while playing) | SEL + PLAY tap tempo, SEL + REC metronome; REC + white key 1 (valid on release): RESET the track |
 | `B_OCTDN` / `B_OCTUP` | OCT− / OCT+ | OCT− / OCT+ | octave; family jump; loop ×2 / ÷2 | — |
 | — | — | KNOB BANK = SHIFT | — | SHIFT + K1–K4: LIVE page; SHIFT + SELECT: SOUND EDIT; SHIFT + pad (SCENES): store the scene; SHIFT + pad (CLIPS): delete the clip |
 | — | — | FADER BANK | faders: levels → macros → USER | — |

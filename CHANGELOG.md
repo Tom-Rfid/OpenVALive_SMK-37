@@ -1,5 +1,14 @@
 # Changelog
 
+## 20 November 2026 — LOOP REC on EDIT, SAVE on A, sounds
+
+- EDIT tapped while playing arms a loop take: the first note starts it (the line paints green), EDIT again or a menu
+  button ends it, and everything played since the first note becomes the loop, to the end of the take (Live Core:
+  LIVE_CAPTURE_ARM, LIVE_CAPTURE b = 1). EDIT held + notes is still the punch, over what was there.
+- SAVE + SU1–SU8 on A keeps A's own sound (it took the last track's).
+- CLICK, DROPS and BLIP longer and louder, DUB CHORD as loud as the other chords, RAVE SAX brassier (two saws, the
+  filter blown open on the attack, the pitch scooping up, drive).
+
 ## 20 November 2026 — help page KEY COLOURS redrawn; doc 22 and the README at a glance
 
 - KEY COLOURS shows do ré mi (do# ré# neutral) in each colour; pink reads ON RELEASE, LET GO BTN MENU FIRST, THEN KEY,
