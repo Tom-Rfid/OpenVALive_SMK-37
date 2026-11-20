@@ -1,5 +1,11 @@
 # Changelog
 
+## 20 November 2026 — SAVE ALL is a key
+
+- SAVE alone saves nothing any more: SAVE + the 1st black key = **SAVE ALL** (blinking when something is to be
+  saved). Every SAVE-layer key is valid on release (SAVE let go first): LOAD USER 1–8, SAVE USER 1–8, SAVE ALL.
+- On a screen keyboard: LOAD keys violet when they hold a sound, grey when empty.
+
 ## 20 November 2026 — SAVE in steps, colours by meaning
 
 As OpenVALive CORE: SAVE in steps (each pause short, only what changed), SAVE not lit by a mute, FX / NOTE REPEAT

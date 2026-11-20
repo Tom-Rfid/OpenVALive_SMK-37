@@ -474,14 +474,23 @@ int main(void)
     /* SAVE: the whole set in the flash, two copies, read back */
     int writes = flash_writes;
     tap(SMK_BUTTON, SMK_B_SAVE);
-    run_ms(100);
-    CHECK(flash_writes > writes, "SAVE writes the flash");
+    run_ms(1200);
+    CHECK(flash_writes == writes, "SAVE (PARA) tapped alone writes nothing");
+    ev(SMK_BUTTON, SMK_B_SAVE, 1);                      /* SAVE + the 1st black key (SAVE ALL), SAVE let go first */
+    ev(SMK_KEY, 1, 100);
+    ev(SMK_BUTTON, SMK_B_SAVE, 0);
+    ev(SMK_KEY, 1, 0);
+    run_ms(1200);                                       /* (in steps over about a second) */
+    CHECK(flash_writes > writes, "SAVE ALL writes the flash");
     settings_t back;
     CHECK(plat_store_load(OBJ_SETTINGS, &back, sizeof back) == (int)sizeof back && back.magic == SET_MAGIC,
           "the settings read back");
     CHECK(store_sector(OBJ_NOBJ, 0) <= 15u * 4096u, "OpenVALive stays inside Open's project slots 6..15");
-    tap(SMK_BUTTON, SMK_B_SAVE);
-    run_ms(100);
+    ev(SMK_BUTTON, SMK_B_SAVE, 1);
+    ev(SMK_KEY, 1, 100);
+    ev(SMK_BUTTON, SMK_B_SAVE, 0);
+    ev(SMK_KEY, 1, 0);
+    run_ms(1200);
     CHECK(plat_store_load(OBJ_SETTINGS, &back, sizeof back) == (int)sizeof back, "a second save keeps a good copy");
 
     /* the scanner lost events: everything up */

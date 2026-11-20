@@ -17,7 +17,7 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 | `B_ARP` | ARP | ARP | on A: arpeggio mode | creative layer |
 | `B_GLO` | GLO | BT | — | scenes layer: 1–8 LOAD, 9–16 SAVE (pink); GLO + SEL: MAP CONTROL; GLO + PLAY: chain |
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, SOUNDS (8), LOOP EDIT (9), OPTION CONTROL (10): valid on release |
-| `B_SAVE` | SAVE | PARA | saves the live set | SAVE + white keys 1–8: LOAD USER 1–8; 9–16: SAVE as USER 1–8 (pink) |
+| `B_SAVE` | SAVE | PARA | — (alone: nothing) | valid on release: white keys 1–8 LOAD USER 1–8, 9–16 SAVE as USER 1–8, 1st black key **SAVE ALL** (the live set; blinks when something is to be saved) |
 | `B_ENV` / `B_LFO` | ENV / LFO | SCALE / CHORD | UNDO / REDO | — |
 | `B_EDIT` | EDIT | GLOBE | CAPTURE (ENV undoes it); in a menu: the row's default; blinks while recording | EDIT + note: punch; LOOP EDIT: EDIT + keys = chord |
 | `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / record (REC and CAPTURE only while playing) | SEL + PLAY tap tempo, SEL + REC metronome |

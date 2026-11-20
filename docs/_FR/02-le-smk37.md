@@ -180,7 +180,7 @@ Note pour chaque ligne : ✅, ❌ (et ce qui se passe), ou ? (pas compris).
 | 4.2 | changer le tempo (PAGE) | la T-8 suit |
 | 4.3 | STOP | la T-8 s'arrête |
 | **5** | **Sauvegarde** | |
-| 5.1 | SAVE (relâcher) | « SAVED » |
+| 5.1 | PARA (SAVE) + Do#3 (SAVE ALL), PARA lâché en premier | « SAVING », PARA clignote, puis « SAVED » en vert ; PARA seul ne sauve rien |
 | 5.2 | éteindre, rallumer | le set revient (boucles, sons, scènes) |
 | **6** | **Ordinateur** | |
 | 6.1 | USB : un DAW voit le port MIDI | notes et horloge sortent ; une note entrante joue la piste |
