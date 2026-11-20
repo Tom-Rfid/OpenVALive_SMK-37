@@ -45,7 +45,8 @@ In short:
 <p align="center"><img src="docs/img/pads-all-modes-short.png" width="560" alt="The pads in each mode, in short, in the pads' colours"></p>
 
 And each pad as the key it stands for, drawn as the screen keyboard draws it (pink: valid on release on the keyboard,
-mint: acts at once, violet: a track playing):
+mint: acts at once, violet: a track playing); the pad's background shows its light: off-white off, bright white on,
+white rays blinking:
 
 <p align="center"><img src="docs/img/pads-all-modes-keys.png" width="560" alt="Each pad with the key it stands for, in the screen keyboard's colours"></p>
 

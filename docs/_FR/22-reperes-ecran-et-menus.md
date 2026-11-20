@@ -228,7 +228,7 @@ Trois niveaux de lecture. 1 — tous les modes en toutes lettres, dans les coule
 
 <p align="center"><img src="../img/pads-all-modes-short.png" width="560" alt="pads"></p>
 
-3 — chaque pad avec la touche qu’il remplace, comme le clavier à l’écran la dessine (même fonction, même couleur : rose = validé au relâché sur le clavier, menthe = agit tout de suite, violet = piste qui joue ; une touche noire entre ses deux blanches grises) :
+3 — chaque pad avec la touche qu’il remplace, comme le clavier à l’écran la dessine (même fonction, même couleur : rose = validé au relâché sur le clavier, menthe = agit tout de suite, violet = piste qui joue ; une touche noire entre ses deux blanches grises). Le fond du pad montre sa lumière : blanc cassé éteint, blanc vif allumé, rayons blancs clignotant (un exemple par mode) :
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
 
