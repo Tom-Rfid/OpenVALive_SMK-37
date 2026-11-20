@@ -97,6 +97,21 @@ int main(void)
     CHECK(render_fn != 0, "the render is installed");
     CHECK(live.track[3].kind == OLS_KIND_DRUM, "track 4 is the drums");
 
+    /* the boot screen: two pads go round clockwise (top row left to right, then the bottom row back) */
+    {
+        int lit = 0;
+        for (uint32_t pad = 0; pad < SMK_PADS; pad++)
+            lit += pad_colour(pad) != 0;
+        CHECK(ui.splash_until != 0 && lit == 2, "the boot screen: two pads lit");
+        uint32_t before = now_ms;
+        now_ms += 64u;
+        int moved = 0;
+        for (uint32_t pad = 0; pad < SMK_PADS; pad++)
+            moved += pad_colour(pad) != 0;
+        CHECK(moved == 2, "...and they go round");
+        now_ms = before;
+    }
+
     /* keys: C3 on the selected track, velocity kept */
     ev(SMK_KEY, 0, 110);
     CHECK(voices_sounding() > 0, "a key sounds");

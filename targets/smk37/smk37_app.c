@@ -1081,23 +1081,33 @@ static uint32_t clip_colour(const clip_t *c)
     return f == 3 ? 0xFF0010 : (f == 1 ? 0x00FF20 : (f == FAMILIES ? 0xFF2080 : 0x0040FF));
 }
 
-/* the boot screen's time: a wave goes over the pads, left to right, the top row mint, the bottom one orange (the
- * logo's colours); then each pad its mode's colour */
+/* the pads' modes' colours (the MODE pad shows the one it is in) */
+static const uint32_t MODE_COLOUR[PAD_MODES] = { 0x20FFA0, 0xFF1010, 0xFF6000, 0x2040FF, 0xC0C0C0 };
+
+/* the boot screen's time (and the help pages after it): two pads go round the 16 clockwise (the top row left to
+ * right, the bottom row right to left), one lap a second, in the next mode's colour each lap */
 static uint32_t boot_wave(uint32_t pad)
 {
-    uint32_t col = pad % 8u, t = (fm1_millis() / 3u + 512u - col * 48u) % 512u;
-    uint32_t level = t < 256u ? t : 511u - t;   /* 0 .. 255 .. 0 */
-    return dim(pad < 8u ? 0x20FFA0 : 0xFF5A24, level * level / 256u);
+    uint32_t ring = pad < 8u ? pad : 15u - (pad - 8u);  /* the pad's place on the ring, clockwise from top left */
+    uint32_t step = fm1_millis() / 64u;                 /* 16 steps a lap, about a second */
+    uint32_t head = step % 16u, lap = step / 16u;
+    uint32_t c = MODE_COLOUR[lap % PAD_MODES];
+    if (ring == head) {
+        return c;
+    }
+    if (ring == (head + 15u) % 16u) {
+        return dim(c, 90u);                             /* the second pad, just behind */
+    }
+    return 0;
 }
 
 static uint32_t pad_colour(uint32_t pad)
 {
     /* the pads show their own mode only (a held layer is on the keys and the screen) */
-    if (ui.splash_until)
-        return boot_wave(pad);
+    if (ui.splash_until || ui.help)
+        return boot_wave(pad);                    /* the logo and the help pages: two pads going round */
     uint32_t held = (smk.pad_down >> pad) & 1u;
     if (pad == PAD_MODE) {                        /* MODE: the mode's colour */
-        static const uint32_t MODE_COLOUR[PAD_MODES] = { 0x20FFA0, 0xFF1010, 0xFF6000, 0x2040FF, 0xC0C0C0 };
         return dim(MODE_COLOUR[smk.pad_mode], held ? 256u : 110u);
     }
     if (pad == PAD_REC) {                         /* REC: a take armed or running blinks it, 4 times a second */

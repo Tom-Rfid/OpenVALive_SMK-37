@@ -1,5 +1,10 @@
 # Changelog
 
+## 20 November 2026 — the pads during the logo
+
+- During the logo and the help pages, two pads go round the 16 clockwise, one lap a second, in the next mode's
+  colour each lap (it was a wave over every pad, which looked like a fault).
+
 ## 20 November 2026 — nine new families; SEL on the help pages turns them off
 
 - The 65 sounds in nine families, the most played first in each: ACID, BASS, DRUMS, PERC (short tones), LEAD, KEYS
