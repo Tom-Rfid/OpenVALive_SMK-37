@@ -1076,8 +1076,8 @@ static uint32_t perform_colour(int w)
  * the others */
 static uint32_t clip_colour(const clip_t *c)
 {
-    int f = c->line < TRACKS && live.track[c->line].kind == OLS_KIND_DRUM ? 4 : sound_family(c->sound);
-    return f == 4 ? 0xFF0010 : (f == 1 ? 0x00FF20 : (f == FAMILIES ? 0xFF2080 : 0x0040FF));
+    int f = c->line < TRACKS && live.track[c->line].kind == OLS_KIND_DRUM ? 3 : sound_family(c->sound);
+    return f == 3 ? 0xFF0010 : (f == 1 ? 0x00FF20 : (f == FAMILIES ? 0xFF2080 : 0x0040FF));
 }
 
 /* the boot screen's time: a wave goes over the pads, left to right, the top row mint, the bottom one orange (the

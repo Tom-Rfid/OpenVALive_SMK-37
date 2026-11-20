@@ -1,5 +1,10 @@
 # Changelog
 
+## 20 November 2026 — families: PSY BASS with the basses, PSY before USER
+
+- PSY BASS joins the basses (F2) and holds as long as the key. The psy hits (ZAP, LASER, BLIP, METAL, ARP) go to F8,
+  just before USER: ACID, BASSES, DRUMS, PUNCH, SFX, UNDER, SOFT, PSY, USER.
+
 ## 20 November 2026 — no breathing
 
 - Lights and the screen keyboard: offered but not on = dim (steady), on = lit, a few blink fast (MUTE ALL...);
