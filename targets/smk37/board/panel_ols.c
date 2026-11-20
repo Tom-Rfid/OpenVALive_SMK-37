@@ -10,12 +10,13 @@
 #include "lcd.inc"
 #include "../glue.h"
 
-/* the pads' LED chain: a low "reset" first, then 24 bits a pad, a byte of SPI a bit. M-VAVE's 36 bytes of reset are
- * short (about 54 us if a byte takes 1.5 us; the newer WS2812 want 280 us): the top left pad, the first on the chain,
- * flashed green during the logo and the help, when the pads change at every screen transfer. A longer reset is the
- * usual cure: 200 bytes. */
+/* the pads' LED chain: a low "reset" first, 24 bits a pad (a byte of SPI a bit), then a low reset again. The second
+ * one latches the colours as soon as they are sent: without it the line could rise between two updates and the
+ * first pad (top left) took a stray bit at the start of the next one, latched by its reset: it flashed green or
+ * showed old colours whenever the pads changed at every frame (the light going round during the logo and the help). */
 #define RGB_RESET 200u
-static uint8_t rgb_buffer[RGB_RESET + 16u * 24u] __attribute__((aligned(4)));
+#define RGB_TAIL 200u
+static uint8_t rgb_buffer[RGB_RESET + 16u * 24u + RGB_TAIL] __attribute__((aligned(4)));
 static uint32_t rgb_colors[16];
 static unsigned rgb_dirty = 0xffff;
 /* the pads' order on the LED chain */

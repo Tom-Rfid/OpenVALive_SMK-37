@@ -1169,17 +1169,30 @@ static int smk_pad_map(void)
 }
 
 /* the boot screen's time (and the help pages after it): a light goes round the 16 pads clockwise (the top row left
- * to right, the bottom row right to left), one lap in 1.6 s, with a trail fading on the three pads behind it; each
- * lap in the next mode's colour (a pad keeps the colour of the lap that lit it) */
+ * to right, the bottom row right to left), one lap in 1.6 s, with a trail fading on the three pads behind it. Its
+ * colour flows round the colour wheel, a step a lap: red, orange, yellow, mint, blue, violet (the modes' colours and
+ * the hues between them; violet in place of MIDI's white, which turns amber when dimmed); a pad keeps the colour the light had when it passed */
 #define WAVE_STEP_MS 100u                       /* a pad to the next */
+static uint32_t blend(uint32_t a, uint32_t b, uint32_t t)   /* t 0..256: a .. b */
+{
+    uint32_t c = 0;
+    for (uint32_t sh = 0; sh < 24u; sh += 8u) {
+        uint32_t x = (a >> sh) & 255u, y = (b >> sh) & 255u;
+        c |= ((x * (256u - t) + y * t) >> 8) << sh;
+    }
+    return c;
+}
+
 static uint32_t boot_wave(uint32_t pad)
 {
+    static const uint32_t WHEEL[6] = { 0xFF1010, 0xFF6000, 0xFFD000, 0x20FFA0, 0x2040FF, 0x8020FF };
     uint32_t ring = pad < 8u ? pad : 15u - (pad - 8u);  /* the pad's place on the ring, clockwise from top left */
     uint32_t pos = fm1_millis() * 256u / WAVE_STEP_MS;  /* the light's place, in 256ths of a pad */
     uint32_t behind = (pos - ring * 256u) & 4095u;      /* how far the light has gone past this pad */
     if (behind >= 1024u)
         return 0;
-    uint32_t c = MODE_COLOUR[((pos - behind) >> 12) % PAD_MODES];
+    uint32_t at = pos - behind, lap = at >> 12;         /* when the light was here: its lap, and how far into it */
+    uint32_t c = blend(WHEEL[lap % 6u], WHEEL[(lap + 1u) % 6u], (at & 4095u) >> 4);
     if (behind < 256u)
         return c;                                       /* the light itself */
     uint32_t f = 1024u - behind;                        /* the trail: fading over three pads, faster at first */

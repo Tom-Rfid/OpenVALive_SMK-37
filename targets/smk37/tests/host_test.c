@@ -138,8 +138,12 @@ int main(void)
         int lit = 0;
         for (uint32_t pad = 0; pad < SMK_PADS; pad++)
             lit += pad_colour(pad) != 0;
-        uint32_t g3 = (pad_colour(3) >> 8) & 255u, g2 = (pad_colour(2) >> 8) & 255u, g1 = (pad_colour(1) >> 8) & 255u;
+        uint32_t g3 = pad_colour(3) >> 16, g2 = pad_colour(2) >> 16, g1 = pad_colour(1) >> 16;   /* (red: the first lap's) */
         CHECK(ui.splash_until != 0 && lit == 4 && g3 > g2 && g2 > g1 && g1 > 0, "the boot screen: a light and its fading trail");
+        uint32_t green0 = (pad_colour(3) >> 8) & 255u;
+        now_ms += 1600u;                                /* a lap on: from orange towards mint, more green */
+        CHECK(((pad_colour(3) >> 8) & 255u) > green0, "...its colour flowing round the wheel, lap after lap");
+        now_ms -= 1600u;
         now_ms += 500u;                                 /* five pads on: the bottom right, REC */
         CHECK(pad_colour(15) != 0 && pad_colour(1) == 0, "...going round");
         now_ms = before;
@@ -270,6 +274,21 @@ int main(void)
     run_ms(50);
     CHECK(!live.track[0].mute && !live.track[3].mute, "...and back");
     ev(SMK_BUTTON, SMK_B_SELECT, 0);
+
+    /* the screen keyboard of a few layers, with the keys' names (pictures for the docs, SMK_SHOTS=dir) */
+    {
+        static const struct { unsigned b; const char *name; } SHOW[] = {
+            { SMK_B_SELECT, "keys-sel" }, { SMK_B_SEQ, "keys-seq" }, { SMK_B_GLO, "keys-glo" }, { SMK_B_ARP, "keys-arp" },
+            { SMK_B_HOME, "keys-home" }, { SMK_B_SAVE, "keys-save" },
+        };
+        for (unsigned i = 0; i < sizeof SHOW / sizeof SHOW[0]; i++) {
+            ev(SMK_BUTTON, SHOW[i].b, 1);
+            run_ms(100);
+            shot(SHOW[i].name);
+            ev(SMK_BUTTON, SHOW[i].b, 0);
+            run_ms(100);
+        }
+    }
 
     /* MODE held alone a moment: the pads' map on the screen, and letting it go keeps the mode; a tap goes on */
     ev(SMK_PAD, PAD_MODE, 100);

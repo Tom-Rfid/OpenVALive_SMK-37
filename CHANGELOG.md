@@ -1,5 +1,15 @@
 # Changelog
 
+## 20 November 2026 — bigger key names on the screen keyboard
+
+- The keys' names on the screen keyboard in a 5x7 font (was 3x5): easier to read. The black keys are 20 % shorter
+  from the bottom, so the white keys' names sit under them.
+- SMK-37: the light going round the pads during the logo flows round the colour wheel (red, orange, yellow, mint,
+  blue, violet), a step a lap, the trail keeping the light's colour.
+- SMK-37: the pads' LED chain ends each update with a low reset too, so the colours latch at once: the top left pad
+  took a stray bit at the start of the next update and flashed green or showed old colours.
+- SMK-37 host test: pictures of the screen keyboard (SMK_SHOTS).
+
 ## 20 November 2026 — SEQ + REC at power-on: the update mode
 
 - SEQ + REC held while switching on: "UPDATE MODE" on the screen and the chip's own USB loader (download mode), checked
