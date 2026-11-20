@@ -1,5 +1,12 @@
 # Changelog
 
+## 20 November 2026 — nine new families; SEL on the help pages turns them off
+
+- The 65 sounds in nine families, the most played first in each: ACID, BASS, DRUMS, PERC (short tones), LEAD, KEYS
+  (stabs, chords, keys), SOFT, FX, DARK (drones and the harsh ones); USER last. The sounds' numbers in saves are kept.
+- On the help pages SEL (NOTE on the SMK-37) turns HELP AT START off for good ("SEL: NO HELP AT START"), and that
+  press does nothing else (no tracks layer); another button closes them.
+
 ## 20 November 2026 — LOOP REC on EDIT, SAVE on A, sounds
 
 - EDIT tapped while playing arms a loop take: the first note starts it (the line paints green), EDIT again or a menu

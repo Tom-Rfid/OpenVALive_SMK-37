@@ -58,7 +58,7 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 | DRUM KEYS | ORIGINAL / GM | the drum keys' map |
 | PERC 1–4 (FM-1) / 1–6 (SMK-37) | 10 percussions | what each drum D# / G# plays |
 | KEYS ON SCREEN | ON / OFF | the screen keyboard while a layer is held |
-| HELP AT START | ON / OFF | after the logo, two help pages in turn every 3 s: KEY COLOURS (blue, pink, mint) and IN PLAY (EDIT tapped: FULL LOOP AT END, held: PART LIVE LOOP; REC: LIVE OVERDUB). Notes and SEL (NOTE on the SMK-37) leave them up; any other button or a knob closes them (and does its job). A logo cut short (a key, a button) skips them |
+| HELP AT START | ON / OFF | after the logo, two help pages in turn every 3 s: KEY COLOURS (blue, pink, mint) and IN PLAY (EDIT tapped: FULL LOOP AT END, held: PART LIVE LOOP; REC: LIVE OVERDUB). Notes leave them up; SEL (NOTE on the SMK-37) turns them off for good (HELP AT START OFF, that press does nothing else); any other button or a knob closes them (and does its job). A logo cut short (a key, a button) skips them |
 | T1–T4, A NEW SOUND | SAME PAGE / a page | the knob page a new sound brings |
 
 ## Lights

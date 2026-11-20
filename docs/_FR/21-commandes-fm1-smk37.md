@@ -59,7 +59,7 @@ pédale, plus de touches).
 | DRUM KEYS | ORIGINAL / GM | la carte des touches de batterie |
 | PERC 1–4 (FM-1) / 1–6 (SMK-37) | 10 percussions | ce que joue chaque Ré# / Sol# de la batterie |
 | KEYS ON SCREEN | ON / OFF | le clavier à l'écran quand une couche est tenue |
-| HELP AT START | ON / OFF | après le logo, deux pages d'aide qui alternent toutes les 3 s : KEY COLOURS (bleu, rose, menthe) et IN PLAY (EDIT tapé : FULL LOOP AT END, tenu : PART LIVE LOOP ; REC : LIVE OVERDUB). Les notes et SEL (NOTE sur le SMK-37) les laissent ; tout autre bouton ou un bouton rotatif les ferme (et fait son travail). Un logo coupé avant la fin (une touche, un bouton) les saute |
+| HELP AT START | ON / OFF | après le logo, deux pages d'aide qui alternent toutes les 3 s : KEY COLOURS (bleu, rose, menthe) et IN PLAY (EDIT tapé : FULL LOOP AT END, tenu : PART LIVE LOOP ; REC : LIVE OVERDUB). Les notes les laissent ; SEL (NOTE sur le SMK-37) les coupe pour de bon (HELP AT START OFF, cet appui ne fait rien d'autre) ; tout autre bouton ou un bouton rotatif les ferme (et fait son travail). Un logo coupé avant la fin (une touche, un bouton) les saute |
 | T1–T4, A NEW SOUND | SAME PAGE / une page | la page de boutons qu'amène un nouveau son |
 
 ## Voyants
