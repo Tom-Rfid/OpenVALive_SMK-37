@@ -1,5 +1,12 @@
 # Changelog
 
+## 20 November 2026 — help page KEY COLOURS redrawn; doc 22 and the README at a glance
+
+- KEY COLOURS shows do ré mi (do# ré# neutral) in each colour; pink reads ON RELEASE, LET GO BTN MENU FIRST, THEN KEY,
+  with green arrows up.
+- Doc 22 (EN / FR): the key colours, the help pages, every layer with its keys' names, the buttons, the set-up
+  menus, the pads and the sound families, with the firmware's screens; the README shows it at a glance.
+
 ## 20 November 2026 — help pages at start
 
 - After the logo, two help pages in turn every 3 s: KEY COLOURS (blue set-up screens, pink on release, mint ready)

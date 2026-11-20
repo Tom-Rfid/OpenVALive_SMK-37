@@ -5,15 +5,40 @@
 **A live-first open-source firmware for the M-VAVE SMK-37 Elite and Pro.**
 
 Four tracks with their own loops, CAPTURE (play freely, press once, it loops in time), LOOP EDIT, undo, scenes and
-Morph, hold-to-play effects and a Creative Engine — on a virtual analog synth (24 sounds) and five drum kits — with
-what the SMK-37 adds: 37 keys drawn on screen while a layer button is held, 16 pressure-sensitive RGB pads (PERFORM,
-PLAY with drum rolls by pressure, SCENES), 4 faders, the wheels, a pedal, 8 knobs and a **MIDI OUT jack** that drives
+Morph, hold-to-play effects and a Creative Engine — on a virtual analog synth (60 sounds) and five drum kits — with
+what the SMK-37 adds: 37 keys drawn on screen while a layer button is held, 16 pressure-sensitive RGB pads (CLIPS,
+DRUMS with rolls by pressure, PERFORM, SCENES, MIDI), 4 faders, the wheels, a pedal, 8 knobs and a **MIDI OUT jack** that drives
 a Roland T-8 (clock and notes). Built without M-VAVE's Bluetooth stack: room for the logo and more.
 
 > 🇫🇷 **Français** — toute la documentation existe en français dans [`docs/_FR`](docs/_FR/), à commencer par
-> [le SMK-37](docs/_FR/02-le-smk37.md).
+> [le SMK-37](docs/_FR/02-le-smk37.md) ; les repères d'un coup d'œil (clavier à l'écran, aide, menus) :
+> [22 — Repères](docs/_FR/22-reperes-ecran-et-menus.md).
 
 **Status:** runs on an SMK-37 Elite (first tests, November 2026); host-tested; the Pro builds but is untested.
+
+## At a glance
+
+<table><tr>
+<td width="250"><img src="docs/img/screen-help-1.png" width="240" alt="The help page at start: key colours"></td>
+<td>
+
+**Key colours** on the screen keyboard (hold a layer button to see it):
+
+- **pink**: valid on release: let the menu button go first, then the key
+- **violet**: on · **mint**: ready, acts at once · **yellow**: pressed
+- **blue**: opens a set-up screen · **red**: a muted track
+
+Each key shows its name (3 characters at most); a dark orange line marks each C. After the logo, two help pages
+come in turn (OPTION CONTROL: HELP AT START).
+
+</td></tr></table>
+
+<p align="center"><img src="docs/img/keys-at-a-glance.png" width="560" alt="Every layer of the SMK-37's screen keyboard with its keys' names"></p>
+
+<p align="center"><img src="docs/img/pads-perform.png" width="560" alt="The pads in PERFORM: loops, slicer, filters, delay, crush, break, solo, all out, all off; MODE and REC on the right"></p>
+
+Every layer, the buttons, the set-up menus, the pads and the sounds:
+**[22 — At a glance](docs/_EN/22-screen-keyboard-and-menus.md)** · 🇫🇷 **[22 — Repères](docs/_FR/22-reperes-ecran-et-menus.md)**
 
 ## The OpenVALive family
 
@@ -55,6 +80,8 @@ docs/            _EN (English) and _FR (français)
 | The SMK-37: install, controls, MAP CONTROL, T-8, test plan, building | [02](docs/_EN/02-the-smk37.md) | [02](docs/_FR/02-le-smk37.md) |
 | The synth inside: how it is wired | [03](docs/_EN/03-the-synth-inside.md) | [03](docs/_FR/03-le-synthe-a-l-interieur.md) |
 | Rules: code, git, publishing | [18](docs/_EN/18-rules-git-and-publishing.md) | [18](docs/_FR/18-regles-git-et-publication.md) |
+| FM-1 ↔ SMK-37: the controls side by side | [21](docs/_EN/21-fm1-smk37-controls.md) | [21](docs/_FR/21-commandes-fm1-smk37.md) |
+| **At a glance: screen keyboard, help, menus, pads** | [22](docs/_EN/22-screen-keyboard-and-menus.md) | [22](docs/_FR/22-reperes-ecran-et-menus.md) |
 
 How the target is made: [targets/smk37/README.md](targets/smk37/README.md). State: [STATUS.md](STATUS.md) ·
 [CLAUDE.md](CLAUDE.md) · [CONTRIBUTING.md](CONTRIBUTING.md) · [CHANGELOG.md](CHANGELOG.md).
