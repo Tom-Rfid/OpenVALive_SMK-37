@@ -1168,28 +1168,29 @@ static int smk_pad_map(void)
     return 1;
 }
 
-/* the boot screen's time (and the help pages after it): two pads go round the 16 clockwise (the top row left to
- * right, the bottom row right to left), one lap a second, in the next mode's colour each lap */
+/* the boot screen's time (and the help pages after it): a light goes round the 16 pads clockwise (the top row left
+ * to right, the bottom row right to left), one lap in 1.6 s, with a trail fading on the three pads behind it; each
+ * lap in the next mode's colour (a pad keeps the colour of the lap that lit it) */
+#define WAVE_STEP_MS 100u                       /* a pad to the next */
 static uint32_t boot_wave(uint32_t pad)
 {
     uint32_t ring = pad < 8u ? pad : 15u - (pad - 8u);  /* the pad's place on the ring, clockwise from top left */
-    uint32_t step = fm1_millis() / 64u;                 /* 16 steps a lap, about a second */
-    uint32_t head = step % 16u, lap = step / 16u;
-    uint32_t c = MODE_COLOUR[lap % PAD_MODES];
-    if (ring == head) {
-        return c;
-    }
-    if (ring == (head + 15u) % 16u) {
-        return dim(c, 90u);                             /* the second pad, just behind */
-    }
-    return 0;
+    uint32_t pos = fm1_millis() * 256u / WAVE_STEP_MS;  /* the light's place, in 256ths of a pad */
+    uint32_t behind = (pos - ring * 256u) & 4095u;      /* how far the light has gone past this pad */
+    if (behind >= 1024u)
+        return 0;
+    uint32_t c = MODE_COLOUR[((pos - behind) >> 12) % PAD_MODES];
+    if (behind < 256u)
+        return c;                                       /* the light itself */
+    uint32_t f = 1024u - behind;                        /* the trail: fading over three pads, faster at first */
+    return dim(c, f * f / 2304u);                       /* (768 * 768 / 256) */
 }
 
 static uint32_t pad_colour(uint32_t pad)
 {
     /* the pads show their own mode only (a held layer is on the keys and the screen) */
     if (ui.splash_until || ui.help)
-        return boot_wave(pad);                    /* the logo and the help pages: two pads going round */
+        return boot_wave(pad);                    /* the logo and the help pages: a light going round */
     uint32_t held = (smk.pad_down >> pad) & 1u;
     if (pad == PAD_MODE) {                        /* MODE: the mode's colour */
         return dim(MODE_COLOUR[smk.pad_mode], held ? 256u : 110u);

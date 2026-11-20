@@ -1,5 +1,10 @@
 # Changelog
 
+## 20 November 2026 — the pads' light during the logo: slower, with a trail
+
+- During the logo and the help pages, one light goes round the 16 pads clockwise, one lap in 1.6 s (it was 1 s),
+  with a trail fading on the three pads behind it; each lap in the next mode's colour.
+
 ## 20 November 2026 — the help pages go by themselves; GOA LEAD and METAL 10 % lower; MODE held shows the pads' map
 
 - The help pages go by themselves after three rounds (six pages, 18 s).

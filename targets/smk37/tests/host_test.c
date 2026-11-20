@@ -128,18 +128,18 @@ int main(void)
     CHECK(render_fn != 0, "the render is installed");
     CHECK(live.track[3].kind == OLS_KIND_DRUM, "track 4 is the drums");
 
-    /* the boot screen: two pads go round clockwise (top row left to right, then the bottom row back) */
+    /* the boot screen: a light goes round clockwise (top row left to right, then the bottom row back), its trail
+     * fading on the three pads behind */
     {
+        uint32_t before = now_ms;
+        now_ms = (now_ms / 1600u + 1u) * 1600u + 350u;  /* 3.5 pads into a lap: the light on pad 3 */
         int lit = 0;
         for (uint32_t pad = 0; pad < SMK_PADS; pad++)
             lit += pad_colour(pad) != 0;
-        CHECK(ui.splash_until != 0 && lit == 2, "the boot screen: two pads lit");
-        uint32_t before = now_ms;
-        now_ms += 64u;
-        int moved = 0;
-        for (uint32_t pad = 0; pad < SMK_PADS; pad++)
-            moved += pad_colour(pad) != 0;
-        CHECK(moved == 2, "...and they go round");
+        uint32_t g3 = (pad_colour(3) >> 8) & 255u, g2 = (pad_colour(2) >> 8) & 255u, g1 = (pad_colour(1) >> 8) & 255u;
+        CHECK(ui.splash_until != 0 && lit == 4 && g3 > g2 && g2 > g1 && g1 > 0, "the boot screen: a light and its fading trail");
+        now_ms += 500u;                                 /* five pads on: the bottom right, REC */
+        CHECK(pad_colour(15) != 0 && pad_colour(1) == 0, "...going round");
         now_ms = before;
     }
 
