@@ -1,5 +1,13 @@
 # Changelog
 
+## 20 November 2026 — 12 new sounds (60), families by style and dynamics
+
+- New: PLATE (struck metal sheet), DUB CHORD, DEEP STAB, DEEP PAD, RUMBLE (deep, dub, underground), BOOM (808-style
+  bass), RUBBER, BLEEP, CLICK (minimal), SQUELCH (between acid and techno), GOA LEAD, HOOVER (psytrance, rave).
+- Families: ACID, BASSES, DRUMS, PUNCH (leads, stabs, keys: GOA LEAD, HOOVER, ARP join), MINIMAL (RUBBER, BLEEP,
+  CLICK, BLIP, METAL), UNDER (deep, dub, underground), SFX (ZAP and LASER join the transitions), SOFT, USER.
+- Settings OLSD: the drum kits and USER sounds 12 higher, older settings moved (hidden sounds too).
+
 ## 20 November 2026 — CAPTURE only on an empty track, METAL rings
 
 - CAPTURE's green line (EDIT blinking fast) starts only on a track without a loop: after a REC take, the next note
