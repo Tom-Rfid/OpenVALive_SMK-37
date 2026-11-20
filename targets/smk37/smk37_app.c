@@ -451,17 +451,23 @@ static uint8_t play_target(void)
     return ui.on_a ? T_LIVE : mirror.track;
 }
 
+/* a line's MIDI channel (0..15): tracks 1-4, A 5 (as the FM-1), the pads' drum kit 10 (GM drums) */
+static uint32_t line_channel(uint8_t track)
+{
+    return track == T_LIVE ? TRACKS : (track == T_PADS ? 9u : track);
+}
+
 static void note_on(uint8_t track, uint32_t note, uint32_t velocity)
 {
     if (!set.controller)
         send_note_on(track, (uint8_t)note, (uint8_t)velocity);
-    midi_out_note_on(track == T_LIVE ? TRACKS : track, note, velocity);    /* A: MIDI channel 5, as the FM-1 */
+    midi_out_note_on(line_channel(track), note, velocity);
 }
 
 static void note_off(uint8_t track, uint32_t note)
 {
     send_note_off(track, (uint8_t)note);
-    midi_out_note_off(track == T_LIVE ? TRACKS : track, note);
+    midi_out_note_off(line_channel(track), note);
 }
 
 /* The keys' velocity, curved: soft playing gets more of the range (the scanner's is linear and feels hard; the
@@ -553,15 +559,6 @@ static uint32_t pad_drum_note(int i)
     return i >= 7 ? 36u + (uint32_t)(i - 7) : 43u + (uint32_t)i;
 }
 
-static int drum_track(void)                     /* the first drum track, -1 none */
-{
-    for (int t = 0; t < TRACKS; t++) {
-        if (live.track[t].kind == OLS_KIND_DRUM)
-            return t;
-    }
-    return -1;
-}
-
 static void clip_send(uint8_t what, uint32_t slot, uint8_t line)
 {
     push_event(EV_CLIP, line, what, (uint8_t)slot, 0, 0.0f);
@@ -589,6 +586,15 @@ static int clip_take_end(void)
  * SCENES 1-8: the scene stored. */
 static void rec_taken(int i)
 {
+    if (smk.pad_mode == PADS_DRUMS) {           /* the pads' kit: any of the five, the hidden ones too; kept */
+        set.pad_kit = (uint8_t)i;
+        push_event(EV_PRESET, T_PADS, (uint8_t)i, 0, 0, 0.0f);
+        mark_dirty();
+        app_say("PAD KIT", ols_sound_name(OLS_SOUND_FIRST_DRUM + i));
+        ui.msg_style = MSG_TAKEN;
+        ui.msg_until = plat_ms() + 900u;
+        return;
+    }
     if (smk.pad_mode == PADS_CLIPS) {
         clip_send(CLIP_ARM, (uint32_t)i, play_target());
         clip_say("CLIP", i, "PLAY TO REC");
@@ -600,11 +606,13 @@ static void rec_taken(int i)
     ui.msg_until = plat_ms() + 700u;
 }
 
-static const char *rec_what(int i)              /* what REC + this pad does */
+static void rec_say(int i)                      /* what REC + this pad does: "SAVE 3", "REPLACE 2", "DRUMS 909" */
 {
-    if (smk.pad_mode == PADS_SCENES)
-        return "STORE";
-    return clips[i].used ? "REPLACE" : "CLIP";
+    if (smk.pad_mode == PADS_DRUMS) {
+        app_say(ols_sound_name(OLS_SOUND_FIRST_DRUM + i), "");
+        return;
+    }
+    clip_say(smk.pad_mode == PADS_SCENES ? "SAVE" : (clips[i].used ? "REPLACE" : "CLIP"), i, "");
 }
 
 /* the set-up pads: MODE (a tap: the next mode; held: CLIPS start on the beat) and REC (held + a pad: keep in it) */
@@ -613,6 +621,16 @@ static void setup_pad(uint32_t pad, int down)
     if (pad == PAD_MODE) {
         if (down) {
             smk.mode_used = (uint8_t)clip_take_end();
+            if (smk.pad_mode == PADS_CLIPS) {   /* a clip pad held, then MODE: that clip goes on looping (LOOP) */
+                for (uint32_t p = 0; p < SMK_PADS; p++) {
+                    int c = play_index(p);
+                    if (c >= 0 && ((smk.pad_down >> p) & 1u) && clips[c].used) {
+                        clip_send(clips[c].playing ? CLIP_LATCH : CLIP_PLAY_SYNC, (uint32_t)c, 0);
+                        clip_say("LOOP", c, "");
+                        smk.mode_used = 1;
+                    }
+                }
+            }
             return;
         }
         if (smk.mode_used)
@@ -629,14 +647,21 @@ static void setup_pad(uint32_t pad, int down)
             return;
         }
         smk.rec_target = -1;
-        if (smk.pad_mode == PADS_CLIPS || smk.pad_mode == PADS_SCENES)
-            app_say("REC", smk.pad_mode == PADS_CLIPS ? "+ PAD: RECORD" : "+ PAD: STORE");
+        if (smk.pad_mode == PADS_DRUMS) {       /* the kits on the first five pads, the one playing bright */
+            app_say("PAD KIT", ols_sound_name(OLS_SOUND_FIRST_DRUM + set.pad_kit));
+            ui.msg_until = plat_ms() + 60000u;  /* (while REC is held) */
+        } else if (smk.pad_mode == PADS_CLIPS || smk.pad_mode == PADS_SCENES) {
+            app_say("REC", smk.pad_mode == PADS_CLIPS ? "+ PAD: RECORD" : "+ PAD: SAVE");
+        }
         return;
     }
     int i = smk.rec_target;
     smk.rec_target = -1;
-    if (i < 0)
+    if (i < 0) {
+        if (smk.pad_mode == PADS_DRUMS)
+            ui.msg_until = plat_ms();           /* (the kit's name goes with REC) */
         return;
+    }
     rec_taken(i);
 }
 
@@ -662,9 +687,10 @@ static void pad_event(uint32_t pad, int velocity)
             smk.mode_used = 1;
         int rec_held = (smk.pad_down >> PAD_REC) & 1u;
         if (rec_held && smk.rec_target < 0
-            && (smk.pad_mode == PADS_CLIPS || (smk.pad_mode == PADS_SCENES && i < (int)SCENE_PADS))) {
+            && (smk.pad_mode == PADS_CLIPS || (smk.pad_mode == PADS_SCENES && i < (int)SCENE_PADS)
+                || (smk.pad_mode == PADS_DRUMS && i < DR_KIT_COUNT))) {
             smk.rec_target = (int8_t)i;         /* REC + pad: taken when REC is let go first */
-            clip_say(rec_what(i), i, "");
+            rec_say(i);
             copy_text(ui.msg[1], "REC", sizeof ui.msg[1]);
             ui.msg_style = MSG_ARMED;
             return;
@@ -690,10 +716,17 @@ static void pad_event(uint32_t pad, int velocity)
             }
             if (!clips[i].used) {
                 clip_say("CLIP", i, "EMPTY: REC+PAD");
-            } else if (clips[i].playing) {
-                clip_send(CLIP_STOP, (uint32_t)i, 0);
-            } else {                            /* now, or MODE held: on the next beat */
-                clip_send((smk.pad_down >> PAD_MODE) & 1u ? CLIP_PLAY_SYNC : CLIP_PLAY, (uint32_t)i, 0);
+            } else if ((smk.pad_down >> PAD_MODE) & 1u) {   /* MODE + pad: LOOP, latched, from the next beat */
+                if (clips[i].playing && clips[i].loop) {
+                    clip_send(CLIP_STOP, (uint32_t)i, 0);
+                } else {
+                    clip_send(CLIP_PLAY_SYNC, (uint32_t)i, 0);
+                    clip_say("LOOP", i, "");
+                }
+            } else if (clips[i].playing && clips[i].loop) {
+                clip_send(CLIP_STOP, (uint32_t)i, 0);    /* a LOOP: a tap lets it go */
+            } else {
+                clip_send(CLIP_PLAY, (uint32_t)i, 0);    /* SINGLE: once, now (again: from the start) */
             }
             return;
         }
@@ -728,13 +761,8 @@ static void pad_event(uint32_t pad, int velocity)
             midi_out_note_on(MIDI_PAD_CHANNEL, smk.pad_note[pad], (uint32_t)velocity);
             return;
         }
-        int t = drum_track();                   /* DRUMS: the first drum track */
-        if (t < 0) {
-            app_say("DRUMS", "NO DRUM TRACK");
-            return;
-        }
-        smk.pad_slot[pad] = 0xFF;
-        smk.pad_track[pad] = (uint8_t)t;
+        smk.pad_slot[pad] = 0xFF;               /* DRUMS: the pads' own kit (REC held: which) */
+        smk.pad_track[pad] = T_PADS;
         smk.pad_vel[pad] = (uint8_t)velocity;
         smk.roll_level[pad] = 0;
         note_on(smk.pad_track[pad], smk.pad_note[pad], (uint32_t)velocity);
@@ -743,7 +771,7 @@ static void pad_event(uint32_t pad, int velocity)
     smk.roll_level[pad] = 0;
     if (smk.rec_target == i) {                  /* the pad let go before REC: given up */
         smk.rec_target = -2;
-        clip_say(rec_what(i), i, "");
+        rec_say(i);
         ui.msg_style = MSG_NOT_TAKEN;
         ui.msg_until = plat_ms() + 700u;
     }
@@ -758,8 +786,10 @@ static void pad_event(uint32_t pad, int velocity)
     } else {
         note_off(smk.pad_track[pad], smk.pad_note[pad]);
         if (smk.pad_press[pad]) {                 /* the pressure it gave goes back to rest */
-            push_event(EV_PRESSURE, smk.pad_track[pad], 0, 0, 0, 0.0f);
-            midi_out_pressure(smk.pad_track[pad] == T_LIVE ? TRACKS : smk.pad_track[pad], 0);
+            if (smk.pad_track[pad] != T_PADS) {
+                push_event(EV_PRESSURE, smk.pad_track[pad], 0, 0, 0, 0.0f);
+                midi_out_pressure(line_channel(smk.pad_track[pad]), 0);
+            }
         }
     }
     smk.pad_press[pad] = 0;
@@ -839,13 +869,13 @@ static void pressure_event(uint32_t pad, int value)
         return;
     }
     uint8_t t = smk.pad_track[pad];
-    if (t < TRACKS && live.track[t].kind == OLS_KIND_DRUM) {
+    if (t == T_PADS || (t < TRACKS && live.track[t].kind == OLS_KIND_DRUM)) {
         roll_pressure(pad, value);
         return;
     }
     if (!set.controller)
         push_event(EV_PRESSURE, t, 0, 0, 0, p);                 /* (A: its own voice) */
-    midi_out_pressure(t == T_LIVE ? TRACKS : t, (uint32_t)value);
+    midi_out_pressure(line_channel(t), (uint32_t)value);
 }
 
 /* Faders: the four track levels, the four macros ENERGY SPACE TENSION DENSITY, or (USER) what the CONTROL MAP
@@ -1061,7 +1091,7 @@ static uint32_t pad_colour(uint32_t pad)
             return (fm1_millis() / 125u) & 1u ? 0xFF0000 : 0x180000;
         if (held)
             return 0xFF0000;
-        return smk.pad_mode == PADS_CLIPS || smk.pad_mode == PADS_SCENES ? 0x300000 : 0x040000;
+        return smk.pad_mode != PADS_PERFORM && smk.pad_mode != PADS_MIDI ? 0x300000 : 0x040000;
     }
     int i = play_index(pad);
     if (smk.pad_mode == PADS_CLIPS) {
@@ -1072,14 +1102,16 @@ static uint32_t pad_colour(uint32_t pad)
         const clip_t *c = &clips[i];
         if (!c->used)
             return 0;                             /* empty: off */
-        return c->playing ? clip_colour(c) : dim(clip_colour(c), 30u);   /* bright: playing */
+        if (c->playing && c->loop)                /* LOOP: green and violet, half a second each */
+            return (fm1_millis() / 500u) & 1u ? 0x8020FF : 0x00FF40;
+        return c->playing ? clip_colour(c) : dim(clip_colour(c), 30u);   /* bright: SINGLE playing */
     }
     if (smk.pad_mode == PADS_PERFORM)
         return perform_colour(PERFORM_PAD[i]);
     if (smk.pad_mode == PADS_SCENES) {            /* 1-8 the scenes (REC or SHIFT: store), 9-12 the mutes, 13 all, 14 A VOL */
         if (i < (int)SCENE_PADS) {
-            if (shift_held() || ((smk.pad_down >> PAD_REC) & 1u))
-                return held ? 0xC000FF : (live.scene[i].valid ? 0x300040 : 0x100018);
+            if (shift_held() || ((smk.pad_down >> PAD_REC) & 1u))    /* saving: pink */
+                return held ? 0xFF2080 : (live.scene[i].valid ? 0x601030 : 0x180410);
             return live.scene[i].valid ? (i == mirror.scene_last ? 0x60A0FF : 0x0828A0) : 0x020210;
         }
         uint32_t t = (uint32_t)i - SCENE_PADS;
@@ -1099,9 +1131,9 @@ static uint32_t pad_colour(uint32_t pad)
     }
     if (smk.pad_mode == PADS_MIDI)                /* MIDI: white, lit while hit */
         return held ? 0xFFFFFF : 0x0C0C0C;
-    if (drum_track() < 0)                         /* DRUMS: red, lit while hit */
-        return 0;
-    return held ? 0xFF2000 : 0x280000;
+    if ((smk.pad_down >> PAD_REC) & 1u)           /* REC held: the five kits, the pads' one bright */
+        return i < DR_KIT_COUNT ? (i == set.pad_kit || smk.rec_target == i ? 0xFF2000 : 0x300800) : 0;
+    return held ? 0xFF2000 : 0x280000;            /* DRUMS: red, lit while hit */
 }
 
 static void update_lights(void)

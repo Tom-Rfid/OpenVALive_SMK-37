@@ -16,9 +16,9 @@ pédale, plus de touches).
 | `B_SEL` (`BTN_TRACKS`, `BTN_VALIDATE`) | SEL | NOTE REPEAT | prend un son en attente | couche pistes : mutes (tout de suite), puis CLEAR, QUANTIZE, CLOCK, EUCLID, CONTROLLER (validés au relâché) ; touches noires MUTE ALL, A VOL ; clignote vite quand un son l'attend (+SEL) |
 | `B_SEQ` (`BTN_PERFORM`) | SEQ | SEQ | tapé : la boucle se relâche | couche jeu (16 effets), titre « ∞ DIV / FILTER » |
 | `B_ARP` | ARP | ARP | sur A : mode d'arpège | couche créative |
-| `B_GLO` | GLO | BT | — | couche scènes ; GLO + SEL : MAP CONTROL ; GLO + PLAY : chaîne |
+| `B_GLO` | GLO | BT | — | couche scènes : 1–8 LOAD, 9–16 SAVE (roses) ; GLO + SEL : MAP CONTROL ; GLO + PLAY : chaîne |
 | `B_HOME` | HOME | PATCH | panic | PANIC / RESTART / STOP, SOUNDS (8), LOOP EDIT (9), OPTION CONTROL (10) : validés au relâché |
-| `B_SAVE` | SAVE | PARA | enregistre le live set | SAVE + touche : son perso |
+| `B_SAVE` | SAVE | PARA | enregistre le live set | SAVE + touches blanches 1–8 : LOAD USER 1–8 ; 9–16 : SAVE en USER 1–8 (roses) |
 | `B_ENV` / `B_LFO` | ENV / LFO | SCALE / CHORD | UNDO / REDO | — |
 | `B_EDIT` | EDIT | GLOBE | CAPTURE (ENV l'annule) ; dans un menu : valeur par défaut de la ligne ; clignote pendant l'enregistrement | EDIT + note : punch ; LOOP EDIT : EDIT + touches = accord |
 | `B_PLAY` / `B_REC` | PLAY / REC | PLAY / REC | transport / enregistrement (REC et CAPTURE seulement en lecture) | SEL + PLAY tap tempo, SEL + REC métronome |
@@ -27,8 +27,8 @@ pédale, plus de touches).
 | — | — | FADER BANK | faders : volumes → macros → USER | — |
 | — | — | < (Bluetooth) | TAP tempo | tenu 0,5 s : MAP CONTROL |
 | — | — | > (PAD/STEP) | pads : CLIPS → DRUMS → PERFORM → SCÈNES → MIDI | — |
-| — | — | pad MODE (en haut à droite) | pareil : une tape = le mode suivant (sa couleur) | MODE + pad (CLIPS) : départ sur le temps |
-| — | — | pad REC (en bas à droite) | — | REC + pad, REC lâché en premier : enregistrer un clip / mémoriser une scène |
+| — | — | pad MODE (en haut à droite) | pareil : une tape = le mode suivant (sa couleur) | MODE + pad (CLIPS) : LOOP (verrouillé, depuis le temps) ; une tape seule : SINGLE |
+| — | — | pad REC (en bas à droite) | — | REC + pad, REC lâché en premier : enregistrer un clip / sauver une scène / choisir le kit des pads |
 
 ## Boutons rotatifs
 
@@ -65,7 +65,7 @@ pédale, plus de touches).
 
 | SMK-37 | Rôle | Sur le FM-1 |
 |---|---|---|
-| 16 pads : pads de réglage MODE + REC, 14 pads de jeu | CLIPS, DRUMS (roulements à la pression), PERFORM (14 effets), SCÈNES (scènes, mutes, MUTE ALL, A VOL), MIDI (canal 16) | PERFORM, SCÈNES, mutes, MUTE ALL, A VOL : pareil sur les touches sous une couche. **Les CLIPS, les pads MIDI et les roulements n'ont pas d'équivalent FM-1** |
+| 16 pads : pads de réglage MODE + REC, 14 pads de jeu | CLIPS (SINGLE / LOOP), DRUMS (leur propre kit, MIDI canal 10, roulements à la pression), PERFORM (14 effets), SCÈNES (scènes, mutes, MUTE ALL, A VOL), MIDI (canal 16) | PERFORM, SCÈNES, mutes, MUTE ALL, A VOL : pareil sur les touches sous une couche. **Les CLIPS, les pads MIDI et les roulements n'ont pas d'équivalent FM-1** |
 | 4 faders | volumes, macros, emplacements USER (FADER BANK) | les boutons rotatifs (pages LIVE / MACRO, MAP CONTROL) |
 | molette de pitch, de modulation | BEND ou PAN, MORPH (réglables) | — |
 | pédale de sustain | tient les notes | — |

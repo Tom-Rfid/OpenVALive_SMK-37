@@ -276,23 +276,33 @@ int main(void)
     run_ms(20);
     CHECK(crec.slot < 0 && clips[0].used && clips[0].count == 2, "the pad again: the take kept, two notes");
     CHECK(clips[0].length % OLS_PPQN == 0 && clips[0].length >= OLS_PPQN, "its length rounded to the beat");
-    CHECK(clips[0].playing, "...and it plays");
+    CHECK(clips[0].playing && !clips[0].loop, "...and it plays, once (SINGLE)");
+    CHECK(pad_rgb[0] == 0xFF0010, "a drum clip playing: bright red");
     int heard = 0;
     for (int i = 0; i < 300; i++) {
         run_ms(10);
         heard += voices_sounding() > 0;
     }
-    CHECK(heard > 0, "the clip sounds, looping");
-    CHECK(pad_rgb[0] == 0xFF0010, "a drum clip playing: bright red");
-    tap(SMK_PAD, 0);
-    run_ms(20);
-    CHECK(!clips[0].playing, "a tap stops it");
+    CHECK(heard > 0, "the clip sounds");
+    CHECK(!clips[0].playing, "SINGLE: once through, it stops");
     ev(SMK_PAD, PAD_MODE, 100);
     tap(SMK_PAD, 0);
     ev(SMK_PAD, PAD_MODE, 0);
     run_ms(20);
-    CHECK(clips[0].playing && clips[0].origin % OLS_PPQN == 0 && smk.pad_mode == PADS_CLIPS,
-          "MODE + pad: it starts on the beat (and the mode stays)");
+    CHECK(clips[0].playing && clips[0].loop && clips[0].origin % OLS_PPQN == 0 && smk.pad_mode == PADS_CLIPS,
+          "MODE + pad: LOOP, from the beat (and the mode stays)");
+    CHECK(pad_rgb[0] == 0x8020FF || pad_rgb[0] == 0x00FF40, "a LOOP blinks green / violet");
+    run_ms(3000);
+    CHECK(clips[0].playing, "a LOOP goes on");
+    tap(SMK_PAD, 0);
+    run_ms(20);
+    CHECK(!clips[0].playing, "a tap lets the LOOP go");
+    ev(SMK_PAD, 0, 100);                                /* SINGLE, held, then MODE: it latches */
+    ev(SMK_PAD, PAD_MODE, 100);
+    ev(SMK_PAD, PAD_MODE, 0);
+    ev(SMK_PAD, 0, 0);
+    run_ms(20);
+    CHECK(clips[0].playing && clips[0].loop && smk.pad_mode == PADS_CLIPS, "pad held + MODE: LOOP");
     tap(SMK_PAD, 0);
     ev(SMK_BUTTON, SMK_B_SHIFT, 1);
     tap(SMK_PAD, 0);
@@ -304,8 +314,19 @@ int main(void)
     tap(SMK_PAD, PAD_MODE);
     CHECK(smk.pad_mode == PADS_DRUMS, "MODE: DRUMS");
     ev(SMK_PAD, 8, 120);
-    CHECK(voices_sounding() > 0 && smk.pad_note[8] == 36, "the bottom left pad plays the kick");
+    CHECK(smk.pad_note[8] == 36, "the bottom left pad plays the kick (C2)");
+    int pd = 0;
+    for (int v = 0; v < DR_COUNT; v++)
+        pd += pad_drum.voice[v].active != 0;
+    CHECK(pd > 0, "...on the pads' own kit");
     ev(SMK_PAD, 8, 0);
+    ev(SMK_PAD, PAD_REC, 100);
+    ev(SMK_PAD, 2, 100);
+    CHECK(pad_rgb[1] == 0x300800 && pad_rgb[0] == 0xFF2000 && pad_rgb[6] == 0, "REC held: the five kits on the pads");
+    ev(SMK_PAD, PAD_REC, 0);
+    ev(SMK_PAD, 2, 0);
+    run_ms(20);
+    CHECK(set.pad_kit == 2, "REC + pad 3: the pads' kit is the 3rd");
 
     /* a drum pad pressed harder rolls on the grid (1/8, 1/16, 1/32), back to a plain hit when eased off */
     if (!live.clock.running)
@@ -315,11 +336,11 @@ int main(void)
     ev(SMK_PRESSURE, 2, 100);                           /* 1/16 */
     CHECK(smk.roll_level[2] == 2, "pressed harder: a 1/16 roll");
     run_ms(1000);
-    int rolled = note_ons(FM1_MIDI_USB, 0x93, (uint8_t)smk.pad_note[2]);
+    int rolled = note_ons(FM1_MIDI_USB, 0x99, (uint8_t)smk.pad_note[2]);
     CHECK(rolled >= 6 && rolled <= 11, "the roll repeats the drum on the grid");
     ev(SMK_PRESSURE, 2, 0);
     run_ms(500);
-    CHECK(note_ons(FM1_MIDI_USB, 0x93, (uint8_t)smk.pad_note[2]) == rolled, "eased off: the roll stops");
+    CHECK(note_ons(FM1_MIDI_USB, 0x99, (uint8_t)smk.pad_note[2]) == rolled, "eased off: the roll stops");
     ev(SMK_PAD, 2, 0);
     tap(SMK_BUTTON, SMK_B_PAD_STEP);
     CHECK(smk.pad_mode == PADS_PERFORM, "PAD/STEP goes round to PERFORM");

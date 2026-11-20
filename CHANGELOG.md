@@ -1,6 +1,14 @@
 # Changelog
 
-## 21 November 2026 — the pads redone: MODE, REC, CLIPS, DRUMS, MIDI
+## 20 November 2026 — SINGLE / LOOP clips, the pads' own drum kit, LOAD / SAVE
+
+- CLIPS: a tap plays once (SINGLE); MODE + pad, or the pad held then MODE, latches a LOOP from the next beat
+  (blinking green / violet); a tap lets it go.
+- DRUMS: the pads have their own kit (MIDI channel 10); REC held shows the five kits, REC + pad chooses (kept).
+- SCENES: REC held, the save pads pink. SAVE / GLO: LOAD keys 1–8, SAVE keys 9–16 (pink on screen); held keys
+  yellow, muted tracks red. Host test: 97 checks.
+
+## 20 November 2026 — the pads redone: MODE, REC, CLIPS, DRUMS, MIDI
 
 - The two right pads set up the others: **MODE** (top right, a tap: CLIPS → DRUMS → PERFORM → SCENES → MIDI, in the
   mode's colour) and **REC** (bottom right: REC + pad, REC let go first, records a clip or stores a scene).
