@@ -1,5 +1,11 @@
 # Changelog
 
+## 20 November 2026 — CAPTURE only on an empty track, METAL rings
+
+- CAPTURE's green line (EDIT blinking fast) starts only on a track without a loop: after a REC take, the next note
+  no longer starts it. Simulator script capture.txt.
+- METAL rings on while held and after (longer decay and release, a little chorus and echo).
+
 ## 20 November 2026 — STAB, PLUCK, RISER
 
 - STAB and PLUCK hold with the keys (a body after the attack, a longer release) instead of a 200 ms blip; RISER is
