@@ -1,5 +1,10 @@
 # Changelog
 
+## 20 November 2026 — scroll bars, NEXT PAGE
+
+- MAP CONTROL, OPTION CONTROL and SOUND EDIT show a scroll bar on the right when their list is longer than the screen.
+- The menus' last line is "→ NEXT PAGE" (was MENU); on it, the help says "<- PRESET ->".
+
 ## 20 November 2026 — SAVE ALL is a key
 
 - SAVE alone saves nothing any more: SAVE + the 1st black key = **SAVE ALL** (blinking when something is to be
