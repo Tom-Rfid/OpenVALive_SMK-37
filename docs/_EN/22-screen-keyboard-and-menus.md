@@ -220,11 +220,15 @@ Every parameter of the line's sound: oscillators, filter, envelopes, then the mo
 
 16 pads: 14 to play, and on the right (framed) MODE at the top, SWITCH: a tap = the next mode, the pad takes its colour; REC at the bottom: REC + a pad. The > button (PAD/STEP) also goes round the modes.
 
-Every mode in full words, in the pads’ colours:
+Three levels. 1 — every mode in full words, in the pads’ colours:
 
 <p align="center"><img src="../img/pads-all-modes.png" width="560" alt="pads"></p>
 
-The same in short, as the screen keyboard writes them, in its colours (same function, same colour: pink = loops and scenes, mint = acts at once, violet = a track playing):
+2 — in short, still in the pads’ colours:
+
+<p align="center"><img src="../img/pads-all-modes-short.png" width="560" alt="pads"></p>
+
+3 — each pad with the key it stands for, as the screen keyboard draws it (same function, same colour: pink = valid on release on the keyboard, mint = acts at once, violet = a track playing; a black key between its two white keys in grey):
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
 

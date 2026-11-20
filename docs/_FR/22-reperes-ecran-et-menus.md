@@ -220,11 +220,15 @@ Tous les paramètres du son de la ligne : oscillateurs, filtre, enveloppes, puis
 
 16 pads : 14 de jeu, et à droite (encadrés) MODE en haut, SWITCH : une tape = le mode suivant, le pad prend sa couleur ; REC en bas : REC + un pad. Le bouton > (PAD/STEP) fait aussi le tour des modes.
 
-Tous les modes en toutes lettres, dans les couleurs des pads :
+Trois niveaux de lecture. 1 — tous les modes en toutes lettres, dans les couleurs des pads :
 
 <p align="center"><img src="../img/pads-all-modes.png" width="560" alt="pads"></p>
 
-Les mêmes en abrégé, comme le clavier à l’écran les écrit, dans ses couleurs (même fonction, même couleur : rose = boucles et scènes, menthe = agit tout de suite, violet = piste qui joue) :
+2 — en abrégé, toujours dans les couleurs des pads :
+
+<p align="center"><img src="../img/pads-all-modes-short.png" width="560" alt="pads"></p>
+
+3 — chaque pad avec la touche qu’il remplace, comme le clavier à l’écran la dessine (même fonction, même couleur : rose = validé au relâché sur le clavier, menthe = agit tout de suite, violet = piste qui joue ; une touche noire entre ses deux blanches grises) :
 
 <p align="center"><img src="../img/pads-all-modes-keys.png" width="560" alt="pads"></p>
 

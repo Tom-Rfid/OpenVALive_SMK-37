@@ -35,14 +35,19 @@ come in turn (OPTION CONTROL: HELP AT START).
 
 <p align="center"><img src="docs/img/keys-at-a-glance.png" width="560" alt="Every layer of the SMK-37's screen keyboard with its keys' names"></p>
 
-The 16 pads, mode by mode; framed on the right, **SWITCH** (MODE: the next mode) and **REC + ▢** (REC + a pad: keep):
+The 16 pads, mode by mode; framed on the right, **SWITCH** (MODE: the next mode) and **REC + ▢** (REC + a pad: keep).
+Three levels — in full words:
 
-<p align="center"><img src="docs/img/pads-all-modes.png" width="560" alt="The pads in each mode: CLIPS, DRUMS, PERFORM, SCENES, MIDI; on the right SWITCH and REC + a pad"></p>
+<p align="center"><img src="docs/img/pads-all-modes.png" width="560" alt="The pads in each mode, in full words: CLIPS, DRUMS, PERFORM, SCENES, MIDI"></p>
 
-The same in short, as the screen keyboard writes them, in its colours (pink: loops and scenes, mint: acts at once,
-violet: a track playing):
+In short:
 
-<p align="center"><img src="docs/img/pads-all-modes-keys.png" width="560" alt="The pads in each mode in short, in the screen keyboard's colours"></p>
+<p align="center"><img src="docs/img/pads-all-modes-short.png" width="560" alt="The pads in each mode, in short, in the pads' colours"></p>
+
+And each pad as the key it stands for, drawn as the screen keyboard draws it (pink: valid on release on the keyboard,
+mint: acts at once, violet: a track playing):
+
+<p align="center"><img src="docs/img/pads-all-modes-keys.png" width="560" alt="Each pad with the key it stands for, in the screen keyboard's colours"></p>
 
 Every layer, the buttons, the set-up menus, the pads and the sounds:
 **[22 — At a glance](docs/_EN/22-screen-keyboard-and-menus.md)** · 🇫🇷 **[22 — Repères](docs/_FR/22-reperes-ecran-et-menus.md)**
