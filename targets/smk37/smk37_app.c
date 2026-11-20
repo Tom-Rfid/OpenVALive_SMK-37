@@ -1136,11 +1136,7 @@ static uint32_t pad_colour(uint32_t pad)
                 all_out &= live.track[k].mute != 0;
             return all_out ? ((fm1_millis() / 125u) & 1u ? 0xFF0010 : 0x100000) : 0x200040;
         }
-        if (!avol.on)                             /* A VOL: running, a 2 s swell in green, lit first */
-            return 0x002810;
-        uint32_t ph = (fm1_millis() - avol.start) % 2000u;
-        uint32_t up = ph < 1000u ? 1000u - ph : ph - 1000u;   /* 1000 .. 0 .. 1000 */
-        return dim(0x00FF60, 20u + up * 235u / 1000u);
+        return avol.on ? 0x00FF60 : 0x002810;     /* A VOL: lit green while it runs */
     }
     if (smk.pad_mode == PADS_MIDI)                /* MIDI: white while hit, else off */
         return held ? 0xFFFFFF : 0;

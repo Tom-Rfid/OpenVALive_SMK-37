@@ -63,8 +63,8 @@ pédale, plus de touches).
 
 ## Voyants
 
-Boutons : **FX** et **SEL** allumés ; **ARP**, **SEQ**, **GLO** respirent sur 2 s (FM-1 ; les voyants du SMK-37 n'ont
-qu'un niveau) ; **EDIT** allumé en lecture (clignote pendant l'enregistrement) ; **SAVE** allumé quand il y a quelque
+Boutons : **FX** et **SEL** allumés ; disponible mais pas actif = faible, actif = allumé, quelques-uns clignotent vite (MUTE ALL…), rien ne respire ;
+**EDIT** allumé en lecture (clignote pendant l'enregistrement) ; **SAVE** allumé quand il y a quelque
 chose à sauver (un mute ne compte pas), clignote pendant la sauvegarde (par étapes sur environ une seconde, chaque
 partie seulement si elle a changé).
 Clavier à l'écran (et les touches du FM-1 quand elles le peuvent) : Couleurs : **jaune** appuyée ; **violet** quelque chose d'actif (une piste qui joue, un effet en cours…) ; **menthe** disponible, pas actif ; **rose** validé au relâché (lâcher le bouton en premier pour le prendre) ; **menthe / rose en alternance** validé au relâché et actif (A VOL en cours…) ; **bleu** les écrans de réglage (SOUNDS, LOOP EDIT, OPTIONS) ; **rouge** une piste coupée (SEL).

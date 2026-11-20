@@ -62,7 +62,7 @@ Same behaviour on both; the SMK-37 only adds what it has more (pads, faders, whe
 
 ## Lights
 
-Buttons: **FX** and **SEL** lit; **ARP**, **SEQ**, **GLO** breathe over 2 s (FM-1; the SMK-37's LEDs have one level);
+Buttons: **FX** and **SEL** lit; offered but not on = dim, on = lit, a few blink fast (MUTE ALL…), nothing breathes;
 **EDIT** lit while playing (blinking while recording); **SAVE** lit when something is to be saved (a mute is not),
 blinking while it saves (in steps over about a second, each part only if it changed).
 Screen keyboard (and the FM-1's keys where they can): Colours: **yellow** pressed; **violet** something on (a track playing, an effect running…); **mint** offered, not on; **pink** valid on release (let the button go first to take it); **mint / pink in turn** valid on release and on now (A VOL running…); **blue** the set-up screens (SOUNDS, LOOP EDIT, OPTIONS); **red** a muted track (SEL).

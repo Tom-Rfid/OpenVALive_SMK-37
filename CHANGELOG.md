@@ -1,5 +1,10 @@
 # Changelog
 
+## 20 November 2026 — no breathing
+
+- Lights and the screen keyboard: offered but not on = dim (steady), on = lit, a few blink fast (MUTE ALL...);
+  nothing breathes any more (keys, buttons, A VOL).
+
 ## 20 November 2026 — pads at power-on, MODE / REC held
 
 - At power-on the pads go off at once, then a wave (mint on top, orange below) while the boot screen shows.
