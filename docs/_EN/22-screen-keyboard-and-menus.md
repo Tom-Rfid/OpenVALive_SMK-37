@@ -218,7 +218,7 @@ Every parameter of the line's sound: oscillators, filter, envelopes, then the mo
 
 ## The pads
 
-16 pads: 14 to play, MODE top right (a tap: the next mode, the pad takes its colour), REC bottom right. The > button (PAD/STEP) also goes round the modes.
+16 pads: 14 to play, and on the right (framed) MODE at the top, SWITCH: a tap = the next mode, the pad takes its colour; REC at the bottom: REC + a pad. The > button (PAD/STEP) also goes round the modes.
 
 ### CLIPS
 
@@ -234,7 +234,7 @@ The pads' own drum kit, out on MIDI channel 10. REC held: the 5 kits on the firs
 
 ![DRUMS](../img/pads-drums.png)
 
-**Sol2** High floor tom, **Sol#2** Pedal hat, **La2** Low tom, **La#2** Open hat, **Si2** Low-mid tom, **Do3** Hi-mid tom, **Do#3** Crash, **Do2** Kick, **Do#2** Rimshot, **Ré2** Snare, **Ré#2** Clap, **Mi2** Snare 2, **Fa2** Low floor tom, **Fa#2** Closed hat.
+**HFT** High floor tom (G2, note 43), **PHH** Pedal hat (G#2, note 44), **LT** Low tom (A2, note 45), **OHH** Open hat (A#2, note 46), **LMT** Low-mid tom (B2, note 47), **HMT** Hi-mid tom (C3, note 48), **CRS** Crash (C#3, note 49), **KCK** Kick (C2, note 36), **RIM** Rimshot (C#2, note 37), **SNR** Snare (D2, note 38), **CLP** Clap (D#2, note 39), **SN2** Snare 2 (E2, note 40), **LFT** Low floor tom (F2, note 41), **CHH** Closed hat (F#2, note 42).
 
 ### PERFORM
 
@@ -258,7 +258,7 @@ Scenes 1–8 on the next bar (bright: the last one, pale: stored). Then the trac
 
 ![MIDI](../img/pads-midi.png)
 
-**Sol2** Note 43, channel 16, **Sol#2** Note 44, channel 16, **La2** Note 45, channel 16, **La#2** Note 46, channel 16, **Si2** Note 47, channel 16, **Do3** Note 48, channel 16, **Do#3** Note 49, channel 16, **Do2** Note 36, channel 16, **Do#2** Note 37, channel 16, **Ré2** Note 38, channel 16, **Ré#2** Note 39, channel 16, **Mi2** Note 40, channel 16, **Fa2** Note 41, channel 16, **Fa#2** Note 42, channel 16.
+**G2** Note 43, channel 16, **G#2** Note 44, channel 16, **A2** Note 45, channel 16, **A#2** Note 46, channel 16, **B2** Note 47, channel 16, **C3** Note 48, channel 16, **C#3** Note 49, channel 16, **C2** Note 36, channel 16, **C#2** Note 37, channel 16, **D2** Note 38, channel 16, **D#2** Note 39, channel 16, **E2** Note 40, channel 16, **F2** Note 41, channel 16, **F#2** Note 42, channel 16.
 
 ## The sounds
 

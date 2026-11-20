@@ -35,7 +35,9 @@ come in turn (OPTION CONTROL: HELP AT START).
 
 <p align="center"><img src="docs/img/keys-at-a-glance.png" width="560" alt="Every layer of the SMK-37's screen keyboard with its keys' names"></p>
 
-<p align="center"><img src="docs/img/pads-perform.png" width="560" alt="The pads in PERFORM: loops, slicer, filters, delay, crush, break, solo, all out, all off; MODE and REC on the right"></p>
+The 16 pads, mode by mode; framed on the right, **SWITCH** (MODE: the next mode) and **REC + ▢** (REC + a pad: keep):
+
+<p align="center"><img src="docs/img/pads-all-modes.png" width="560" alt="The pads in each mode: CLIPS, DRUMS, PERFORM, SCENES, MIDI; on the right SWITCH and REC + a pad"></p>
 
 Every layer, the buttons, the set-up menus, the pads and the sounds:
 **[22 — At a glance](docs/_EN/22-screen-keyboard-and-menus.md)** · 🇫🇷 **[22 — Repères](docs/_FR/22-reperes-ecran-et-menus.md)**

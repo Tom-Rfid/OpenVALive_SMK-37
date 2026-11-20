@@ -218,7 +218,7 @@ Tous les paramètres du son de la ligne : oscillateurs, filtre, enveloppes, puis
 
 ## Les pads
 
-16 pads : 14 de jeu, MODE en haut à droite (une tape : le mode suivant, le pad prend sa couleur), REC en bas à droite. Le bouton > (PAD/STEP) fait aussi le tour des modes.
+16 pads : 14 de jeu, et à droite (encadrés) MODE en haut, SWITCH : une tape = le mode suivant, le pad prend sa couleur ; REC en bas : REC + un pad. Le bouton > (PAD/STEP) fait aussi le tour des modes.
 
 ### CLIPS
 
@@ -234,7 +234,7 @@ Le kit propre aux pads, sortie canal MIDI 10. REC tenu : les 5 kits sur les 5 pr
 
 ![DRUMS](../img/pads-drums.png)
 
-**Sol2** Tom grave, **Sol#2** Charley pédale, **La2** Tom moyen, **La#2** Charley ouvert, **Si2** Tom médium, **Do3** Tom aigu, **Do#3** Crash, **Do2** Grosse caisse, **Do#2** Rimshot, **Ré2** Caisse claire, **Ré#2** Clap, **Mi2** Caisse claire 2, **Fa2** Tom basse, **Fa#2** Charley fermé.
+**HFT** Tom grave (G2, note 43), **PHH** Charley pédale (G#2, note 44), **LT** Tom moyen (A2, note 45), **OHH** Charley ouvert (A#2, note 46), **LMT** Tom médium (B2, note 47), **HMT** Tom aigu (C3, note 48), **CRS** Crash (C#3, note 49), **KCK** Grosse caisse (C2, note 36), **RIM** Rimshot (C#2, note 37), **SNR** Caisse claire (D2, note 38), **CLP** Clap (D#2, note 39), **SN2** Caisse claire 2 (E2, note 40), **LFT** Tom basse (F2, note 41), **CHH** Charley fermé (F#2, note 42).
 
 ### PERFORM
 
@@ -258,7 +258,7 @@ Scènes 1–8 à la mesure suivante (vif : la dernière, pâle : enregistrée). 
 
 ![MIDI](../img/pads-midi.png)
 
-**Sol2** Note 43, canal 16, **Sol#2** Note 44, canal 16, **La2** Note 45, canal 16, **La#2** Note 46, canal 16, **Si2** Note 47, canal 16, **Do3** Note 48, canal 16, **Do#3** Note 49, canal 16, **Do2** Note 36, canal 16, **Do#2** Note 37, canal 16, **Ré2** Note 38, canal 16, **Ré#2** Note 39, canal 16, **Mi2** Note 40, canal 16, **Fa2** Note 41, canal 16, **Fa#2** Note 42, canal 16.
+**G2** Note 43, canal 16, **G#2** Note 44, canal 16, **A2** Note 45, canal 16, **A#2** Note 46, canal 16, **B2** Note 47, canal 16, **C3** Note 48, canal 16, **C#3** Note 49, canal 16, **C2** Note 36, canal 16, **C#2** Note 37, canal 16, **D2** Note 38, canal 16, **D#2** Note 39, canal 16, **E2** Note 40, canal 16, **F2** Note 41, canal 16, **F#2** Note 42, canal 16.
 
 ## Les sons
 
