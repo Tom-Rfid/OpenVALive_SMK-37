@@ -1,5 +1,11 @@
 # Changelog
 
+## 20 November 2026 — WORLD family, RAVE SAX, LUTE, FLUTE, BAGPIPE, DROPS (65 sounds)
+
+- New family **WORLD** (instruments in the module's electro / underground style): RAVE SAX, LUTE, FLUTE, BAGPIPE.
+  DROPS (water drops) joins MINIMAL. Nine factory families F1–F9, then USER shown as "US".
+- Settings OLSF: the drum kits and USER sounds 5 higher, OLSE / OLSD moved (hidden sounds, USER origins too).
+
 ## 20 November 2026 — USER sounds named after their origin
 
 - A USER sound shows the factory sound it was made from: "U3 ACID 303" (in place of "F9 USER 3"); one kept before
