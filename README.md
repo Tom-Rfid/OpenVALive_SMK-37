@@ -46,7 +46,7 @@ In short:
 
 And each pad as the key it stands for, drawn as the screen keyboard draws it (pink: valid on release on the keyboard,
 mint: acts at once, violet: a track playing); the pad's background shows that key's light by default, layer held and
-playing: light grey off, off-white offered, bright white on, white rays blinking:
+playing: light grey off, a grey dot at the bottom offered, bright white on, white rays on grey blinking:
 
 <p align="center"><img src="docs/img/pads-all-modes-keys.png" width="560" alt="Each pad with the key it stands for, in the screen keyboard's colours"></p>
 
