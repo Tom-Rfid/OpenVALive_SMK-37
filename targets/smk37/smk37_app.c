@@ -29,8 +29,9 @@ static uint32_t smk_key_layer(uint32_t k);
 #define APP_KEY_LAYER(k) smk_key_layer(k)
 /* the keyboard drawn on the screen while a layer button is held: the 37 keys from C3 */
 static int32_t smk_screen_key(uint32_t i);
-/* No APP_DELAY_LEN here: 8 KB taken from the delays for the SDK's heap (63980 B) left the keyboard stuck on the logo,
- * without USB-MIDI (8eba494, 26 Nov 2026); the delays stay 16384 samples, as when it started (heap 55788 B) */
+#define APP_DELAY_LEN 16224u                    /* 160 samples (1.3 KB) off each delay for the SDK's heap: the MIDI
+                                                 * update needs ~56300 B (55788 stops when it reads the update loader,
+                                                 * 20 Nov's 56300 works); 63980 stayed on the logo. Delays: 0.368 s */
 #define APP_SCREEN_KEYS 37u
 #define APP_SCREEN_FIRST 0u
 #define APP_SCREEN_KEY(i) smk_screen_key(i)
@@ -1343,7 +1344,7 @@ static const struct { char name[4]; uint8_t type; } PAD_MAP[PAD_MODES][SMK_PADS]
         { "M1", 8 }, { "M2", 8 }, { "M3", 8 }, { "M4", 8 },
         { "MA", 16 }, { "RST", 14 }, { "CLR", 3 }, { "SW", 10 },
         { "CAP", 11 }, { "UND", 15 }, { "RDO", 15 }, { "MOD", 17 },
-        { "AV", 9 }, { "1/2", 0 }, { "PG", 18 }, { "LV1", 14 },
+        { "AV", 9 }, { "1/2", 0 }, { "FX", 18 }, { "LV1", 14 },
     },
     {
         { "SC1", 7 }, { "SC2", 7 }, { "SC3", 7 }, { "SC4", 7 },
