@@ -443,9 +443,10 @@ def build(args, gen):
     check_ram_symbols(tc, elf)
     m = re.search(r"0x([0-9a-fA-F]+)[^\r\n]*_MALLOC_SIZE[ ]*=", mapfile.read_text(errors="replace"))
     heap = int(m.group(1), 16) if m else 0
-    if heap < 55296:
+    if heap < 61440:
         ram_report(mapfile)
-        raise SystemExit(f"build: the SDK's heap would be {heap} bytes; it needs 55296: the firmware update failed with less (too much RAM used)")
+        raise SystemExit(f"build: the SDK's heap would be {heap} bytes; it needs 61440: the firmware update failed with "
+                         "52 KB (no request answered) and with 54.6 KB (stopped after 9 requests)")
     app = b""
     for section in (".text", ".data", ".ram0_data", ".cache_ram_data"):
         b = out / f"{section[1:]}.bin"

@@ -1,5 +1,10 @@
 # Changelog
 
+## 26 November 2026 — the firmware update gets its RAM back
+
+- The MIDI update stopped after 9 requests (the SDK's heap at 54.6 KB): the tracks' delay buffers are 1024 samples
+  shorter (8 KB back; only delay times past 0.35 s clamp) and the build now refuses less than 60 KB of heap.
+
 ## 26 November 2026 — the pads' LIVE 2 mode
 
 - A pad mode LIVE 2 (violet), right after PERFORM (now called LIVE 1): MUTE 1–4 (the tracks' own mutes), MUTE ALL,

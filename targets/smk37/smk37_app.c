@@ -29,6 +29,9 @@ static uint32_t smk_key_layer(uint32_t k);
 #define APP_KEY_LAYER(k) smk_key_layer(k)
 /* the keyboard drawn on the screen while a layer button is held: the 37 keys from C3 */
 static int32_t smk_screen_key(uint32_t i);
+#define APP_DELAY_LEN 15360u                    /* the tracks' delays 1024 samples shorter than the FM-1's (8 KB of RAM
+                                                 * for the SDK's heap: the firmware update needs it; only the longest
+                                                 * delay times, past 0.35 s, clamp) */
 #define APP_SCREEN_KEYS 37u
 #define APP_SCREEN_FIRST 0u
 #define APP_SCREEN_KEY(i) smk_screen_key(i)
