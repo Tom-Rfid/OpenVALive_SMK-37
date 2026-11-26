@@ -1,6 +1,6 @@
 # Changelog
 
-## 26 November 2026 — CORE 47c9071: MOOD per track, FX held aligns the tracks, a taken sound in green, BLEEP / METAL levels
+## 26 November 2026 — CORE 8416fe9: MOOD per track, FX held aligns the tracks, a taken sound in green, BLEEP / METAL levels
 
 - MACRO renamed MOOD, each track its own; USER's knobs on the selected track keep a value per track; FX held + a knob:
   the other tracks come to its value in five detents (mint bars); a sound taken: the title green with a check mark.
