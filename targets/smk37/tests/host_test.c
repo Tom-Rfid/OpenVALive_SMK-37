@@ -334,6 +334,22 @@ int main(void)
     run_ms(50);
     CHECK(smk.pad_mode == PADS_PERFORM && smk.mode_map == 0, "...and letting it go keeps the mode");
 
+    /* PAD/STEP: LIVE 2 (violet). The top left pads are the tracks' mutes, the 7th CLEARs the track; REC (bottom
+     * right, green) switches LIVE 1 <-> LIVE 2 */
+    tap(SMK_BUTTON, SMK_B_PAD_STEP);
+    CHECK(smk.pad_mode == PADS_LIVE2 && pad_rgb[PAD_MODE] == dim(0x9030FF, 110u), "PAD/STEP: LIVE 2, violet");
+    CHECK(pad_rgb[PAD_REC] == 0x00601A, "REC is the LIVE switch, green");
+    tap(SMK_PAD, 0);
+    run_ms(50);
+    CHECK(live.track[0].mute, "LIVE 2: pad 1 mutes track 1 (the same mute as SELECT + key)");
+    tap(SMK_PAD, 0);
+    run_ms(50);
+    CHECK(!live.track[0].mute, "...and back");
+    tap(SMK_PAD, PAD_REC);
+    CHECK(smk.pad_mode == PADS_PERFORM, "REC: back to LIVE 1");
+    tap(SMK_PAD, PAD_REC);
+    CHECK(smk.pad_mode == PADS_LIVE2, "REC again: LIVE 2");
+
     /* PAD/STEP: SCENES. Pads 1-8 recall, SHIFT + them store (or REC + them, valid on release), 9-12 mute the tracks */
     tap(SMK_BUTTON, SMK_B_PAD_STEP);
     CHECK(smk.pad_mode == PADS_SCENES, "PAD/STEP: scenes");

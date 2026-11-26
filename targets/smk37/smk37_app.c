@@ -379,7 +379,9 @@ static const int8_t ENCODER_MAP[SMK_ENCODERS] = { EN_SELECT, EN_PRESET, EN_K1, E
 
 /* The pads: the two on the right are set-up pads, MODE (top right) and REC (bottom right); the 14 others play the
  * mode MODE (or PAD/STEP) goes round: CLIPS, DRUMS, PERFORM, SCENES, MIDI. */
-enum { PADS_CLIPS, PADS_DRUMS, PADS_PERFORM, PADS_SCENES, PADS_MIDI, PAD_MODES };
+enum { PADS_CLIPS, PADS_DRUMS, PADS_PERFORM, PADS_LIVE2, PADS_SCENES, PADS_MIDI, PAD_MODES };   /* PERFORM is
+                                                 * LIVE 1: LIVE 1 and LIVE 2 are the pads played all the time */
+#define LIVE_MODE(m) ((m) == PADS_PERFORM || (m) == PADS_LIVE2)   /* REC is their switch, green */
 #define PAD_MODE 7u                             /* the top right pad */
 #define PAD_REC 15u                             /* the bottom right pad */
 #define PLAY_PADS 14u
@@ -645,7 +647,7 @@ static void setup_pad(uint32_t pad, int down)
             ui.redraw = 1;
             return;
         }
-        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "PERFORM", "SCENES", "MIDI CH 16" };
+        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "LIVE 1", "LIVE 2", "SCENES", "MIDI CH 16" };
         smk.pad_mode = (uint8_t)((smk.pad_mode + 1u) % PAD_MODES);
         app_say("PADS", NAME[smk.pad_mode]);
         return;
@@ -672,6 +674,13 @@ static void setup_pad(uint32_t pad, int down)
                 return;
             }
         }
+        if (LIVE_MODE(smk.pad_mode)) {          /* LIVE 1 / LIVE 2: REC is their switch (nothing to record there) */
+            static const char *const LIVE_NAME[2] = { "LIVE 1", "LIVE 2" };
+            smk.pad_mode = smk.pad_mode == PADS_PERFORM ? PADS_LIVE2 : PADS_PERFORM;
+            app_say("PADS", LIVE_NAME[smk.pad_mode == PADS_LIVE2]);
+            smk.rec_target = -2;
+            return;
+        }
         smk.rec_target = -1;
         if (smk.pad_mode == PADS_DRUMS) {       /* the kits on the first five pads, the one playing bright */
             app_say("PAD KIT", ols_sound_name(OLS_SOUND_FIRST_DRUM + set.pad_kit));
@@ -689,6 +698,102 @@ static void setup_pad(uint32_t pad, int down)
         return;
     }
     rec_taken(i);
+}
+
+/* LIVE 2: what is needed at once while playing, one pad each. Top: MUTE 1-4 (the tracks' own mutes, as SELECT + key),
+ * MUTE ALL, RESTART, CLEAR TRACK. Bottom: LOOP REC (as EDIT tapped), UNDO, REDO, TAP tempo, the previous / next
+ * stored scene, A VOL. REC (bottom right) goes back to LIVE 1. */
+enum { L2_M1, L2_M2, L2_M3, L2_M4, L2_MUTE_ALL, L2_RESTART, L2_CLEAR, L2_CAPTURE, L2_UNDO, L2_REDO, L2_TAP,
+       L2_SCENE_PREV, L2_SCENE_NEXT, L2_AVOL };
+
+static int live2_scene(int dir)                 /* the next stored scene from the last one, -1 none */
+{
+    int from = mirror.scene_last >= 0 ? mirror.scene_last : (dir > 0 ? -1 : 0);
+    for (int n = 1; n <= 8; n++) {
+        int s = ((from + dir * n) % 8 + 8) % 8;
+        if (live.scene[s].valid)
+            return s;
+    }
+    return -1;
+}
+
+static void live2_pad(int i)
+{
+    switch (i) {
+    case L2_M1: case L2_M2: case L2_M3: case L2_M4:
+        track_key(i);
+        break;
+    case L2_MUTE_ALL:
+        mute_all_key();
+        break;
+    case L2_RESTART:
+        home_key(1);
+        break;
+    case L2_CLEAR:
+        track_key(5);                           /* the selected track (on A: every track); ENV undoes it */
+        break;
+    case L2_CAPTURE:                            /* as EDIT tapped: LOOP REC armed, again: taken */
+        if (ui.cap_armed) {
+            take_end();
+        } else {
+            ui.edit_used = 0;
+            edit_released();
+        }
+        break;
+    case L2_UNDO:
+        button_pressed(B_ENV, ui.buttons);
+        break;
+    case L2_REDO:
+        button_pressed(B_LFO, ui.buttons);
+        break;
+    case L2_TAP:
+        send_live(LIVE_TAP, 0, 0, 0.0f, 0);
+        app_say("TAP", "TEMPO");
+        break;
+    case L2_SCENE_PREV: case L2_SCENE_NEXT: {
+        int s = live2_scene(i == L2_SCENE_NEXT ? 1 : -1);
+        if (s < 0)
+            app_say("SCENES", "NONE STORED");
+        else
+            scene_key(s);
+        break;
+    }
+    default:
+        avol_key();
+        break;
+    }
+}
+
+static uint32_t live2_colour(int i, int held)
+{
+    if (i <= L2_M4)                             /* the mutes: as in SCENES */
+        return live.track[i].mute ? 0x400000 : (i == mirror.track && !ui.on_a ? 0x8060FF : 0x08A008);
+    switch (i) {
+    case L2_MUTE_ALL: {
+        int all_out = 1;
+        for (uint32_t k = 0; k < TRACKS; k++)
+            all_out &= live.track[k].mute != 0;
+        return all_out ? ((fm1_millis() / 125u) & 1u ? 0xFF0010 : 0x100000) : 0x200040;
+    }
+    case L2_RESTART:
+        return held ? 0x00FF40 : 0x00300C;
+    case L2_CLEAR:
+        return held ? 0xFF0000 : 0x300000;
+    case L2_CAPTURE:                            /* LOOP REC armed / taking: blinks fast */
+        return ui.cap_armed ? ((fm1_millis() / 125u) & 1u ? 0x00C0FF : 0x001018) : (held ? 0x00C0FF : 0x00141C);
+    case L2_UNDO:
+        return ols_live_can_undo_track(&live, mirror.track) ? 0xC08000 : 0x100800;
+    case L2_REDO:
+        return ols_live_can_redo_track(&live, mirror.track) ? 0xC08000 : 0x100800;
+    case L2_TAP: {                              /* the beat */
+        uint32_t t = live.clock.running ? live.clock.tick : live.clock.free_tick;
+        return held ? 0xFFFFFF : (t % OLS_PPQN < OLS_PPQN / 8u ? 0x808080 : 0x101010);
+    }
+    case L2_SCENE_PREV: case L2_SCENE_NEXT:
+        return live2_scene(1) < 0 ? 0x020210 : (held ? 0x60A0FF : 0x0828A0);
+    default:
+        return avol.on ? 0x00FF60 : 0x002810;   /* A VOL: lit green while it runs */
+    }
 }
 
 #define PADS_QUIET_MS 500u
@@ -780,6 +885,10 @@ static void pad_event(uint32_t pad, int velocity)
             else
                 v_keys_tracks |= 1u << k;
             slot_down(k, (uint32_t)velocity);
+            return;
+        }
+        if (smk.pad_mode == PADS_LIVE2) {       /* quick gestures, at once */
+            live2_pad(i);
             return;
         }
         if (smk.pad_mode == PADS_PERFORM) {     /* 14 of the perform effects (the pads never follow a held layer) */
@@ -1146,9 +1255,9 @@ static uint32_t clip_colour(const clip_t *c)
 }
 
 /* the pads' modes' colours (the MODE pad shows the one it is in) */
-static const uint32_t MODE_COLOUR[PAD_MODES] = { 0xFFD000, 0xFF1010, 0x20FFA0, 0x2040FF, 0xC0C0C0 };   /* CLIPS
-                                                 * yellow, DRUMS red, PERFORM mint (the live colour), SCENES blue,
-                                                 * MIDI white */
+static const uint32_t MODE_COLOUR[PAD_MODES] = { 0xFFD000, 0xFF1010, 0x20FFA0, 0x9030FF, 0x2040FF, 0xC0C0C0 };
+                                                /* CLIPS yellow, DRUMS red, LIVE 1 (PERFORM) mint (the live colour),
+                                                 * LIVE 2 violet, SCENES blue, MIDI white */
 
 #define MODE_MAP_MS 400u                        /* MODE held this long, alone: the pads' map shows */
 
@@ -1170,7 +1279,13 @@ static const struct { char name[4]; uint8_t type; } PAD_MAP[PAD_MODES][SMK_PADS]
         { "L1", 0 }, { "L2", 0 }, { "L4", 0 }, { "L8", 0 },
         { "L16", 0 }, { "SLC", 12 }, { "DLY", 13 }, { "SW", 10 },
         { "FL-", 1 }, { "FL+", 1 }, { "CRU", 13 }, { "BRK", 2 },
-        { "SOL", 2 }, { "OUT", 2 }, { "OFF", 3 }, { "REC", 11 },
+        { "SOL", 2 }, { "OUT", 2 }, { "OFF", 3 }, { "LV2", 14 },
+    },
+    {
+        { "M1", 8 }, { "M2", 8 }, { "M3", 8 }, { "M4", 8 },
+        { "MA", 8 }, { "RST", 14 }, { "CLR", 2 }, { "SW", 10 },
+        { "CAP", 0 }, { "UND", 15 }, { "RDO", 15 }, { "TAP", 3 },
+        { "SC-", 7 }, { "SC+", 7 }, { "AV", 9 }, { "LV1", 14 },
     },
     {
         { "SC1", 7 }, { "SC2", 7 }, { "SC3", 7 }, { "SC4", 7 },
@@ -1193,12 +1308,13 @@ static int smk_pad_map(void)
 {
     if (!((smk.pad_down >> PAD_MODE) & 1u) || smk.mode_used || fm1_millis() - smk.mode_down_at < MODE_MAP_MS)
         return 0;
-    static const uint32_t TYPE_RGB[14] = { 0x00C0FF, 0xFF6000, 0xFF1A2E, 0xF2F2F2, 0xFFD000, 0xFF3A20, 0xC8C8C8,
-                                           0x4A7DFF, 0x22B04A, 0x00E070, 0, 0xFF1010, 0x9040FF, 0xFFC000 };
+    static const uint32_t TYPE_RGB[16] = { 0x00C0FF, 0xFF6000, 0xFF1A2E, 0xF2F2F2, 0xFFD000, 0xFF3A20, 0xC8C8C8,
+                                           0x4A7DFF, 0x22B04A, 0x00E070, 0, 0xFF1010, 0x9040FF, 0xFFC000, 0x00FF40,
+                                           0xC08000 };
                                                 /* loop, filter, mute, off, clip, drum, MIDI, scene, track, A VOL,
-                                                 * (MODE), REC, slicer, sound effect */
+                                                 * (MODE), REC, slicer, sound effect, LIVE switch / restart, undo */
     if (!smk.mode_map) {
-        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "PERFORM", "SCENES", "MIDI CH 16" };
+        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "LIVE 1", "LIVE 2", "SCENES", "MIDI CH 16" };
         app_say("PADS", NAME[smk.pad_mode]);
         ui.msg_until = plat_ms() + 60000u;      /* (while MODE is held) */
     }
@@ -1210,7 +1326,7 @@ static int smk_pad_map(void)
         int32_t col = (int32_t)(p % 8u), row = (int32_t)(p / 8u);
         int32_t x = x0 + col * (pw + gap) + (col == 7 ? side : 0), y = y0 + row * (ph + gap);
         uint8_t t = PAD_MAP[smk.pad_mode][p].type;
-        uint32_t c = t == 10u ? MODE_COLOUR[smk.pad_mode] : (t < 14u ? TYPE_RGB[t] : 0x24252Cu);
+        uint32_t c = t == 10u ? MODE_COLOUR[smk.pad_mode] : (t < 16u ? TYPE_RGB[t] : 0x24252Cu);
         cv_rect(x, y, pw, ph, RGB((c >> 16) & 255u, (c >> 8) & 255u, c & 255u));
         const char *n = PAD_MAP[smk.pad_mode][p].name;
         cv_text(x + (pw - text_w(&FONT_XS, n)) / 2, y + (ph - (int32_t)FONT_XS.h) / 2, &FONT_XS, n, C_BLACK);
@@ -1269,6 +1385,8 @@ static uint32_t pad_colour(uint32_t pad)
         return dim(MODE_COLOUR[smk.pad_mode], held ? 256u : 110u);
     }
     if (pad == PAD_REC) {                         /* REC: a take armed or running blinks it, 4 times a second */
+        if (LIVE_MODE(smk.pad_mode) && crec.slot < 0)
+            return held ? 0x00FF40 : 0x00601A;    /* LIVE 1 / 2: the switch, green */
         if (crec.slot >= 0)
             return (fm1_millis() / 250u) & 1u ? 0xFF0000 : 0x180000;
         if (held)
@@ -1290,6 +1408,8 @@ static uint32_t pad_colour(uint32_t pad)
     }
     if (smk.pad_mode == PADS_PERFORM)
         return perform_colour(PERFORM_PAD[i]);
+    if (smk.pad_mode == PADS_LIVE2)
+        return live2_colour(i, held);
     if (smk.pad_mode == PADS_SCENES) {            /* 1-8 the scenes (REC or SHIFT: store), 9-12 the mutes, 13 all, 14 A VOL */
         if (i < (int)SCENE_PADS) {
             if (shift_held() || ((smk.pad_down >> PAD_REC) & 1u))    /* saving: pink */
@@ -1325,8 +1445,8 @@ static void update_lights(void)
         want |= 1u << SMK_B_FADER_BANK;         /* lit: the macros; blinking: the USER bank */
     if (map_is_open())
         want |= 1u << SMK_B_BACK;
-    if (smk.pad_mode != PADS_PERFORM)
-        want |= 1u << SMK_B_PAD_STEP;           /* off: PERFORM, lit: another mode (the MODE pad's colour says which) */
+    if (!LIVE_MODE(smk.pad_mode))
+        want |= 1u << SMK_B_PAD_STEP;           /* off: LIVE 1 / 2, lit: another mode (the MODE pad's colour says which) */
     if (shift_held())
         want |= 1u << SMK_B_SHIFT;
     if (play_red)

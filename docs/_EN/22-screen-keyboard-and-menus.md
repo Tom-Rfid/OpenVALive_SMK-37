@@ -255,11 +255,19 @@ The pads' own drum kit, out on MIDI channel 10. REC held: the 5 kits on the firs
 
 ### PERFORM
 
-The default, in mint (the live colour). SEQ's effects on the pads, by colour: on top the time ones (cyan loops blinking at their length, violet slicer, yellow delay), below the filters (orange), crush (yellow), the cuts (red) and OFF. DRIVE and DRUMS ONLY stay on the keys. Pressure on a held filter, delay or crush: 40 to 100 %.
+LIVE 1: the default, in mint (the live colour). SEQ's effects on the pads, by colour: on top the time ones (cyan loops blinking at their length, violet slicer, yellow delay), below the filters (orange), crush (yellow), the cuts (red) and OFF. DRIVE and DRUMS ONLY stay on the keys. Pressure on a held filter, delay or crush: 40 to 100 %. The bottom right pad (green) goes to LIVE 2.
 
 ![PERFORM](../img/pads-perform.png)
 
 **L1** Loop 1 bar, **L2** Loop 1/2, **L4** Loop 1/4, **L8** Loop 1/8, **L16** Loop 1/16, **SLC** Slicer, **DLY** Delay, **FL-** Filter shut, **FL+** Filter open, **CRU** Crush, **BRK** Break, **SOL** Solo, **OUT** All out, **OFF** Every effect off.
+
+### LIVE 2
+
+In violet, right after LIVE 1: what must start fast while playing. On top the mutes of tracks 1 to 4 (the same as SELECT + key), MUTE ALL, RESTART, CLEAR TRACK; below LOOP REC, UNDO, REDO, TAP tempo, previous / next stored scene, A VOL. The bottom right pad (green) goes back to LIVE 1.
+
+![LIVE 2](../img/pads-live2.png)
+
+**M1** Mute track 1, **M2** Mute track 2, **M3** Mute track 3, **M4** Mute track 4, **MA** Mute all, **RST** Restart: every track from its start, **CLR** Clear track: the selected track wiped, **CAP** Loop rec (as EDIT tapped), **UND** Undo, **RDO** Redo, **TAP** Tap tempo, **SC-** Previous stored scene, **SC+** Next stored scene, **AV** A VOL.
 
 ### SCENES
 

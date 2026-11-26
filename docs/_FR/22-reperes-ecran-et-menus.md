@@ -255,11 +255,19 @@ Le kit propre aux pads, sortie canal MIDI 10. REC tenu : les 5 kits sur les 5 pr
 
 ### PERFORM
 
-Mode par défaut, en menthe (la couleur du live). Les effets de SEQ sur les pads, par couleur : en haut le temps (boucles cyan qui clignotent à leur longueur, slicer violet, delay jaune), en bas les filtres (orange), le crush (jaune), les coupures (rouge) et OFF. DRIVE et DRUMS ONLY restent sur les touches. Pression sur un filtre, delay ou crush tenu : 40 à 100 %.
+LIVE 1 : mode par défaut, en menthe (la couleur du live). Les effets de SEQ sur les pads, par couleur : en haut le temps (boucles cyan qui clignotent à leur longueur, slicer violet, delay jaune), en bas les filtres (orange), le crush (jaune), les coupures (rouge) et OFF. DRIVE et DRUMS ONLY restent sur les touches. Pression sur un filtre, delay ou crush tenu : 40 à 100 %. Le pad en bas à droite (vert) passe à LIVE 2.
 
 ![PERFORM](../img/pads-perform.png)
 
 **L1** Boucle 1 mesure, **L2** Boucle 1/2, **L4** Boucle 1/4, **L8** Boucle 1/8, **L16** Boucle 1/16, **SLC** Slicer, **DLY** Delay, **FL-** Filtre fermé, **FL+** Filtre ouvert, **CRU** Crush, **BRK** Break, **SOL** Solo, **OUT** All out, **OFF** Tous les effets arrêtés.
+
+### LIVE 2
+
+En violet, juste après LIVE 1 : ce qu'il faut lancer vite en jouant. En haut les mutes des pistes 1 à 4 (les mêmes que SELECT + touche), MUTE ALL, RESTART, CLEAR TRACK ; en bas LOOP REC, UNDO, REDO, TAP tempo, scène précédente / suivante, A VOL. Le pad en bas à droite (vert) revient à LIVE 1.
+
+![LIVE 2](../img/pads-live2.png)
+
+**M1** Mute piste 1, **M2** Mute piste 2, **M3** Mute piste 3, **M4** Mute piste 4, **MA** Mute all, **RST** Restart : toutes les pistes au début, **CLR** Clear track : efface la piste choisie, **CAP** Loop rec (comme EDIT tapé), **UND** Undo, **RDO** Redo, **TAP** Tap tempo, **SC-** Scène enregistrée précédente, **SC+** Scène enregistrée suivante, **AV** A VOL.
 
 ### SCÈNES
 

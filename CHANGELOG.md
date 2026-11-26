@@ -1,5 +1,12 @@
 # Changelog
 
+## 26 November 2026 — the pads' LIVE 2 mode
+
+- A pad mode LIVE 2 (violet), right after PERFORM (now called LIVE 1): MUTE 1–4 (the tracks' own mutes), MUTE ALL,
+  RESTART, CLEAR TRACK on top; LOOP REC, UNDO, REDO, TAP, the previous / next stored scene, A VOL below.
+- In LIVE 1 and LIVE 2, the bottom right pad switches between them (green, "LV2" / "LV1" on the pads' map); it is
+  REC (red) in the other modes.
+
 ## 20 November 2026 — the sounds levelled by measure; the slicer on a track; SEL and SEQ rearranged
 
 - Every synth sound levelled by measure (`tools/level_sounds.py`: a K-weighted level, each note by its loudest 100 ms,
