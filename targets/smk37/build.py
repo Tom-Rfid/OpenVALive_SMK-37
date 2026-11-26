@@ -248,7 +248,7 @@ def sources(sdk):
             (HERE / "board/audio_ols.c", "-O2", []),
             (HERE / "smk37_sdk.c", "-O2", []),
             (HERE / "smk37_app.c", "-Oz", []),
-            (REPO / "va/app/ols_dsp.c", "-O2", [])]
+            (REPO / "va/app/ols_dsp.c", "-Os", [])]
 
 
 def generate_fonts(base, gen):
