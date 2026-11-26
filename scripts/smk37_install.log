@@ -1,0 +1,20 @@
+smk37_install.py: SMK-37 Elite_8000003
+update state: family 9, state 0, installed build 0000000000000000…
+armed: the package's build 0001020304050607…, 8192 B
+request 3: 0x00000000 +64
+request 4: 0x00000040 +160
+request 5: 0x00001000 +512
+request 6: 0xe0000000 +8
+request 7: 0x00000000 +512
+request 8: 0x00000200 +512
+request 9: 0x00000400 +512
+request 10: 0x00000600 +512
+request 11: 0x00000800 +512
+request 12: 0x00000a00 +512
+request 13: 0xf0000000 +8
+smk37_install.py: SMK-37 Elite_8000003
+error: the keyboard is an SMK-37 Pro, the package is for SMK-37 Elite_8000004
+smk37_install.py: SMK-37 Elite_8000003
+error: SMK-37 Elite_8000003 already runs this very build
+smk37_install.py: SMK-37 Elite_8000003
+error: SMK-37 Elite_8000003 is busy with another update (state 1): switch it off and on, then run the install again

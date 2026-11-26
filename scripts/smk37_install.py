@@ -76,25 +76,62 @@ def arm(up, dev, image, product, build_id):
     if cap[14:46] == build_id:
         dev.link.close()
         raise F.InstallError("same", f"{dev.id.text} already runs this very build")
+    say(f"update state: family {cap[5]}, state {cap[6]}, installed build {cap[14:22].hex()}…")
     ack = F.query(dev.link, 50, bytes([1, cap[5]]) + len(image).to_bytes(4, "little") + build_id)
     if ack != b"\0":
         dev.link.close()
         raise F.InstallError("stopped", f"{dev.id.text} refused the package ({ack.hex() if ack else 'no reply'}); "
                                         "nothing was written")
+    say(f"armed: the package's build {build_id[:8].hex()}…, {len(image)} B")
+
+
+LOG = []
+
+
+def say(line):
+    """one line of the log: on the screen and in smk37_install.log (beside this script), to send back when it fails"""
+    LOG.append(line)
+    print("    " + line, flush=True)
+
+
+_request = F.parse_request
+
+
+def parse_request(pkt):
+    r = _request(pkt)
+    if r:
+        LOG.append(f"request {len(LOG)}: {r[1]:#010x} +{r[2]}")
+    return r
+
+
+def save_log():
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "smk37_install.log"), "w") as f:
+            f.write("\n".join(LOG) + "\n")
+    except OSError:
+        pass
 
 
 def main(argv=None, **kw):
     argv = sys.argv[1:] if argv is None else argv
     F.parse_identity = parse_identity
+    F.parse_request = parse_request
     pkg = next((a for a in argv if a.lower().endswith(".fwsc")), None)
     if pkg:
         build_id = build_id_of(pkg)
         install = F.Updater.install
 
         def smk_install(self, dev, image, product, step=lambda *a: None, digest=None, classic=False):
-            if SMK_OPEN.fullmatch(dev.id.text) and not dev.id.loader:
-                arm(self, dev, image, product, build_id)
-            return install(self, dev, image, product, step, digest, classic)
+            say(f"smk37_install.py: {dev.id.text}" + (" (update loader)" if dev.id.loader else ""))
+            try:
+                if SMK_OPEN.fullmatch(dev.id.text) and not dev.id.loader:
+                    arm(self, dev, image, product, build_id)
+                return install(self, dev, image, product, step, digest, classic)
+            except F.InstallError as e:
+                LOG.append(f"error: {e}")
+                raise
+            finally:
+                save_log()
         F.Updater.install = smk_install
     return F.main(argv, **kw)
 
