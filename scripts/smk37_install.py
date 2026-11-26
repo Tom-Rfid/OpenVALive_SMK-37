@@ -15,7 +15,9 @@ fm1_build_id, which build.py writes beside it: NAME.build_id (hex).
 Its update loader then answers "ota-SMK37" + the build id's first 16 hex
 digits (M-VAVE's own loader: "ota-FM-1_015"): both are taken as the loader.
 
-  smk37_install.py PACKAGE.fwsc [--port NAME] [--yes] [--force] [--classic]
+  smk37_install.py PACKAGE.fwsc [--port NAME] [--yes] [--force] [--classic] [--reinstall]
+
+--reinstall: install even when the keyboard already runs this very build (without it, the question is asked).
   smk37_install.py --info [--port NAME]
 """
 import os
@@ -57,7 +59,7 @@ def build_id_of(package):
     return bytes.fromhex(h)
 
 
-def arm(up, dev, image, product, build_id):
+def arm(up, dev, image, product, build_id, again=lambda: False):
     """tell the SMK-37's firmware which package comes (cmd 49, then 50)"""
     cap = F.query(dev.link, 49)
     if not cap or len(cap) != 47 or cap[:4] != b"FMC1" or cap[5] not in (8, 9) or cap[7] != 1:
@@ -74,8 +76,11 @@ def arm(up, dev, image, product, build_id):
         raise F.InstallError("stopped", f"{dev.id.text} is busy with another update (state {cap[6]}): "
                                         "switch it off and on, then run the install again")
     if cap[14:46] == build_id:
-        dev.link.close()
-        raise F.InstallError("same", f"{dev.id.text} already runs this very build")
+        say(f"{dev.id.text} already runs this very build")
+        if not again():
+            dev.link.close()
+            raise F.InstallError("same", "nothing written (to install it again: answer y, or --reinstall)")
+        say("installed again, as asked")
     say(f"update state: family {cap[5]}, state {cap[6]}, installed build {cap[14:22].hex()}…")
     ack = F.query(dev.link, 50, bytes([1, cap[5]]) + len(image).to_bytes(4, "little") + build_id)
     if ack != b"\0":
@@ -95,6 +100,7 @@ def say(line):
 
 
 _request = F.parse_request
+_INSTALL = F.Updater.install                    # fm1_install's own, wrapped once per run
 
 
 def parse_request(pkt):
@@ -116,16 +122,20 @@ def main(argv=None, **kw):
     argv = sys.argv[1:] if argv is None else argv
     F.parse_identity = parse_identity
     F.parse_request = parse_request
+    reinstall = "--reinstall" in argv
+    argv = [a for a in argv if a != "--reinstall"]
+    ask = kw.get("ask", F.ask_tty)
     pkg = next((a for a in argv if a.lower().endswith(".fwsc")), None)
     if pkg:
         build_id = build_id_of(pkg)
-        install = F.Updater.install
+        install = _INSTALL
 
         def smk_install(self, dev, image, product, step=lambda *a: None, digest=None, classic=False):
             say(f"smk37_install.py: {dev.id.text}" + (" (update loader)" if dev.id.loader else ""))
             try:
                 if SMK_OPEN.fullmatch(dev.id.text) and not dev.id.loader:
-                    arm(self, dev, image, product, build_id)
+                    arm(self, dev, image, product, build_id,
+                        lambda: reinstall or ask("Install it again anyway? [y/N] "))
                 return install(self, dev, image, product, step, digest, classic)
             except F.InstallError as e:
                 LOG.append(f"error: {e}")

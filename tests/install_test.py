@@ -71,11 +71,11 @@ class FakeSMK(fake.FakeFM1):
         super().rx(d)
 
 
-def run(args, dev):
+def run(args, dev, again=False):
     out, err = io.StringIO(), io.StringIO()
     old, sys.stderr = sys.stderr, err
     try:
-        rc = S.main(args, backend=dev, out=out, ask=lambda _p: True)
+        rc = S.main(args, backend=dev, out=out, ask=lambda p: again if "again" in p else True)
     except I.InstallError as e:
         rc, err = -1, io.StringIO(str(e))
     finally:
@@ -106,7 +106,13 @@ rc, out, err = run([str(pkg), "--yes", "--force"], dev)
 ok(rc != 0 and "SMK-37 Pro" in err and not dev.arms and dev.upgrades == 0, "a Pro answering: refused, nothing sent")
 dev = FakeSMK(image, installed=BUILD)
 rc, out, err = run([str(pkg), "--yes", "--force"], dev)
-ok(rc != 0 and "already runs" in err and dev.upgrades == 0, "the same build already there: said, nothing sent")
+ok(rc != 0 and "nothing written" in err and dev.upgrades == 0, "the same build already there, answer no: nothing sent")
+dev = FakeSMK(image, installed=BUILD)
+rc, out, err = run([str(pkg), "--yes", "--force"], dev, again=True)
+ok(rc == 0 and len(dev.arms) == 1 and f"runs {PRODUCT}" in out, "... answer yes: installed again")
+dev = FakeSMK(image, installed=BUILD)
+rc, out, err = run([str(pkg), "--yes", "--force", "--reinstall"], dev)
+ok(rc == 0 and len(dev.arms) == 1, "... --reinstall: installed again, not asked")
 dev = FakeSMK(image, busy=1)
 rc, out, err = run([str(pkg), "--yes", "--force"], dev)
 ok(rc != 0 and "busy" in err and dev.upgrades == 0, "busy with another update: said, nothing sent")

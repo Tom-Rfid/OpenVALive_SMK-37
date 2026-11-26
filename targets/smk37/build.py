@@ -385,8 +385,10 @@ def build(args, gen):
         objects.append(o)
 
     product = product_id(args.model, args.version)
-    digest = hashlib.sha256()
-    for src, _, _ in sources(sdk):
+    digest = hashlib.sha256()                   # the build id: every source and header of ours, CORE's included
+    for src in [s for s, _, _ in sources(sdk)] + sorted(p for d in (HERE, REPO / "va/app", REPO / "va/core")
+                                                       for p in d.rglob("*") if p.suffix in (".c", ".h")
+                                                       and "build" not in p.relative_to(d).parts):
         digest.update(src.read_bytes())
     digest.update(product.encode())
     ident = obj / "build_identity.c"

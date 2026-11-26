@@ -50,7 +50,8 @@ py -3.12 smk37_install.py --port SMK --force --no-resources openvalive-smk37-eli
 vérifie le paquet avant d'écrire. `--no-resources` : rien d'autre n'est écrit. `smk37_install.py`, c'est le
 `fm1_install.py` de fm1-base (aussi dans le zip) plus ce que le firmware du SMK-37 demande d'abord : il ne prend qu'un
 paquet qu'on lui a annoncé (son identifiant de build, `openvalive-smk37-…​.build_id` à côté du paquet). `fm1_install.py`
-seul s'arrête sur « stopped answering after 9 requests; nothing was written ».
+seul s'arrête sur « stopped answering after 9 requests; nothing was written ». Si le clavier a déjà ce build précis, il
+demande s'il faut le réinstaller quand même (`--reinstall` : sans demander).
 
 Si l'installation s'arrête au milieu, le clavier reste en mode mise à jour : relance la même commande, elle reprend.
 Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware depuis le mode mise à jour.
