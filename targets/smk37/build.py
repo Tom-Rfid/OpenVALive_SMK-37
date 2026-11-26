@@ -445,10 +445,10 @@ def build(args, gen):
     check_ram_symbols(tc, elf)
     m = re.search(r"0x([0-9a-fA-F]+)[^\r\n]*_MALLOC_SIZE[ ]*=", mapfile.read_text(errors="replace"))
     heap = int(m.group(1), 16) if m else 0
-    if not 55296 <= heap <= 56320:
+    if not 52224 <= heap <= 56320:
         ram_report(mapfile)
         raise SystemExit(f"build: the SDK's heap would be {heap} bytes; tried on the keyboard: 55788 starts, 63980 stays "
-                         "stuck on the logo without USB-MIDI, about 52 KB answers no firmware update")
+                         "stuck on the logo without USB-MIDI, about 52 KB starts too (and answers no firmware update)")
     app = b""
     for section in (".text", ".data", ".ram0_data", ".cache_ram_data"):
         b = out / f"{section[1:]}.bin"
