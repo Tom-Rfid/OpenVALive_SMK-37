@@ -1,3 +1,4 @@
 build/
 targets/smk37/build/
 __pycache__/
+scripts/smk37_install.log
