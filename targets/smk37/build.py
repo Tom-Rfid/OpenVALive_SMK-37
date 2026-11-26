@@ -39,6 +39,7 @@ def run(cmd, **kw):
 
 AREA, ENTRY_POINT, APP_DATA = 0x4000, 0x02000120, 0x120
 FLASH_LIMIT, BT_SIZE, MIN_VM = 0xFF000, 4096, 32768
+FLASH_MAX_FOR_MIDI_UPDATE = 0x51000          # a bigger firmware cannot update itself over MIDI (27 Nov 2026)
 PUBLIC_CODE = 0x980F
 
 
@@ -461,6 +462,11 @@ def build(args, gen):
     except SystemExit:
         flash_report(tc / "common/bin/objdump", elf)
         raise
+    if image_size > FLASH_MAX_FOR_MIDI_UPDATE:
+        flash_report(tc / "common/bin/objdump", elf, top=80)
+        raise SystemExit(f"build: the flash image is {image_size} B ({image_size:#x}); it must stay within "
+                         f"{FLASH_MAX_FOR_MIDI_UPDATE:#x}: a firmware past it cannot update itself over MIDI (tried on "
+                         "the keyboard: 0x51000 updates, 0x52000 and 0x53000 stop when they read the update loader)")
     name = f"openvalive-smk37-{args.model}-{args.version}.fwsc"
     (out / name).write_bytes(package)
     # the keyboard's firmware takes only a package it is told about (cmd 50: its build id): scripts/smk37_install.py
