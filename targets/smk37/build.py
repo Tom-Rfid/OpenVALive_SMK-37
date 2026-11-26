@@ -445,11 +445,11 @@ def build(args, gen):
     check_ram_symbols(tc, elf)
     m = re.search(r"0x([0-9a-fA-F]+)[^\r\n]*_MALLOC_SIZE[ ]*=", mapfile.read_text(errors="replace"))
     heap = int(m.group(1), 16) if m else 0
-    if not 56300 <= heap <= 57000:
+    if not 57800 <= heap <= 58600:
         ram_report(mapfile)
-        raise SystemExit(f"build: the SDK's heap would be {heap} bytes; it must be 56300..57000 (tried on the keyboard: "
-                         "56300 starts and updates over MIDI, 55788 stops reading the update loader, 63980 stays on "
-                         "the logo without USB-MIDI); APP_DELAY_LEN in smk37_app.c moves it 8 B a sample")
+        raise SystemExit(f"build: the SDK's heap would be {heap} bytes; it must be 57800..58600 (tried on the keyboard: "
+                         "about 58 KB and 20 Nov's 56300 update over MIDI, 55788 and 56556 stop reading the update "
+                         "loader, 63980 stays on the logo without USB-MIDI); APP_DELAY_LEN in smk37_app.c moves it 8 B a sample")
     app = b""
     for section in (".text", ".data", ".ram0_data", ".cache_ram_data"):
         b = out / f"{section[1:]}.bin"

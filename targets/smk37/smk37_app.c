@@ -29,9 +29,10 @@ static uint32_t smk_key_layer(uint32_t k);
 #define APP_KEY_LAYER(k) smk_key_layer(k)
 /* the keyboard drawn on the screen while a layer button is held: the 37 keys from C3 */
 static int32_t smk_screen_key(uint32_t i);
-#define APP_DELAY_LEN 16224u                    /* 160 samples (1.3 KB) off each delay for the SDK's heap: the MIDI
-                                                 * update needs ~56300 B (55788 stops when it reads the update loader,
-                                                 * 20 Nov's 56300 works); 63980 stayed on the logo. Delays: 0.368 s */
+#define APP_DELAY_LEN 16032u                    /* 352 samples (2.8 KB) off each delay for the SDK's heap, ~58 KB: the
+                                                 * MIDI update reads the update loader with it (18-19 Nov's 58 KB and
+                                                 * 20 Nov's 56300 did; 55788 and 56556 stop at its first block; the
+                                                 * keyboard keeps playing); 63980 stayed on the logo. Delays: 0.364 s */
 #define APP_SCREEN_KEYS 37u
 #define APP_SCREEN_FIRST 0u
 #define APP_SCREEN_KEY(i) smk_screen_key(i)
