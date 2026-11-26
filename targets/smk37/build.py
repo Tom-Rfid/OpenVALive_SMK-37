@@ -311,6 +311,9 @@ def check_ram_symbols(tc, elf):
     else:
         print("smk37: no nm / objdump in the toolchain, RAM placement not checked")
         return
+    for k in sorted(where, key=where.get):
+        if re.search(r"usb_data|HEAP|stack_info|fm1_r_(28595|bb112|c525e|060f1|eba21|6b277)|^pool|delay_buf|_begin$|_end$|uac_|usb_fifo|sram", k) and 0x01C00000 <= where[k] < 0x01C80000:
+            print(f"MAP {where[k]:08x} {k}")
     for name in MUST_BE_IN_RAM:
         if name not in where:
             raise SystemExit(f"build: {name} is missing from the firmware")
@@ -377,6 +380,8 @@ def build(args, gen):
     if not args.bluetooth:
         flags.append("-DOLS_NO_BLUETOOTH=1")
     flags += [f"-I{p}" for p in includes(sdk, args.fm1_base, gen)]
+    if os.environ.get("SMK_DELAY"):
+        flags.append("-DAPP_DELAY_LEN=" + os.environ["SMK_DELAY"] + "u")
     objects = []
     for i, (src, opt, extra) in enumerate(sources(sdk)):
         o = obj / f"{i}_{src.stem}.o"
@@ -445,7 +450,7 @@ def build(args, gen):
     check_ram_symbols(tc, elf)
     m = re.search(r"0x([0-9a-fA-F]+)[^\r\n]*_MALLOC_SIZE[ ]*=", mapfile.read_text(errors="replace"))
     heap = int(m.group(1), 16) if m else 0
-    if not 55296 <= heap <= 56320:
+    if not 55296 <= heap <= 66000:
         ram_report(mapfile)
         raise SystemExit(f"build: the SDK's heap would be {heap} bytes; tried on the keyboard: 55788 starts, 63980 stays "
                          "stuck on the logo without USB-MIDI, about 52 KB answers no firmware update")

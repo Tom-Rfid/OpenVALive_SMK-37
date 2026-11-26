@@ -49,6 +49,8 @@ jobs:
         run: |
           V="$(cat VERSION)"
           echo "VERSION=$V" >> "$GITHUB_ENV"
+          SMK_DELAY=15360 python3 targets/smk37/build.py --model elite --version "$V" \
+              --smk37-open "$HOME/smk37_open" --fm1-base "$HOME/fm1-base" --out /tmp/b15360 | grep -E "MAP|heap"
           for model in elite pro; do
             python3 targets/smk37/build.py --model $model --version "$V" \
               --smk37-open "$HOME/smk37_open" --fm1-base "$HOME/fm1-base" --out targets/smk37/build
