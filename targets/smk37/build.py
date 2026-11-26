@@ -311,6 +311,11 @@ def check_ram_symbols(tc, elf):
     else:
         print("smk37: no nm / objdump in the toolchain, RAM placement not checked")
         return
+    if "usb_data_begin" in where and "usb_data_end" in where:
+        b, e = where["usb_data_begin"], where["usb_data_end"]
+        if b >> 16 != (e - 1) >> 16:
+            raise SystemExit(f"build: the USB buffers cross a 64 KB line of RAM (0x{b:08x}..0x{e:08x})")
+        print(f"smk37: USB buffers 0x{b:08x}..0x{e:08x}, inside one 64 KB block")
     for name in MUST_BE_IN_RAM:
         if name not in where:
             raise SystemExit(f"build: {name} is missing from the firmware")
@@ -415,6 +420,13 @@ def build(args, gen):
     if "        *(.bss .bss.*)\n" not in script:
         raise SystemExit("build: the SDK's linker script changed (no .bss line to put .pool before)")
     script = script.replace("        *(.bss .bss.*)\n", "        *(.pool .pool.*)\n        *(.bss .bss.*)\n", 1)
+    # the USB buffers never across a 64 KB line of RAM: with them over 0x01C70000 (8 KB more heap, 8eba494) the
+    # keyboard stayed on the logo without USB-MIDI. Moved to the next line when they would cross it (< 2 KB lost)
+    if "        usb_data_begin = .;\n" not in script:
+        raise SystemExit("build: the SDK's linker script changed (no usb_data_begin)")
+    script = script.replace("        usb_data_begin = .;\n",
+                            "        . = ((. + 0x800) & ~0xFFFF) > (. & ~0xFFFF) ? ALIGN(0x10000) : .;\n"
+                            "        usb_data_begin = .;\n", 1)
     (out / "linker.ld").write_text(script)
 
     elf, mapfile = out / "openvalive-smk37.elf", out / "openvalive-smk37.map"
@@ -445,10 +457,10 @@ def build(args, gen):
     check_ram_symbols(tc, elf)
     m = re.search(r"0x([0-9a-fA-F]+)[^\r\n]*_MALLOC_SIZE[ ]*=", mapfile.read_text(errors="replace"))
     heap = int(m.group(1), 16) if m else 0
-    if not 55296 <= heap <= 56320:
+    if heap < 61440:
         ram_report(mapfile)
-        raise SystemExit(f"build: the SDK's heap would be {heap} bytes; tried on the keyboard: 55788 starts, 63980 stays "
-                         "stuck on the logo without USB-MIDI, about 52 KB answers no firmware update")
+        raise SystemExit(f"build: the SDK's heap would be {heap} bytes; it needs 61440: with 55788 the firmware update "
+                         "stops when it reads the update loader (after 9 requests), with about 52 KB it answers nothing")
     app = b""
     for section in (".text", ".data", ".ram0_data", ".cache_ram_data"):
         b = out / f"{section[1:]}.bin"
