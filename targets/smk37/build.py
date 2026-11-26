@@ -425,7 +425,7 @@ def build(args, gen):
     if "        usb_data_begin = .;\n" not in script:
         raise SystemExit("build: the SDK's linker script changed (no usb_data_begin)")
     script = script.replace("        usb_data_begin = .;\n",
-                            "        . = ((. + 0x800) & ~0xFFFF) > (. & ~0xFFFF) ? ALIGN(0x10000) : .;\n"
+                            "        . = ((. + 0x800) / 0x10000) > (. / 0x10000) ? ALIGN(0x10000) : .;\n"
                             "        usb_data_begin = .;\n", 1)
     (out / "linker.ld").write_text(script)
 
