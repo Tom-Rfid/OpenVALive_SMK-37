@@ -248,7 +248,7 @@ def sources(sdk):
             (HERE / "board/audio_ols.c", "-O2", []),
             (HERE / "smk37_sdk.c", "-O2", []),
             (HERE / "smk37_app.c", "-Oz", []),
-            (REPO / "va/app/ols_dsp.c", "-O2", [])]
+            (REPO / "va/app/ols_dsp.c", "-Os", [])]   # -Os: 8.7 KB less than -O2, so the image stays within 0x51000
 
 
 def generate_fonts(base, gen):
