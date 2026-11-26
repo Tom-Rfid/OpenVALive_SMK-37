@@ -29,11 +29,8 @@ static uint32_t smk_key_layer(uint32_t k);
 #define APP_KEY_LAYER(k) smk_key_layer(k)
 /* the keyboard drawn on the screen while a layer button is held: the 37 keys from C3 */
 static int32_t smk_screen_key(uint32_t i);
-#define APP_DELAY_LEN 15360u                    /* the tracks' delays 1024 samples shorter than the FM-1's: 8 KB of RAM
-                                                 * for the SDK's heap, which the firmware update needs (it stops reading
-                                                 * the update loader with 55788 B); only delays past 0.35 s clamp. The
-                                                 * first try (8eba494) put the USB buffers across 0x01C70000 and stayed
-                                                 * on the logo: build.py keeps them inside one 64 KB block now */
+/* No APP_DELAY_LEN here: 8 KB taken from the delays for the SDK's heap (63980 B) left the keyboard stuck on the logo,
+ * without USB-MIDI (8eba494, 26 Nov 2026); the delays stay 16384 samples, as when it started (heap 55788 B) */
 #define APP_SCREEN_KEYS 37u
 #define APP_SCREEN_FIRST 0u
 #define APP_SCREEN_KEY(i) smk_screen_key(i)

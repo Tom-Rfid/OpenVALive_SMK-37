@@ -35,9 +35,8 @@ Actions > build > Run workflow with "release" ticked). A release pins a **tag** 
 
 - **Never write the calibration** (factory `0xC1000`, VM records 51–54) **or the Bluetooth pairing**. Flash writes
   only through the SDK's `fm1_flash_*`, inside Open's project slots.
-- The SDK's heap ≥ 61440 bytes (the firmware update stops reading the update loader with 55788) and the USB buffers
-  inside one 64 KB block of RAM (across 0x01C70000 the keyboard stayed on the logo without USB-MIDI, untested
-  explanation): `build.py` checks both and the app image fit the SDK's limit: `build.py` checks both; interrupts and
+- The SDK's heap stays between 55296 and 56320 bytes (`build.py` checks): 55788 starts; 63980 (8 KB taken from the
+  delays) left the keyboard stuck on the logo without USB-MIDI; about 52 KB answered no firmware update and the app image fit the SDK's limit: `build.py` checks both; interrupts and
   the panel scan must sit in internal RAM (checked).
 - Changes to the sound, the Live Core or the screens go to OpenVALive CORE; the app takes device specifics
   through hooks (`APP_KEY_LAYER`, `APP_MAP_SLOTS`), defined here before including it.
