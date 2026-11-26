@@ -1,5 +1,12 @@
 # Changelog
 
+## 26 November 2026 — LIVE 2 reworked; the pads' map after a change of mode
+
+- LIVE 2: TAP and the scene pads gone; MOD (what the mod wheel does, in turn: MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN of
+  the selected track, the pad in its colour), A VOL, 1/2 (the loop half as long), PAGE (the knobs' next page, in its
+  colour). Colours: mutes green, MUTE ALL pink, CLEAR TRACK white, LOOP REC red (blinking while armed, mint held).
+- Titles "LIVE 1 LOOP" / "LIVE 2 MUTE"; a mode taken shows its pads' map 4 s, or until anything is touched.
+
 ## 26 November 2026 — the firmware update gets its RAM back
 
 - The MIDI update stopped after 9 requests (the SDK's heap at 54.6 KB): the tracks' delay buffers are 1024 samples

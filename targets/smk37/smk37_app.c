@@ -419,6 +419,7 @@ static struct {
     uint8_t mode_map;                           /* MODE held long: its map shown, letting it go changes nothing */
     uint32_t mode_down_at;                      /* when MODE was pressed */
     uint32_t wave_t0;                           /* the light going round the pads: when it started (top left) */
+    uint32_t map_until;                         /* a mode just taken: its pads' map shown until then (or a touch) */
     uint8_t wave_on;                            /* it is going round (the logo, the help pages) */
     uint32_t pads_quiet_until;                  /* after it: the pads stay off and do nothing until then */
     uint16_t pad_ignored;                       /* pads pressed then: their release does nothing either */
@@ -634,6 +635,15 @@ static void rec_say(int i)                      /* what REC + this pad does: "SA
     clip_say(smk.pad_mode == PADS_SCENES ? "SAVE" : (clips[i].used ? "REPLACE" : "CLIP"), i, "");
 }
 
+/* a pad mode just taken: its map on the screen a few seconds, until anything is touched (smk_input_event) */
+#define MAP_SHOW_MS 4000u
+static void pads_map_show(void)
+{
+    smk.map_until = fm1_millis() + MAP_SHOW_MS;
+    ui.msg_until = smk.map_until;
+    ui.redraw = 1;
+}
+
 /* the set-up pads: MODE (a tap: the next mode; held: the pads' map) and REC (held + a pad: record / store / choose,
  * at once; CLIPS: a clip pad held, then REC: LOOP) */
 static void setup_pad(uint32_t pad, int down)
@@ -650,9 +660,10 @@ static void setup_pad(uint32_t pad, int down)
             ui.redraw = 1;
             return;
         }
-        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "LIVE 1", "LIVE 2", "SCENES", "MIDI CH 16" };
+        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "LIVE 1 LOOP", "LIVE 2 MUTE", "SCENES", "MIDI CH 16" };
         smk.pad_mode = (uint8_t)((smk.pad_mode + 1u) % PAD_MODES);
         app_say("PADS", NAME[smk.pad_mode]);
+        pads_map_show();
         return;
     }
     if (down) {                                 /* REC */
@@ -678,9 +689,10 @@ static void setup_pad(uint32_t pad, int down)
             }
         }
         if (LIVE_MODE(smk.pad_mode)) {          /* LIVE 1 / LIVE 2: REC is their switch (nothing to record there) */
-            static const char *const LIVE_NAME[2] = { "LIVE 1", "LIVE 2" };
+            static const char *const LIVE_NAME[2] = { "LIVE 1 LOOP", "LIVE 2 MUTE" };
             smk.pad_mode = smk.pad_mode == PADS_PERFORM ? PADS_LIVE2 : PADS_PERFORM;
             app_say("PADS", LIVE_NAME[smk.pad_mode == PADS_LIVE2]);
+            pads_map_show();
             smk.rec_target = -2;
             return;
         }
@@ -704,20 +716,52 @@ static void setup_pad(uint32_t pad, int down)
 }
 
 /* LIVE 2: what is needed at once while playing, one pad each. Top: MUTE 1-4 (the tracks' own mutes, as SELECT + key),
- * MUTE ALL, RESTART, CLEAR TRACK. Bottom: LOOP REC (as EDIT tapped), UNDO, REDO, TAP tempo, the previous / next
- * stored scene, A VOL. REC (bottom right) goes back to LIVE 1. */
-enum { L2_M1, L2_M2, L2_M3, L2_M4, L2_MUTE_ALL, L2_RESTART, L2_CLEAR, L2_CAPTURE, L2_UNDO, L2_REDO, L2_TAP,
-       L2_SCENE_PREV, L2_SCENE_NEXT, L2_AVOL };
+ * MUTE ALL, RESTART, CLEAR TRACK. Bottom: LOOP REC (as EDIT tapped), UNDO, REDO, MOD (what the mod wheel does: MORPH,
+ * FILTER, DELAY, CRUSH, DRIVE, PAN of the selected track, in turn), A VOL, 1/2 (the selected track's loop half as
+ * long: its first half again; ENV undoes it), PAGE (the knobs' next page, as FX tapped, in that page's colour). REC
+ * (bottom right) goes back to LIVE 1. */
+enum { L2_M1, L2_M2, L2_M3, L2_M4, L2_MUTE_ALL, L2_RESTART, L2_CLEAR, L2_CAPTURE, L2_UNDO, L2_REDO, L2_MOD,
+       L2_AVOL, L2_HALVE, L2_PAGE };
 
-static int live2_scene(int dir)                 /* the next stored scene from the last one, -1 none */
+/* MOD: what the mod wheel does, in turn (the CONTROL MAP's mod wheel slot); its pad shows it in its colour */
+static const struct { uint8_t target; uint32_t rgb; const char *name; } MOD_WHEEL[] = {
+    { MAP_MORPH, 0x9030FF, "MORPH" }, { MAP_FILTER, 0xFF6000, "FILTER" }, { MAP_DELAY, 0xFFC000, "DELAY" },
+    { MAP_CRUSH, 0xFF2080, "CRUSH" }, { MAP_DRIVE, 0xFF1010, "DRIVE" }, { MAP_PAN, 0x00C0FF, "PAN" },
+};
+#define MOD_WHEEL_N (sizeof MOD_WHEEL / sizeof MOD_WHEEL[0])
+
+static int mod_wheel_now(void)                  /* its place in MOD_WHEEL, -1: something else (set in MAP CONTROL) */
 {
-    int from = mirror.scene_last >= 0 ? mirror.scene_last : (dir > 0 ? -1 : 0);
-    for (int n = 1; n <= 8; n++) {
-        int s = ((from + dir * n) % 8 + 8) % 8;
-        if (live.scene[s].valid)
-            return s;
-    }
+    for (uint32_t k = 0; k < MOD_WHEEL_N; k++)
+        if (cmap.target[MAP_MOD] == MOD_WHEEL[k].target)
+            return (int)k;
     return -1;
+}
+
+static void mod_wheel_next(void)
+{
+    uint32_t k = (uint32_t)(mod_wheel_now() + 1) % MOD_WHEEL_N;
+    map_retarget(MAP_MOD, MOD_WHEEL[k].target);
+    mark_dirty();
+    app_say("MOD WHEEL", MOD_WHEEL[k].name);
+}
+
+/* the knob pages' colours, as the screen shows them (ui_draw.c PAGE_COLOUR) */
+static const uint32_t PAGE_RGB[PAGE_COUNT] = { 0xC0C0C0, 0x00C0FF, 0x20FFA0, 0xFF2080, 0x9030FF, 0xFF1010, 0xFF6000 };
+
+static void live2_halve(void)
+{
+    uint32_t len = live.track[mirror.track].pat.length;
+    if (ui.on_a || !live.track[mirror.track].pat.count) {
+        app_say("1/2", ui.on_a ? "PICK A TRACK" : "NO LOOP");
+        return;
+    }
+    if (len / 2u < OLS_PPQN) {
+        app_say("1/2", "ONE BEAT ALREADY");
+        return;
+    }
+    send_live(LIVE_LENGTH, 0, (uint16_t)(len / 2u), 0.0f, mirror.track);
+    say_undo("LOOP 1/2");
 }
 
 static void live2_pad(int i)
@@ -749,51 +793,58 @@ static void live2_pad(int i)
     case L2_REDO:
         button_pressed(B_LFO, ui.buttons);
         break;
-    case L2_TAP:
-        send_live(LIVE_TAP, 0, 0, 0.0f, 0);
-        app_say("TAP", "TEMPO");
+    case L2_MOD:
+        mod_wheel_next();
         break;
-    case L2_SCENE_PREV: case L2_SCENE_NEXT: {
-        int s = live2_scene(i == L2_SCENE_NEXT ? 1 : -1);
-        if (s < 0)
-            app_say("SCENES", "NONE STORED");
-        else
-            scene_key(s);
+    case L2_HALVE:
+        live2_halve();
         break;
-    }
-    default:
+    case L2_PAGE:
+        ui.pages_used = 0;
+        pages_released();                       /* as FX tapped: the knobs' next page */
+        app_say("PAGE", PAGE_NAME[set.page]);
+        break;
+    case L2_AVOL:
         avol_key();
+        break;
+    default:
         break;
     }
 }
 
+static uint32_t dim(uint32_t rgb, uint32_t level);
 static uint32_t live2_colour(int i, int held)
 {
-    if (i <= L2_M4)                             /* the mutes: as in SCENES */
-        return live.track[i].mute ? 0x400000 : (i == mirror.track && !ui.on_a ? 0x8060FF : 0x08A008);
+    if (i <= L2_M4)                             /* the mutes: green playing (the selected one brighter), red out */
+        return live.track[i].mute ? 0x400000 : (i == mirror.track && !ui.on_a ? 0x20E020 : 0x087008);
     switch (i) {
     case L2_MUTE_ALL: {
         int all_out = 1;
         for (uint32_t k = 0; k < TRACKS; k++)
             all_out &= live.track[k].mute != 0;
-        return all_out ? ((fm1_millis() / 125u) & 1u ? 0xFF0010 : 0x100000) : 0x200040;
+        return all_out ? ((fm1_millis() / 125u) & 1u ? 0xFF0010 : 0x100000) : (held ? 0xFF2080 : 0x401020);   /* pink */
     }
     case L2_RESTART:
         return held ? 0x00FF40 : 0x00300C;
-    case L2_CLEAR:
-        return held ? 0xFF0000 : 0x300000;
-    case L2_CAPTURE:                            /* LOOP REC armed / taking: blinks fast */
-        return ui.cap_armed ? ((fm1_millis() / 125u) & 1u ? 0x00C0FF : 0x001018) : (held ? 0x00C0FF : 0x00141C);
+    case L2_CLEAR:                              /* white */
+        return held ? 0xFFFFFF : 0x303030;
+    case L2_CAPTURE:                            /* LOOP REC: red; armed / taking: blinking red; held: mint */
+        if (held)
+            return 0x20FFA0;
+        return ui.cap_armed ? ((fm1_millis() / 125u) & 1u ? 0xFF0000 : 0x200000) : 0x300000;
     case L2_UNDO:
         return ols_live_can_undo_track(&live, mirror.track) ? 0xC08000 : 0x100800;
     case L2_REDO:
         return ols_live_can_redo_track(&live, mirror.track) ? 0xC08000 : 0x100800;
-    case L2_TAP: {                              /* the beat */
-        uint32_t t = live.clock.running ? live.clock.tick : live.clock.free_tick;
-        return held ? 0xFFFFFF : (t % OLS_PPQN < OLS_PPQN / 8u ? 0x808080 : 0x101010);
+    case L2_MOD: {                              /* in the colour of what the mod wheel does */
+        int k = mod_wheel_now();
+        uint32_t c = k < 0 ? 0x808080 : MOD_WHEEL[k].rgb;
+        return held ? c : dim(c, 70u);
     }
-    case L2_SCENE_PREV: case L2_SCENE_NEXT:
-        return live2_scene(1) < 0 ? 0x020210 : (held ? 0x60A0FF : 0x0828A0);
+    case L2_HALVE:                              /* cyan, as the loops */
+        return held ? 0x00C0FF : (live.track[mirror.track].pat.count && !ui.on_a ? 0x003040 : 0x000810);
+    case L2_PAGE:                               /* the knobs' page now, in its colour */
+        return held ? PAGE_RGB[set.page % PAGE_COUNT] : dim(PAGE_RGB[set.page % PAGE_COUNT], 70u);
     default:
         return avol.on ? 0x00FF60 : 0x002810;   /* A VOL: lit green while it runs */
     }
@@ -1179,6 +1230,11 @@ static void button_event(uint32_t id, int down)
 
 void smk_input_event(unsigned kind, unsigned id, int value)
 {
+    if (smk.map_until && value > 0 && kind != SMK_PRESSURE && kind != SMK_FADER) {
+        smk.map_until = 0;                      /* the map of a mode just taken: a touch ends it */
+        ui.msg_until = fm1_millis();
+        ui.redraw = 1;
+    }
     switch (kind) {
     case SMK_KEY:
         key_event(id, value);
@@ -1286,9 +1342,9 @@ static const struct { char name[4]; uint8_t type; } PAD_MAP[PAD_MODES][SMK_PADS]
     },
     {
         { "M1", 8 }, { "M2", 8 }, { "M3", 8 }, { "M4", 8 },
-        { "MA", 8 }, { "RST", 14 }, { "CLR", 2 }, { "SW", 10 },
-        { "CAP", 0 }, { "UND", 15 }, { "RDO", 15 }, { "TAP", 3 },
-        { "SC-", 7 }, { "SC+", 7 }, { "AV", 9 }, { "LV1", 14 },
+        { "MA", 16 }, { "RST", 14 }, { "CLR", 3 }, { "SW", 10 },
+        { "CAP", 11 }, { "UND", 15 }, { "RDO", 15 }, { "MOD", 17 },
+        { "AV", 9 }, { "1/2", 0 }, { "PG", 18 }, { "LV1", 14 },
     },
     {
         { "SC1", 7 }, { "SC2", 7 }, { "SC3", 7 }, { "SC4", 7 },
@@ -1309,19 +1365,24 @@ static const struct { char name[4]; uint8_t type; } PAD_MAP[PAD_MODES][SMK_PADS]
  * for a layer button), each in its colour with its short name, MODE and REC framed on the right */
 static int smk_pad_map(void)
 {
-    if (!((smk.pad_down >> PAD_MODE) & 1u) || smk.mode_used || fm1_millis() - smk.mode_down_at < MODE_MAP_MS)
+    int shown = smk.map_until && (int32_t)(fm1_millis() - smk.map_until) < 0;
+    if (!shown && smk.map_until) {
+        smk.map_until = 0;
+        ui.redraw = 1;
+    }
+    if (!shown && (!((smk.pad_down >> PAD_MODE) & 1u) || smk.mode_used || fm1_millis() - smk.mode_down_at < MODE_MAP_MS))
         return 0;
-    static const uint32_t TYPE_RGB[16] = { 0x00C0FF, 0xFF6000, 0xFF1A2E, 0xF2F2F2, 0xFFD000, 0xFF3A20, 0xC8C8C8,
+    static const uint32_t TYPE_RGB[18] = { 0x00C0FF, 0xFF6000, 0xFF1A2E, 0xF2F2F2, 0xFFD000, 0xFF3A20, 0xC8C8C8,
                                            0x4A7DFF, 0x22B04A, 0x00E070, 0, 0xFF1010, 0x9040FF, 0xFFC000, 0x00FF40,
-                                           0xC08000 };
+                                           0xC08000, 0xFF2080, 0 };   /* ... pink (MUTE ALL), 17: the mod wheel's */
                                                 /* loop, filter, mute, off, clip, drum, MIDI, scene, track, A VOL,
                                                  * (MODE), REC, slicer, sound effect, LIVE switch / restart, undo */
-    if (!smk.mode_map) {
-        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "LIVE 1", "LIVE 2", "SCENES", "MIDI CH 16" };
+    if (!smk.mode_map && !shown) {
+        static const char *const NAME[PAD_MODES] = { "CLIPS", "DRUMS", "LIVE 1 LOOP", "LIVE 2 MUTE", "SCENES", "MIDI CH 16" };
         app_say("PADS", NAME[smk.pad_mode]);
         ui.msg_until = plat_ms() + 60000u;      /* (while MODE is held) */
     }
-    smk.mode_map = 1;
+    smk.mode_map = (uint8_t)!shown || ((smk.pad_down >> PAD_MODE) & 1u);
     const int32_t pw = 25, ph = 24, gap = 3, side = 5;
     const int32_t x0 = (240 - (8 * pw + 7 * gap + side)) / 2, y0 = (SCOPE_H - (2 * ph + gap)) / 2;
     cv_begin(240, SCOPE_H, C_BLACK);
@@ -1329,7 +1390,8 @@ static int smk_pad_map(void)
         int32_t col = (int32_t)(p % 8u), row = (int32_t)(p / 8u);
         int32_t x = x0 + col * (pw + gap) + (col == 7 ? side : 0), y = y0 + row * (ph + gap);
         uint8_t t = PAD_MAP[smk.pad_mode][p].type;
-        uint32_t c = t == 10u ? MODE_COLOUR[smk.pad_mode] : (t < 16u ? TYPE_RGB[t] : 0x24252Cu);
+        uint32_t c = t == 10u ? MODE_COLOUR[smk.pad_mode] : (t == 17u ? live2_colour(L2_MOD, 1) : (t == 18u ? live2_colour(L2_PAGE, 1)
+                   : (t < 18u ? TYPE_RGB[t] : 0x24252Cu)));
         cv_rect(x, y, pw, ph, RGB((c >> 16) & 255u, (c >> 8) & 255u, c & 255u));
         const char *n = PAD_MAP[smk.pad_mode][p].name;
         cv_text(x + (pw - text_w(&FONT_XS, n)) / 2, y + (ph - (int32_t)FONT_XS.h) / 2, &FONT_XS, n, C_BLACK);

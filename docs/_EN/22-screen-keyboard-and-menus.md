@@ -263,11 +263,11 @@ LIVE 1: the default, in mint (the live colour). SEQ's effects on the pads, by co
 
 ### LIVE 2
 
-In violet, right after LIVE 1: what must start fast while playing. On top the mutes of tracks 1 to 4 (the same as SELECT + key), MUTE ALL, RESTART, CLEAR TRACK; below LOOP REC, UNDO, REDO, TAP tempo, previous / next stored scene, A VOL. The bottom right pad (green) goes back to LIVE 1.
+LIVE 2 MUTE, in violet, right after LIVE 1: what must start fast while playing. On top the mutes of tracks 1 to 4 (the same as SELECT + key), MUTE ALL, RESTART, CLEAR TRACK; below LOOP REC, UNDO, REDO, MOD (what the mod wheel does), A VOL, 1/2 (the loop half as long), PAGE (the knobs' next page). The bottom right pad (green) goes back to LIVE 1. At each change of mode the pads' map stays 4 s on the screen (or until a touch).
 
 ![LIVE 2](../img/pads-live2.png)
 
-**M1** Mute track 1, **M2** Mute track 2, **M3** Mute track 3, **M4** Mute track 4, **MA** Mute all, **RST** Restart: every track from its start, **CLR** Clear track: the selected track wiped, **CAP** Loop rec (as EDIT tapped), **UND** Undo, **RDO** Redo, **TAP** Tap tempo, **SC-** Previous stored scene, **SC+** Next stored scene, **AV** A VOL.
+**M1** Mute track 1, **M2** Mute track 2, **M3** Mute track 3, **M4** Mute track 4, **MA** Mute all, **RST** Restart: every track from its start, **CLR** Clear track: the selected track wiped, **UND** Undo, **RDO** Redo, **MOD** What the mod wheel does, in turn: MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN (its colour), **AV** A VOL, **1/2** The track's loop half as long (ENV undoes it), **PG** The knobs' next page, as FX tapped (its colour).
 
 ### SCENES
 

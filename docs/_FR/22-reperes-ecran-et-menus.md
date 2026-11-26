@@ -263,11 +263,11 @@ LIVE 1 : mode par défaut, en menthe (la couleur du live). Les effets de SEQ sur
 
 ### LIVE 2
 
-En violet, juste après LIVE 1 : ce qu'il faut lancer vite en jouant. En haut les mutes des pistes 1 à 4 (les mêmes que SELECT + touche), MUTE ALL, RESTART, CLEAR TRACK ; en bas LOOP REC, UNDO, REDO, TAP tempo, scène précédente / suivante, A VOL. Le pad en bas à droite (vert) revient à LIVE 1.
+LIVE 2 MUTE, en violet, juste après LIVE 1 : ce qu'il faut lancer vite en jouant. En haut les mutes des pistes 1 à 4 (les mêmes que SELECT + touche), MUTE ALL, RESTART, CLEAR TRACK ; en bas LOOP REC, UNDO, REDO, MOD (ce que fait la molette mod), A VOL, 1/2 (boucle deux fois plus courte), PAGE (page de boutons suivante). Le pad en bas à droite (vert) revient à LIVE 1. À chaque changement de mode, la carte des pads reste 4 s à l'écran (ou jusqu'à une touche).
 
 ![LIVE 2](../img/pads-live2.png)
 
-**M1** Mute piste 1, **M2** Mute piste 2, **M3** Mute piste 3, **M4** Mute piste 4, **MA** Mute all, **RST** Restart : toutes les pistes au début, **CLR** Clear track : efface la piste choisie, **CAP** Loop rec (comme EDIT tapé), **UND** Undo, **RDO** Redo, **TAP** Tap tempo, **SC-** Scène enregistrée précédente, **SC+** Scène enregistrée suivante, **AV** A VOL.
+**M1** Mute piste 1, **M2** Mute piste 2, **M3** Mute piste 3, **M4** Mute piste 4, **MA** Mute all, **RST** Restart : toutes les pistes au début, **CLR** Clear track : efface la piste choisie, **UND** Undo, **RDO** Redo, **MOD** Ce que fait la molette mod, à tour de rôle : MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN (sa couleur), **AV** A VOL, **1/2** La boucle de la piste deux fois plus courte (ENV annule), **PG** Page de boutons suivante, comme FX tapé (sa couleur).
 
 ### SCÈNES
 

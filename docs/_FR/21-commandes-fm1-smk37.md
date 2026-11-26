@@ -90,7 +90,7 @@ Noms des touches à l'écran (3 caractères au plus, 5x7 pixels, écrits de haut
 
 | SMK-37 | Rôle | Sur le FM-1 |
 |---|---|---|
-| 16 pads : pads de réglage MODE + REC, 14 pads de jeu | CLIPS (SINGLE / LOOP), DRUMS (leur propre kit, MIDI canal 10, roulements à la pression), LIVE 1 = PERFORM (14 effets), LIVE 2 (mutes 1–4, MUTE ALL, RESTART, CLEAR TRACK, LOOP REC, UNDO, REDO, TAP, scène − / +, A VOL ; REC bascule LIVE 1 ↔ 2), SCÈNES (scènes, mutes, MUTE ALL, A VOL), MIDI (canal 16) | PERFORM, SCÈNES, mutes, MUTE ALL, A VOL, et les gestes de LIVE 2 : pareil sur les touches et boutons (SEL, HOME, EDIT, ENV / LFO, SEL + PLAY). **Les CLIPS, les pads MIDI, les roulements, la disposition un-pad-un-geste de LIVE 2 et scène − / + n'ont pas d'équivalent FM-1** |
+| 16 pads : pads de réglage MODE + REC, 14 pads de jeu | CLIPS (SINGLE / LOOP), DRUMS (leur propre kit, MIDI canal 10, roulements à la pression), LIVE 1 = PERFORM (14 effets), LIVE 2 (mutes 1–4, MUTE ALL, RESTART, CLEAR TRACK, LOOP REC, UNDO, REDO, rôle de la molette MOD, A VOL, boucle 1/2, page de boutons suivante ; REC bascule LIVE 1 ↔ 2), SCÈNES (scènes, mutes, MUTE ALL, A VOL), MIDI (canal 16) | PERFORM, SCÈNES, mutes, MUTE ALL, A VOL, et les autres gestes de LIVE 2 : pareil sur les touches et boutons (SEL, HOME, EDIT, ENV / LFO, FX). **Les CLIPS, les pads MIDI, les roulements, la disposition un-pad-un-geste de LIVE 2, son MOD et son 1/2 n'ont pas d'équivalent FM-1** |
 | 4 faders | volumes, macros, emplacements USER (FADER BANK) | les boutons rotatifs (pages LIVE / MACRO, MAP CONTROL) |
 | molette de pitch, de modulation | BEND ou PAN, MORPH (réglables) | — |
 | pédale de sustain | tient les notes | — |

@@ -338,6 +338,12 @@ int main(void)
      * right, green) switches LIVE 1 <-> LIVE 2 */
     tap(SMK_BUTTON, SMK_B_PAD_STEP);
     CHECK(smk.pad_mode == PADS_LIVE2 && pad_rgb[PAD_MODE] == dim(0x9030FF, 110u), "PAD/STEP: LIVE 2, violet");
+    CHECK(smk.map_until != 0, "a mode taken: its pads' map shows on the screen");
+    {
+        uint8_t page = set.page;
+        tap(SMK_PAD, 14);                               /* PAGE: the knobs' next page, as FX tapped */
+        CHECK(set.page != page, "LIVE 2 PAGE: the knobs' next page");
+    }
     CHECK(pad_rgb[PAD_REC] == 0x00601A, "REC is the LIVE switch, green");
     tap(SMK_PAD, 0);
     run_ms(50);
@@ -345,6 +351,12 @@ int main(void)
     tap(SMK_PAD, 0);
     run_ms(50);
     CHECK(!live.track[0].mute, "...and back");
+    {
+        uint8_t was = cmap.target[MAP_MOD];
+        tap(SMK_PAD, 11);                               /* MOD: what the mod wheel does, in turn */
+        CHECK(cmap.target[MAP_MOD] != was && mod_wheel_now() >= 0, "LIVE 2 MOD: the mod wheel does the next thing");
+        CHECK(smk.map_until == 0, "...and a touch put the map away");
+    }
     tap(SMK_PAD, PAD_REC);
     CHECK(smk.pad_mode == PADS_PERFORM, "REC: back to LIVE 1");
     tap(SMK_PAD, PAD_REC);
