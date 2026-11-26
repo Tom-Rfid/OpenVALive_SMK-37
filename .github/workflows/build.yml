@@ -61,6 +61,7 @@ jobs:
             M="$(echo ${model:0:1} | tr a-z A-Z)${model:1}"
             cp "targets/smk37/build/$model/openvalive-smk37-$model-$VERSION.fwsc" dist/
             zip -qj "dist/OpenVALive-SMK37-$M-$VERSION.zip" "dist/openvalive-smk37-$model-$VERSION.fwsc" \
+              "targets/smk37/build/$model/openvalive-smk37-$model-$VERSION.build_id" scripts/smk37_install.py \
               "$HOME/fm1-base/tools/fm1_install.py" "$HOME/fm1-base/tools/fm1ports.py" \
               scripts/windows/flash-smk37.ps1 scripts/windows/FLASH-SMK37.bat COPYING.md LICENSE
           done

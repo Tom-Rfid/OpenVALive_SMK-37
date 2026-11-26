@@ -40,12 +40,15 @@ has run on a real SMK-37 yet**: the first test is on the owner's Elite, with the
 From a command line (Windows, Linux, macOS):
 
 ```bash
-py -3.12 fm1_install.py --port SMK --info
-py -3.12 fm1_install.py --port SMK --force --no-resources openvalive-smk37-elite-0.0.3.fwsc
+py -3.12 smk37_install.py --port SMK --info
+py -3.12 smk37_install.py --port SMK --force --no-resources openvalive-smk37-elite-0.0.3.fwsc
 ```
 
 `--force`: the package carries M-VAVE's update loader (the kit's), not Felucca's; the keyboard checks the package
-before writing. `--no-resources`: nothing else is written.
+before writing. `--no-resources`: nothing else is written. `smk37_install.py` is fm1-base's `fm1_install.py` (in the
+zip too) plus what the SMK-37's firmware asks first: it takes only a package it has been told about (its build id,
+`openvalive-smk37-…​.build_id` beside the package). `fm1_install.py` alone stops with "stopped answering after 9
+requests; nothing was written".
 
 If the install stops halfway, the keyboard stays in update mode: run the same command again, it resumes. If nothing
 answers any more, M-VAVE's web workbench can reinstall a firmware from update mode.

@@ -42,6 +42,18 @@ else
     skip "SMK-37 host test (set SMK37_OPEN=path/to/smk37_open and FM1_BASE=path/to/fm1-base)"
 fi
 
+# 3. the installer against a simulated SMK-37 (the arming its firmware asks)
+if [ -n "${FM1_BASE:-}" ]; then
+    if python3 tests/install_test.py >$B/install.log 2>&1; then
+        pass "installer: $(grep -c ' ok$' $B/install.log) checks"
+    else
+        cat $B/install.log
+        fail "installer"
+    fi
+else
+    skip "installer test (set FM1_BASE=path/to/fm1-base)"
+fi
+
 echo
 if [ $FAILS -eq 0 ]; then
     echo "All tests pass."

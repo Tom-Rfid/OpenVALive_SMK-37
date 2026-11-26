@@ -1,7 +1,8 @@
 ﻿# OpenVALive - installs the firmware on an SMK-37 Elite or Pro plugged in over USB (Windows)
 #
 # Double-click FLASH-SMK37.bat, or: powershell -ExecutionPolicy Bypass -File flash-smk37.ps1
-# The folder must hold: openvalive-smk37-elite-X.Y.Z.fwsc (or -pro-), fm1_install.py and fm1ports.py.
+# The folder must hold: openvalive-smk37-elite-X.Y.Z.fwsc (or -pro-) and its .build_id, smk37_install.py,
+# fm1_install.py and fm1ports.py.
 # The package is checked by the keyboard before anything is written, and it carries M-VAVE's own update loader;
 # the keys' and pads' calibration is not touched. Way back: M-VAVE's SMK37 OPEN workbench (Restore factory V16).
 #   -PrepareOnly: only prepare Python 3.12 + mido + python-rtmidi
@@ -48,7 +49,7 @@ Read-Host "Press Enter when ready" | Out-Null
 # the keyboard's MIDI port is named "SMK-37 ..." by M-VAVE's firmware, "USB-Midi ..." by others (OpenVALive's too)
 $port = $null
 foreach ($name in @("SMK", "USB-Midi")) {
-    & py -3.12 fm1_install.py --port $name --info
+    & py -3.12 smk37_install.py --port $name --info
     if ($LASTEXITCODE -eq 0) { $port = $name; break }
 }
 if (-not $port) {
@@ -56,5 +57,5 @@ if (-not $port) {
     Write-Host "It no longer starts at all? See https://github.com/Tom-Rfid/jieli-usbkey-unbrick" -ForegroundColor Yellow
     Read-Host "Press Enter to close" | Out-Null; exit 1
 }
-& py -3.12 fm1_install.py --port $port --force --no-resources $Package
+& py -3.12 smk37_install.py --port $port --force --no-resources $Package
 Read-Host "Press Enter to close" | Out-Null

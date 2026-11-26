@@ -42,12 +42,15 @@ propriétaire, avec le plan de test plus bas.
 En ligne de commande (Windows, Linux, macOS) :
 
 ```bash
-py -3.12 fm1_install.py --port SMK --info
-py -3.12 fm1_install.py --port SMK --force --no-resources openvalive-smk37-elite-0.0.3.fwsc
+py -3.12 smk37_install.py --port SMK --info
+py -3.12 smk37_install.py --port SMK --force --no-resources openvalive-smk37-elite-0.0.3.fwsc
 ```
 
 `--force` : le paquet porte le chargeur de mise à jour de M-VAVE (celui du kit), pas celui de Felucca ; le clavier
-vérifie le paquet avant d'écrire. `--no-resources` : rien d'autre n'est écrit.
+vérifie le paquet avant d'écrire. `--no-resources` : rien d'autre n'est écrit. `smk37_install.py`, c'est le
+`fm1_install.py` de fm1-base (aussi dans le zip) plus ce que le firmware du SMK-37 demande d'abord : il ne prend qu'un
+paquet qu'on lui a annoncé (son identifiant de build, `openvalive-smk37-…​.build_id` à côté du paquet). `fm1_install.py`
+seul s'arrête sur « stopped answering after 9 requests; nothing was written ».
 
 Si l'installation s'arrête au milieu, le clavier reste en mode mise à jour : relance la même commande, elle reprend.
 Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware depuis le mode mise à jour.

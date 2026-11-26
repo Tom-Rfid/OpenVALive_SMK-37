@@ -22,7 +22,9 @@ Before any commit: `tests/run_tests.sh` ends with "All tests pass.".
   SMK-37's extras, includes `va/app/openvalive_app.c`), `smk37_sdk.c` (the SDK's `groove_*` hooks), `glue.h`,
   `board/` (panel, audio), `build.py`, `tests/host_test.c`, `SMK37_OPEN_COMMIT` (the pinned SDK).
 - `va/` OpenVALive CORE at a pinned commit. **Never edit or commit inside it from here.**
-- `scripts/` `va.sh` / `va.ps1`, `windows/FLASH-SMK37.bat`, `windows/flash-smk37.ps1`.
+- `scripts/` `va.sh` / `va.ps1`, `smk37_install.py` (fm1-base's installer + the arming the SMK-37's firmware asks:
+  cmd 49 / 50 with the build id, `NAME.build_id` beside the package; `tests/install_test.py`),
+  `windows/FLASH-SMK37.bat`, `windows/flash-smk37.ps1`.
 
 ## Branches
 
@@ -33,7 +35,8 @@ Actions > build > Run workflow with "release" ticked). A release pins a **tag** 
 
 - **Never write the calibration** (factory `0xC1000`, VM records 51–54) **or the Bluetooth pairing**. Flash writes
   only through the SDK's `fm1_flash_*`, inside Open's project slots.
-- The heap must keep ≥ 61440 bytes (the MIDI firmware update fails below: 54.6 KB was not enough) and the app image fit the SDK's limit: `build.py` checks both; interrupts and
+- The heap must keep ≥ 61440 bytes (kept as a margin: "stopped after 9 requests" was in fact the missing arming, see
+  `scripts/smk37_install.py`) and the app image fit the SDK's limit: `build.py` checks both; interrupts and
   the panel scan must sit in internal RAM (checked).
 - Changes to the sound, the Live Core or the screens go to OpenVALive CORE; the app takes device specifics
   through hooks (`APP_KEY_LAYER`, `APP_MAP_SLOTS`), defined here before including it.

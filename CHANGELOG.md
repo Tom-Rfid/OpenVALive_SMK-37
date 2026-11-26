@@ -1,6 +1,11 @@
 # Changelog
 
-## 26 November 2026 — LIVE 2 reworked; the pads' map after a change of mode
+## 26 November 2026 — LIVE 2 reworked; the pads' map after a change of mode; FLASH-SMK37.bat works again
+
+- The install over USB-MIDI stopped with "stopped answering after 9 requests; nothing was written": the SMK-37's
+  firmware (an SMK37 OPEN SDK one, ours too) takes only a package it has been told about, as M-VAVE's workbench does.
+  `smk37_install.py` (in the zip, used by FLASH-SMK37.bat) tells it first: cmd 49 (its state), cmd 50 (the image's
+  length, the build id, `NAME.build_id` beside the package). Tested against a simulated SMK-37 (tests/install_test.py).
 
 - LIVE 2: TAP and the scene pads gone; MOD (what the mod wheel does, in turn: MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN of
   the selected track, the pad in its colour), A VOL, 1/2 (the loop half as long), PAGE (the knobs' next page, in its
