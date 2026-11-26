@@ -83,7 +83,7 @@ Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware d
 | **molette de pitch** | par défaut ±2 demi-tons sur la piste sélectionnée (au repos : rien) ; réglable dans MAP CONTROL |
 | **molette de modulation** | par défaut **MORPH** entre les deux dernières scènes rappelées (sinon aftertouch) ; réglable |
 | **pédale** | tient les notes (sustain) |
-| K1–K4 | la page de boutons affichée (FX change de page : SOUND, MACRO, LIVE, SETUP, USER, **EQ** (la sortie : BASS, MID, TREBLE, MID FREQ), DRUM EQ ; ordre et pages affichées : MAP CONTROL) |
+| K1–K4 | la page de boutons affichée (FX change de page : SOUND, MOOD, LIVE, SETUP, USER, **EQ** (la sortie : BASS, MID, TREBLE, MID FREQ), DRUM EQ ; ordre et pages affichées : MAP CONTROL) |
 | **SHIFT + K1–K4** | la page LIVE (MORPH, SWING, PUMP, LEVEL), sans quitter la page affichée |
 | SELECT / PAGE / PRESETS | piste / tempo / son (comme SELECT, ALGO, PRESET sur le FM-1) |
 | **MASTER** (8e encodeur) | volume général |
@@ -97,7 +97,7 @@ Si plus rien ne répond, l'atelier web de M-VAVE sait réinstaller un firmware d
 ### MAP CONTROL et OPTION CONTROL : les pages, ce que font les faders, les molettes et les boutons
 
 **Tiens le bouton Bluetooth** (ou GLO + SEL) : **MAP CONTROL** s'ouvre. D'abord les pages de boutons dans l'ordre de
-FX (PRESETS en déplace une, PAGE l'affiche / la masque), puis les boutons de MACRO, LIVE, EQ et USER (K1 à K4
+FX (PRESETS en déplace une, PAGE l'affiche / la masque), puis les boutons de MOOD, LIVE, EQ et USER (K1 à K4
 chacune), FADER 1 à 4 (la banque USER) et les molettes PITCH et MOD. **HOME + touche blanche 7 (Si3)** ouvre **OPTION
 CONTROL** : DRUM KEYS (ORIGINAL / GM), **PERC 1–6** (chaque touche ré# / sol# du clavier de batterie, de Ré#3 à Sol#5,
 sa propre percussion), KEYS ON SCREEN, HELP AT START (les pages d'aide après le logo), et pour T1–T4 et A la page qu'amène un nouveau son (SAME PAGE : aucune). Sur une

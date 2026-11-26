@@ -89,7 +89,7 @@ Key names on the screen (3 characters at most, 5x7 pixels, written top to bottom
 | SMK-37 | What | On the FM-1 |
 |---|---|---|
 | 16 pads: MODE + REC set-up pads, 14 playing pads | CLIPS (SINGLE / LOOP), DRUMS (their own kit, MIDI ch 10, rolls by pressure), LIVE 1 = PERFORM (14 effects), LIVE 2 (mutes 1–4, MUTE ALL, RESTART, CLEAR TRACK, LOOP REC, UNDO, REDO, MOD wheel's job, A VOL, loop 1/2, next knob page; REC switches LIVE 1 ↔ 2), SCENES (scenes, mutes, MUTE ALL, A VOL), MIDI (channel 16) | PERFORM, SCENES, mutes, MUTE ALL, A VOL, and LIVE 2's other gestures: the same on the keys and buttons (SEL, HOME, EDIT, ENV / LFO, FX). **CLIPS, the MIDI pads, the pad rolls, LIVE 2's one-pad layout, its MOD and 1/2 have no FM-1 equivalent** |
-| 4 faders | levels, macros, USER slots (FADER BANK) | the knobs (LIVE / MACRO pages, MAP CONTROL) |
+| 4 faders | levels, macros, USER slots (FADER BANK) | the knobs (LIVE / MOOD pages, MAP CONTROL) |
 | pitch wheel, mod wheel | BEND or PAN, MORPH (mappable) | — |
 | sustain pedal | holds the notes | — |
 | MIDI OUT (TRS jack) | notes, clock | USB MIDI only |

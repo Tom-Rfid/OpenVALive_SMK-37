@@ -1,5 +1,11 @@
 # Changelog
 
+## 26 November 2026 — CORE b0f21db: MOOD per track, FX held aligns the tracks, a taken sound in green, BLEEP / METAL levels
+
+- MACRO renamed MOOD, each track its own; USER's knobs on the selected track keep a value per track; FX held + a knob:
+  the other tracks come to its value in five detents (mint bars); a sound taken: the title green with a check mark.
+- BLEEP 20 % louder, METAL 10 % softer. (CORE's CHANGELOG has the details.)
+
 ## 26 November 2026 — LIVE 2 reworked; the pads' map after a change of mode; FLASH-SMK37.bat works again
 
 - The install over USB-MIDI stopped with "stopped answering after 9 requests; nothing was written": the SMK-37's

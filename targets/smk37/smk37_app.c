@@ -1111,8 +1111,8 @@ static void fader_event(uint32_t id, int value)
             map_touch(MAP_F1 + id);
             map_set(MAP_F1 + id, v);
         } else if (smk.fader_mode == FADERS_MACRO) {
-            ui.macro[id] = v;
-            send_live(LIVE_MACRO, (uint8_t)id, 0, v, 0);
+            ui.macro[mirror.track][id] = v;     /* MOOD: the selected track's own */
+            send_live(LIVE_MACRO, (uint8_t)id, 0, v, mirror.track);
             say_int(MACRO_NAME[id], (int32_t)(v * 100.0f + 0.5f), "%");
         } else {
             ui.level[id] = v * 1.25f;             /* unity at 80 % of the travel, some headroom above */

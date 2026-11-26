@@ -81,7 +81,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 | **pitch wheel** | by default ±2 semitones on the selected track (at rest: none); set in MAP CONTROL |
 | **mod wheel** | by default **MORPH** between the last two recalled scenes (otherwise aftertouch); settable |
 | **pedal** | holds the notes (sustain) |
-| K1–K4 | the knob page shown (FX changes page: SOUND, MACRO, LIVE, SETUP, USER, **EQ** (the master: BASS, MID, TREBLE, MID FREQ), DRUM EQ; order and pages shown: MAP CONTROL) |
+| K1–K4 | the knob page shown (FX changes page: SOUND, MOOD, LIVE, SETUP, USER, **EQ** (the master: BASS, MID, TREBLE, MID FREQ), DRUM EQ; order and pages shown: MAP CONTROL) |
 | **SHIFT + K1–K4** | the LIVE page (MORPH, SWING, PUMP, LEVEL), without leaving the page shown |
 | SELECT / PAGE / PRESETS | track / tempo / sound (like SELECT, ALGO, PRESET on the FM-1) |
 | **MASTER** (8th encoder) | the overall volume |
@@ -95,7 +95,7 @@ answers any more, M-VAVE's web workbench can reinstall a firmware from update mo
 ### MAP CONTROL and OPTION CONTROL: the pages, what the faders, the wheels and the knobs do
 
 **Hold the Bluetooth button** (or GLO + SEL): **MAP CONTROL** opens. First the knob pages in FX's order (PRESETS
-moves one up / down, PAGE shows / hides it), then the knobs of MACRO, LIVE, EQ and USER (K1 to K4 each), FADER 1 to 4
+moves one up / down, PAGE shows / hides it), then the knobs of MOOD, LIVE, EQ and USER (K1 to K4 each), FADER 1 to 4
 (the USER bank) and the PITCH and MOD wheels. **HOME + white key 7 (B3)** opens **OPTION CONTROL**: DRUM KEYS (ORIGINAL /
 GM), **PERC 1–6** (each D# / G# key of the drum keyboard, D#3 to G#5, its own percussion), KEYS ON SCREEN, HELP AT START (the help pages after the logo), and for
 T1–T4 and A the page a new sound brings (SAME PAGE: none). On a row **EDIT** puts its default back; the last row, MENU,

@@ -521,7 +521,7 @@ int main(void)
     ev(SMK_FADER, 0, 0);
     ev(SMK_FADER, 0, 127);
     run_ms(20);
-    CHECK(live.macro[OLS_MACRO_ENERGY] > 0.99f, "FADER BANK: fader 1 = ENERGY");
+    CHECK(live.macro[mirror.track][OLS_MACRO_ENERGY] > 0.99f, "FADER BANK: fader 1 = ENERGY (the selected track's MOOD)");
     CHECK((leds_on >> SMK_B_FADER_BANK) & 1u, "FADER BANK lit on the macros");
     ev(SMK_FADER, 0, 64);
 
