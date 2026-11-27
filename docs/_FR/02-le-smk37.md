@@ -26,10 +26,9 @@ propriétaire, avec le plan de test plus bas.
   le paquet de l'autre modèle.
 - **Le chemin du retour** : l'atelier SMK37 OPEN de M-VAVE (<https://open.m-vave.com/smk37-workbench>, Chrome ou
   Edge) : *Restore factory V16* (firmware d'origine) ou *Switch to Open firmware*.
-- **S'il ne démarre plus** : tiens **SEQ + REC** en l'allumant : « UPDATE MODE » à l'écran, le chargeur USB de la puce ;
-  [M-Flasher](https://github.com/jvitkauskas/m-flasher) écrit alors un firmware depuis n'importe quel ordinateur, puis
-  éteins et rallume. Si l'écran reste noir, [jieli-usbkey-unbrick](https://github.com/Tom-Rfid/jieli-usbkey-unbrick)
-  atteint le même chargeur depuis un Raspberry Pi.
+- **S'il ne démarre plus** : [jieli-usbkey-unbrick](https://github.com/Tom-Rfid/jieli-usbkey-unbrick) atteint le
+  chargeur USB de la puce depuis un Raspberry Pi ; [M-Flasher](https://github.com/jvitkauskas/m-flasher) écrit alors un
+  firmware. (Plus de SEQ + REC à l'allumage : le firmware qui l'avait ne savait plus se mettre à jour par MIDI.)
 
 ## Installer (Windows)
 
@@ -155,7 +154,6 @@ Note pour chaque ligne : ✅, ❌ (et ce qui se passe), ou ? (pas compris).
 | 1.1 | allumer | « OPENVALIVE », puis l'écran du FM-1 (en-tête, oscilloscope, 4 pistes, boutons) |
 | 1.2 | jouer une touche | du son (casque / sortie), l'oscilloscope bouge |
 | 1.3 | éteindre, rallumer en tenant HOME | « SAFE START » |
-| 1.4 | éteindre, rallumer en tenant SEQ + REC | « UPDATE MODE », M-Flasher voit l'appareil |
 | **2** | **Commandes** | |
 | 2.1 | chaque touche, doux puis fort | toutes jouent ; la vélocité change le son |
 | 2.2 | OCT− / OCT+ | l'octave change (affichée) |

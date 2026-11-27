@@ -95,7 +95,6 @@ Key names on the screen (3 characters at most, 5x7 pixels, written top to bottom
 | MIDI OUT (TRS jack) | notes, clock | USB MIDI only |
 | 10 more keys, velocity curve | C3–C6 | 27 keys F3–G5 |
 | SHIFT (KNOB BANK) | SHIFT + K1–K4: LIVE page; SHIFT + SELECT: SOUND EDIT | ARP + SEL: SOUND EDIT (also on the SMK-37); LIVE page: FX pages |
-| SEQ + REC held at power-on | the chip's update mode ("UPDATE MODE"): M-Flasher writes a firmware, no USB key (m-bootloader's keys) | REC held at power-on (fm1-base) |
 
 ## Only on the FM-1
 

@@ -1552,28 +1552,6 @@ static void smk_render(int32_t *lr, uint32_t frames, uint32_t master_q12)
         app_overload();
 }
 
-/* SEQ + REC held at power-on: the chip's update mode (its ROM's USB loader, "download mode"), before anything else
- * of ours runs: M-Flasher then writes a firmware from any computer, with no USB key and nothing opened. The same keys
- * as m-bootloader's, which takes them first when it is installed. The SDK's fm1_device_recovery() restarts there. */
-void fm1_device_recovery(void);                 /* the SDK (fm1_device.h) */
-
-static int update_mode_held(void)
-{
-    uint32_t both = (1u << SMK_B_SEQ) | (1u << SMK_B_REC);
-    return (smk.phys & both) == both;
-}
-
-static void update_mode(void)
-{
-    lcd_fill(0, 0, 240, 240, C_BLACK);
-    cv_begin(240, 64, C_BLACK);
-    cv_text(120 - text_w(&FONT_B, "UPDATE MODE") / 2, 4, &FONT_B, "UPDATE MODE", RGB(238, 90, 36));
-    cv_text(120 - text_w(&FONT_XS, "SEQ + REC AT POWER-ON") / 2, 28, &FONT_XS, "SEQ + REC AT POWER-ON", C_WHITE);
-    cv_text(120 - text_w(&FONT_XS, "M-FLASHER, THEN OFF / ON") / 2, 44, &FONT_XS, "M-FLASHER, THEN OFF / ON", C_WHITE);
-    cv_blit(0, 88);
-    fm1_device_recovery();                      /* (does not come back on the keyboard) */
-}
-
 void smk_app_boot(void)
 {
     if (smk.booted)
@@ -1588,13 +1566,6 @@ void smk_app_boot(void)
     for (uint32_t p = 0; p < SMK_PADS; p++)
         smk_pad_rgb(p, 0);                      /* the pads off at once (they keep the last firmware's colours) */
     palette_set(1u);                            /* (fm1-base APP_PALETTE, as on the FM-1) the screen's greys and values (fm1-base's main does it on the FM-1) */
-    {
-        uint32_t t0 = fm1_millis();             /* a moment for the scanner to see the buttons held */
-        while (fm1_millis() - t0 < 150u)
-            smk_panel_poll();
-        if (update_mode_held())
-            update_mode();
-    }
 #ifdef APP_SPLASH
     app_splash();                               /* the logo and the version (the first thing to drop if flash is short) */
 #else

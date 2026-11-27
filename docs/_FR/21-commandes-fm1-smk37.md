@@ -97,7 +97,6 @@ Noms des touches à l'écran (3 caractères au plus, 5x7 pixels, écrits de haut
 | MIDI OUT (jack TRS) | notes, horloge | MIDI USB seulement |
 | 10 touches de plus, courbe de vélocité | Do3–Do6 | 27 touches Fa3–Sol5 |
 | SHIFT (KNOB BANK) | SHIFT + K1–K4 : page LIVE ; SHIFT + SELECT : SOUND EDIT | ARP + SEL : SOUND EDIT (aussi sur le SMK-37) ; page LIVE : pages FX |
-| SEQ + REC tenus à l'allumage | le mode de mise à jour de la puce (« UPDATE MODE ») : M-Flasher écrit un firmware, sans clé USB (les touches du m-bootloader) | REC tenu à l'allumage (fm1-base) |
 
 ## Seulement sur le FM-1
 

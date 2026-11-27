@@ -1,5 +1,11 @@
 # Changelog
 
+## 27 November 2026 — the MIDI update again; SEQ + REC at power-on taken out
+
+- SEQ + REC at power-on (the chip's update mode, a7f11db) taken out: the firmwares with it stopped the MIDI update when
+  they read the update loader, 20 November's without it updated. Recovery: jieli-usbkey-unbrick + M-Flasher.
+- The DSP compiled -Os (the flash image 0x50000); build.py refuses an image past 0x51000.
+
 ## 26 November 2026 — CORE 8416fe9: MOOD per track, FX held aligns the tracks, a taken sound in green, BLEEP / METAL levels
 
 - MACRO renamed MOOD, each track its own; USER's knobs on the selected track keep a value per track; FX held + a knob:
