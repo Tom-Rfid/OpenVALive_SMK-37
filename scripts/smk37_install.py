@@ -79,8 +79,9 @@ def arm(up, dev, image, product, build_id, again=lambda: False):
         say(f"{dev.id.text} already runs this very build")
         if not again():
             dev.link.close()
-            raise F.InstallError("same", "nothing written (to install it again: answer y, or --reinstall)")
-        say("installed again, as asked")
+            raise F.InstallError("same", "nothing written (the keyboard takes the same build again only if it wants to: "
+                                         "answer y, or --reinstall, to try)")
+        say("trying it again, as asked: the keyboard may refuse the very same build (it then stops after 9 requests)")
     say(f"update state: family {cap[5]}, state {cap[6]}, installed build {cap[14:22].hex()}…")
     ack = F.query(dev.link, 50, bytes([1, cap[5]]) + len(image).to_bytes(4, "little") + build_id)
     if ack != b"\0":

@@ -392,6 +392,8 @@ def build(args, gen):
                                                        and "build" not in p.relative_to(d).parts):
         digest.update(src.read_bytes())
     digest.update(product.encode())
+    head = subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+    digest.update(head.encode())                # every commit its own build id: the keyboard refuses the same one again
     ident = obj / "build_identity.c"
     ident.write_text('#include "layout.h"\n'
                      f"const struct fm1_firmware_layout fm1_layout = {{{USER_BYTES}U,{FAMILY[args.model]}U}};\n"
