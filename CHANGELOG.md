@@ -2,6 +2,8 @@
 
 ## 27 November 2026 — the MIDI update again; SEQ + REC at power-on taken out
 
+- LIVE 1 / LIVE 2 taken: the pads' map stays on the screen until a button or a pad is touched (no time limit; the
+  keys and knobs leave it).
 - SEQ + REC at power-on (the chip's update mode, a7f11db) taken out: the firmwares with it stopped the MIDI update when
   they read the update loader, 20 November's without it updated. Recovery: jieli-usbkey-unbrick + M-Flasher.
 - The DSP compiled -Os (the flash image 0x50000); build.py refuses an image past 0x51000.

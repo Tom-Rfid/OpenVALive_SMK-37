@@ -421,6 +421,7 @@ static struct {
     uint32_t mode_down_at;                      /* when MODE was pressed */
     uint32_t wave_t0;                           /* the light going round the pads: when it started (top left) */
     uint32_t map_until;                         /* a mode just taken: its pads' map shown until then (or a touch) */
+    uint8_t map_sticky;                         /* LIVE 1 / LIVE 2 just taken: the map stays until a button or pad */
     uint8_t wave_on;                            /* it is going round (the logo, the help pages) */
     uint32_t pads_quiet_until;                  /* after it: the pads stay off and do nothing until then */
     uint16_t pad_ignored;                       /* pads pressed then: their release does nothing either */
@@ -640,6 +641,7 @@ static void rec_say(int i)                      /* what REC + this pad does: "SA
 #define MAP_SHOW_MS 4000u
 static void pads_map_show(void)
 {
+    smk.map_sticky = (uint8_t)LIVE_MODE(smk.pad_mode);   /* LIVE 1 / 2: no time limit, a button or pad ends it */
     smk.map_until = fm1_millis() + MAP_SHOW_MS;
     ui.msg_until = smk.map_until;
     ui.redraw = 1;
@@ -1231,8 +1233,10 @@ static void button_event(uint32_t id, int down)
 
 void smk_input_event(unsigned kind, unsigned id, int value)
 {
-    if (smk.map_until && value > 0 && kind != SMK_PRESSURE && kind != SMK_FADER) {
-        smk.map_until = 0;                      /* the map of a mode just taken: a touch ends it */
+    if (smk.map_until && value > 0 && kind != SMK_PRESSURE && kind != SMK_FADER
+        && (!smk.map_sticky || kind == SMK_BUTTON || kind == SMK_PAD)) {
+        smk.map_until = 0;                      /* the map of a mode just taken: a touch ends it (LIVE: a button / pad) */
+        smk.map_sticky = 0;
         ui.msg_until = fm1_millis();
         ui.redraw = 1;
     }
@@ -1366,7 +1370,7 @@ static const struct { char name[4]; uint8_t type; } PAD_MAP[PAD_MODES][SMK_PADS]
  * for a layer button), each in its colour with its short name, MODE and REC framed on the right */
 static int smk_pad_map(void)
 {
-    int shown = smk.map_until && (int32_t)(fm1_millis() - smk.map_until) < 0;
+    int shown = smk.map_until && (smk.map_sticky || (int32_t)(fm1_millis() - smk.map_until) < 0);
     if (!shown && smk.map_until) {
         smk.map_until = 0;
         ui.redraw = 1;
