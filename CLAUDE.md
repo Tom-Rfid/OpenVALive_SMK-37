@@ -24,7 +24,8 @@ Before any commit: `tests/run_tests.sh` ends with "All tests pass.".
 - `va/` OpenVALive CORE at a pinned commit. **Never edit or commit inside it from here.**
 - `scripts/` `va.sh` / `va.ps1`, `smk37_install.py` (fm1-base's installer + the arming the SMK-37's firmware asks:
   cmd 49 / 50 with the build id, `NAME.build_id` beside the package; `tests/install_test.py`),
-  `windows/FLASH-SMK37.bat`, `windows/flash-smk37.ps1`.
+  `windows/FLASH-SMK37.bat`, `windows/flash-smk37.ps1` (the MIDI update), `windows/MFLASHER-SMK37.bat` (beside
+  M-Flasher.exe: a keyboard in UPDATE MODE, SEQ + REC held at power-on on firmwares that have it).
 
 ## Branches
 
@@ -35,10 +36,11 @@ Actions > build > Run workflow with "release" ticked). A release pins a **tag** 
 
 - **Never write the calibration** (factory `0xC1000`, VM records 51–54) **or the Bluetooth pairing**. Flash writes
   only through the SDK's `fm1_flash_*`, inside Open's project slots.
-- The SDK's heap stays between 57800 and 58600 bytes (about 58 KB updated over MIDI; 55788 and 56556 stop reading the
-  update loader; 63980 hangs at boot; tune with APP_DELAY_LEN, 8 B a sample) (`build.py` checks): 55788 starts; 63980 (8 KB taken from the
-  delays) left the keyboard stuck on the logo without USB-MIDI; about 52 KB answered no firmware update and the app image fit the SDK's limit: `build.py` checks both; interrupts and
-  the panel scan must sit in internal RAM (checked).
+- The SDK's heap stays between 57800 and 58600 bytes and the flash image within 0x51000, with no SEQ + REC at
+  power-on: past these the firmware cannot update itself over MIDI (FLASH-SMK37.bat; 55788 / 56556 B, 0x52000 and
+  0x53000, SEQ + REC all stopped it), 63980 B hung at boot. `build.py` checks the heap, the image size and the app
+  image's limit; tune the heap with APP_DELAY_LEN (8 B a sample). Interrupts and the panel scan sit in internal RAM
+  (checked). The whole story: the Project doc `flash-midi-smk37.md`.
 - Changes to the sound, the Live Core or the screens go to OpenVALive CORE; the app takes device specifics
   through hooks (`APP_KEY_LAYER`, `APP_MAP_SLOTS`), defined here before including it.
 - The code rules (C99, float, no libc, no malloc, control rate, bit-identical refactors) are OpenVALive

@@ -1,6 +1,10 @@
 {
   "what": "A live-first instrument for the SMK-37: four synth tracks with their own loops, Capture, undo, scenes and Morph, pressure pads for perform effects, faders and wheels you can assign, and MIDI out to a drum machine.",
   "author": "Tom-Rfid",
-  "kinds": ["groove"],
-  "color": "#FFB43C"
+  "kinds": [
+    "groove"
+  ],
+  "color": "#FFB43C",
+  "image": "docs/img/smk37-card.png",
+  "play": "https://tom-rfid.github.io/OpenVALive_SMK-37/"
 }

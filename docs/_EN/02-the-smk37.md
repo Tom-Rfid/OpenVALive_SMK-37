@@ -23,9 +23,19 @@ has run on a real SMK-37 yet**: the first test is on the owner's Elite, with the
   refuses the other model's package.
 - **The way back**: M-VAVE's SMK37 OPEN workbench (<https://open.m-vave.com/smk37-workbench>, Chrome or Edge):
   *Restore factory V16* (factory firmware) or *Switch to Open firmware*.
-- **If it does not start**: [jieli-usbkey-unbrick](https://github.com/Tom-Rfid/jieli-usbkey-unbrick) reaches the
-  chip's own USB loader from a Raspberry Pi; [M-Flasher](https://github.com/jvitkauskas/m-flasher) then writes a
-  firmware. (No SEQ + REC at power-on any more: the firmware with it could not update itself over MIDI.)
+- **SEQ + REC at power-on (UPDATE MODE)**: some firmwares have it (OpenVALive's builds of 20 to 27 November 2026,
+  others too); it is easy to try: switch on holding **SEQ + REC**. If **"UPDATE MODE"** shows on the screen, the chip's
+  own USB loader is open (Windows sees a disk "WL82 UBOOT1.00": do not format it) and
+  [M-Flasher](https://github.com/jvitkauskas/m-flasher) installs the firmware: put **`MFLASHER-SMK37.bat`** (in the
+  zip) and the `.fwsc` next to `M-Flasher.exe` and double-click it, or type
+  `.\M-Flasher.exe firmware .\openvalive-smk37-elite-0.1.0.fwsc --board smk37 --restart --yes` (the name of the
+  package you install; `-pro-` for the Pro). Nothing on the screen: the firmware has no update mode, use
+  `FLASH-SMK37.bat` below.
+- **OpenVALive itself has no SEQ + REC** (from 0.1.0): with it, the firmware could not update itself over MIDI. Once
+  OpenVALive is in, every update goes through **`FLASH-SMK37.bat`** (over MIDI): keep it, it also installs another
+  firmware from OpenVALive, or from any firmware without SEQ + REC.
+- **If it does not start at all**: [jieli-usbkey-unbrick](https://github.com/Tom-Rfid/jieli-usbkey-unbrick) reaches
+  the chip's USB loader from a Raspberry Pi, then M-Flasher.
 
 ## Installing (Windows)
 

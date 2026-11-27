@@ -1,5 +1,12 @@
 # Changelog
 
+# v0.1.1 — 27 November 2026
+
+- `MFLASHER-SMK37.bat` in the zip: beside M-Flasher.exe, installs OpenVALive on a keyboard in UPDATE MODE (SEQ + REC
+  held at power-on, on the firmwares that have it). The guide explains both ways: M-Flasher from UPDATE MODE, then
+  FLASH-SMK37.bat over MIDI for every update (kept: it also installs another firmware from OpenVALive).
+- `fmhub.json`: the card image (docs/img/smk37-card.png) and the visual guide.
+
 ## 27 November 2026 — the MIDI update again; SEQ + REC at power-on taken out
 
 - LIVE 1 / LIVE 2 taken: the pads' map stays on the screen until a button or a pad is touched (no time limit; the
