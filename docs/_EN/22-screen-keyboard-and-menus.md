@@ -267,7 +267,7 @@ LIVE 2 MUTE, in violet, right after LIVE 1: what must start fast while playing. 
 
 ![LIVE 2](../img/pads-live2.png)
 
-**M1** Mute track 1, **M2** Mute track 2, **M3** Mute track 3, **M4** Mute track 4, **MA** Mute all, **RST** Restart: every track from its start, **CLR** Clear track: the selected track wiped, **UND** Undo, **RDO** Redo, **MOD** What the mod wheel does, in turn: MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN (its colour), **AV** A VOL, **1/2** The track's loop half as long (ENV undoes it), **PG** The knobs' next page, as FX tapped (its colour).
+**M1** Mute track 1, **M2** Mute track 2, **M3** Mute track 3, **M4** Mute track 4, **MA** Mute all, **RST** Restart: every track from its start, **CLR** Clear track: the selected track wiped, **UND** Undo, **RDO** Redo, **MOD** What the mod wheel does, in turn: MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN (its colour), **AV** A VOL, **1/2** The track's loop half as long (ENV undoes it), **FX** The knobs' next page, as FX tapped (its colour).
 
 ### SCENES
 

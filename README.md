@@ -71,6 +71,7 @@ On [The Firmware Hub](https://thefirmwarehub.com): **FM-1_037** (this firmware) 
 
 | I want to... | Do this |
 |---|---|
+| **see every gesture, menu and pad** | the [visual guide](https://tom-rfid.github.io/OpenVALive_SMK-37/) ([en français](https://tom-rfid.github.io/OpenVALive_SMK-37/fr.html)) |
 | **install it** | the latest [release](https://github.com/Tom-Rfid/OpenVALive_SMK-37/releases): `OpenVALive-SMK37-Elite-X.Y.Z.zip` (or Pro), then `FLASH-SMK37.bat` ([guide](docs/_EN/02-the-smk37.md)) |
 | **try the latest build** | [preview-dev](https://github.com/Tom-Rfid/OpenVALive_SMK-37/releases/tag/preview-dev): `openvalive-smk37-elite-X.Y.Z.fwsc` (or pro) |
 | **go back to M-VAVE's firmware** | the SMK37 OPEN web workbench: Restore factory V16 |

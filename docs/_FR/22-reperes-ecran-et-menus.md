@@ -267,7 +267,7 @@ LIVE 2 MUTE, en violet, juste après LIVE 1 : ce qu'il faut lancer vite en jouan
 
 ![LIVE 2](../img/pads-live2.png)
 
-**M1** Mute piste 1, **M2** Mute piste 2, **M3** Mute piste 3, **M4** Mute piste 4, **MA** Mute all, **RST** Restart : toutes les pistes au début, **CLR** Clear track : efface la piste choisie, **UND** Undo, **RDO** Redo, **MOD** Ce que fait la molette mod, à tour de rôle : MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN (sa couleur), **AV** A VOL, **1/2** La boucle de la piste deux fois plus courte (ENV annule), **PG** Page de boutons suivante, comme FX tapé (sa couleur).
+**M1** Mute piste 1, **M2** Mute piste 2, **M3** Mute piste 3, **M4** Mute piste 4, **MA** Mute all, **RST** Restart : toutes les pistes au début, **CLR** Clear track : efface la piste choisie, **UND** Undo, **RDO** Redo, **MOD** Ce que fait la molette mod, à tour de rôle : MORPH, FILTER, DELAY, CRUSH, DRIVE, PAN (sa couleur), **AV** A VOL, **1/2** La boucle de la piste deux fois plus courte (ENV annule), **FX** Page de boutons suivante, comme FX tapé (sa couleur).
 
 ### SCÈNES
 
