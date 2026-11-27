@@ -152,7 +152,7 @@ table; the steps are:
 
 | # | Step | Expected |
 |---|---|---|
-| 0 | `fm1_install.py --port SMK --info`, install, `--info` again | `SMK-37 Elite_8000300` after |
+| 0 | `fm1_install.py --port SMK --info`, install, `--info` again | `SMK-37 Elite_037` after |
 | 1 | power on; play a key; power on holding HOME | splash then the FM-1 screen; sound; "SAFE START" |
 | 2 | every key soft then hard; OCT; pads PERFORM (hold, tap, pressure); MODE (top right pad) to DRUMS, a pad pressed harder (roll); SCENES (REC + pad 2 stores at once; pad 2 recalls; the bottom row's 2nd pad mutes track 1); CLIPS (REC + pad 1, play, pad 1: once (SINGLE), pad 1 again: stop; pad 1 held then REC: LOOP, green / violet; pad 1: stop); DRUMS: REC held + pad 2 = kit 2; MIDI (channel 16, silent); faders; FADER BANK; wheels; pedal; the 8 encoders; SHIFT + K3; ENV / SHIFT + ENV; Bluetooth taps; button LEDs | as in the table above |
 | 3 | REC; EDIT (CAPTURE); GLO + pads (scenes); GLO + PLAY (chain); ARP + pads | as on the FM-1 |

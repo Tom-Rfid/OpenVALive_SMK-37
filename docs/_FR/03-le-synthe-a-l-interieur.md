@@ -41,7 +41,7 @@ d'[OpenVALive CORE](https://github.com/Tom-Rfid/OpenVALive_CORE) (MIT), inclus i
 | Pads PERFORM / PLAY, faders (niveaux, macros, USER), molettes, pédale, MASTER, bouton Bluetooth = TAP / MAP CONTROL | `smk37_app.c` |
 | Deux crochets dans l'app commune : `APP_KEY_LAYER(k)` (pads comme touches de couche), `APP_MAP_SLOTS 10` (faders et molettes dans la MAP CONTROL) | `smk37_app.c`, avant d'inclure l'app |
 | Stockage : 5 objets, 2 copies chacun avec CRC, dans les emplacements de projets d'Open (jamais la calibration ni l'appairage) | `smk37_app.c` |
-| Un paquet par modèle (`SMK-37 Elite_8XXYYZZ` / `Pro`), identique à l'octet près à celui du `Package.cs` de M-VAVE | `build.py` |
+| Un paquet par modèle (`SMK-37 Elite_037` / `Pro_037`), identique à l'octet près à celui du `Package.cs` de M-VAVE | `build.py` |
 
 ## Changer le synthé
 

@@ -27,7 +27,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fm1_install as F                                         # noqa: E402
 
-SMK_OPEN = re.compile(r"SMK-37 (Pro|Elite)_8\d{6}|SMK37[PE]_OPEN_\d{3}")
+SMK_OPEN = re.compile(r"SMK-37 (Pro|Elite)_\d+|SMK37[PE]_OPEN_\d{3}")   # (M-VAVE's own: no update state, not armed)
 SMK_LOADER = re.compile(r"ota-SMK37[0-9a-f]{16}")
 FAMILY = {"Pro": 8, "Elite": 9}
 
@@ -62,7 +62,10 @@ def build_id_of(package):
 def arm(up, dev, image, product, build_id, again=lambda: False):
     """tell the SMK-37's firmware which package comes (cmd 49, then 50)"""
     cap = F.query(dev.link, 49)
-    if not cap or len(cap) != 47 or cap[:4] != b"FMC1" or cap[5] not in (8, 9) or cap[7] != 1:
+    if not cap:
+        say(f"{dev.id.text} tells no update state (M-VAVE's own firmware): installed without the announcement")
+        return
+    if len(cap) != 47 or cap[:4] != b"FMC1" or cap[5] not in (8, 9) or cap[7] != 1:
         dev.link.close()
         raise F.InstallError("stopped", f"{dev.id.text} did not tell its update state "
                                         f"({cap.hex() if cap else 'no reply'}); nothing was written")

@@ -1,5 +1,12 @@
 # Changelog
 
+# v0.1.2 — 27 November 2026
+
+- The package identity is now `SMK-37 Elite_037` / `SMK-37 Pro_037`: the model and The Firmware Hub's number, three
+  digits, as M-UPGRADE and the hub expect (OberVave: `SMK-37 Elite_95N`). Until 0.1.1: `SMK-37 Elite_8XXYYZZ`.
+- `smk37_install.py` announces the update (cmd 49 / 50) whenever the keyboard tells its update state, and installs
+  without it on M-VAVE's own firmware.
+
 # v0.1.1 — 27 November 2026
 
 - `MFLASHER-SMK37.bat` in the zip: beside M-Flasher.exe, installs OpenVALive on a keyboard in UPDATE MODE (SEQ + REC

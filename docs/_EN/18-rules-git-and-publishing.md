@@ -65,7 +65,7 @@ The hub has no automatic check for the SMK-37 yet: Sven looks at the repository 
 | Rule | Here |
 |---|---|
 | Our number on the hub | `FM-1_037` (the hub's record; the version is its own field there) |
-| One package per model, M-VAVE's identity format | `SMK-37 Elite_8XXYYZZ` / `SMK-37 Pro_8XXYYZZ` (XXYYZZ = the version, `build.py`): the keyboard's update loader and `Package.cs` accept nothing else |
+| One package per model, M-VAVE's identity format | `SMK-37 Elite_037` / `SMK-37 Pro_037` (XXYYZZ = the version, `build.py`): the keyboard's update loader and `Package.cs` accept nothing else |
 | A GitHub release with the packages | `openvalive-smk37-elite-X.Y.Z.fwsc`, `-pro-`, and the Windows zips, from Run workflow on `main` |
 | The way back | M-VAVE's V016, through the SMK37 OPEN web workbench |
 | `fmhub.json` at the root, licence GPL-3.0 | `what`, `author`, `kinds`, `image`, `color`; no `sounds` line (all synthesised) |

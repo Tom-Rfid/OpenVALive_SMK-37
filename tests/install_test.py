@@ -26,7 +26,7 @@ exec(src[:src.index("\nwire()\n")], fake.__dict__)      # the fake device and he
 I.DELAY.update(fake.I.DELAY)
 failed = 0
 BUILD = bytes(range(32))
-PRODUCT = "SMK-37 Elite_8000004"
+PRODUCT = "SMK-37 Elite_037"
 
 
 def ok(cond, what):
@@ -38,7 +38,7 @@ def ok(cond, what):
 class FakeSMK(fake.FakeFM1):
     def __init__(self, image, family=9, installed=bytes(32), busy=0, **kw):
         self.family, self.installed, self.busy = family, installed, busy
-        super().__init__(image, identity="SMK-37 Elite_8000003", name="USB-Midi", after_write=PRODUCT, **kw)
+        super().__init__(image, identity="SMK-37 Elite_037", name="USB-Midi", after_write=PRODUCT, **kw)
 
     def ident(self, text):                       # 27 bytes of text: the loader's name is 25 long (no JEDEC ID after it)
         b = text.encode() + bytes(27 - len(text))
@@ -85,7 +85,7 @@ def run(args, dev, again=False):
 
 tmp = Path(tempfile.mkdtemp(prefix="smk37-install-"))
 raw = fake.package(PRODUCT, marker=False)
-pkg = tmp / "openvalive-smk37-elite-0.0.4.fwsc"
+pkg = tmp / "openvalive-smk37-elite-0.1.2.fwsc"
 pkg.write_bytes(raw)
 image = I.logical_image(raw)
 
@@ -117,6 +117,6 @@ dev = FakeSMK(image, busy=1)
 rc, out, err = run([str(pkg), "--yes", "--force"], dev)
 ok(rc != 0 and "busy" in err and dev.upgrades == 0, "busy with another update: said, nothing sent")
 rc, out, err = run(["--info"], FakeSMK(image))
-ok(rc == 0 and "SMK-37 Elite_8000003" in out, "--info")
+ok(rc == 0 and "SMK-37 Elite_037" in out, "--info")
 print(f"INSTALL TESTS FAILED ({failed})" if failed else "install tests passed")
 sys.exit(1 if failed else 0)

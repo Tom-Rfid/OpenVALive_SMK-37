@@ -29,8 +29,8 @@ host test (47 checks); not yet run on a real SMK-37.**
 - Own repository since 17 Nov 2026 (history kept from OpenVALive); the app and the synth are OpenVALive
   VirtualAnalog (`va/`, MIT).
 - `dev` by default, `main` for releases.
-- The Firmware Hub number: `FM-1_037` (17 Nov). The packages keep M-VAVE's identity format, `SMK-37 Elite_8XXYYZZ` /
-  `SMK-37 Pro_8XXYYZZ` (the version), which the keyboard requires.
+- The Firmware Hub number: `FM-1_037` (17 Nov). The packages: `SMK-37 Elite_037` / `SMK-37 Pro_037` (the model, then
+  the hub number, three digits as M-UPGRADE and the hub expect; until 0.1.1: `SMK-37 Elite_8XXYYZZ`).
 
 ## Next steps
 

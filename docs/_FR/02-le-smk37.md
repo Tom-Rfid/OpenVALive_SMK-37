@@ -159,7 +159,7 @@ Note pour chaque ligne : ✅, ❌ (et ce qui se passe), ou ? (pas compris).
 | **0** | **Installation** | |
 | 0.1 | `fm1_install.py --port SMK --info` avant | l'identité actuelle (`SMK-37 Elite_…`) |
 | 0.2 | installer le paquet Elite | « done », le clavier redémarre |
-| 0.3 | `--info` après | `SMK-37 Elite_8000300` |
+| 0.3 | `--info` après | `SMK-37 Elite_037` |
 | **1** | **Démarrage** | |
 | 1.1 | allumer | « OPENVALIVE », puis l'écran du FM-1 (en-tête, oscilloscope, 4 pistes, boutons) |
 | 1.2 | jouer une touche | du son (casque / sortie), l'oscilloscope bouge |

@@ -41,7 +41,7 @@ This repository holds the **SMK-37 half** of OpenVALive. The synth, the Live Cor
 | Pads PERFORM / PLAY, faders (levels, macros, USER), wheels, pedal, MASTER, Bluetooth button = TAP / MAP CONTROL | `smk37_app.c` |
 | Two hooks into the shared app: `APP_KEY_LAYER(k)` (pads as layer keys), `APP_MAP_SLOTS 10` (faders and wheels in the MAP CONTROL) | `smk37_app.c`, before including the app |
 | Storage: 5 objects, 2 copies each with a CRC, in Open's project slots (never the calibration, never the pairing) | `smk37_app.c` |
-| Package per model (`SMK-37 Elite_8XXYYZZ` / `Pro`), byte-identical to M-VAVE's `Package.cs` | `build.py` |
+| Package per model (`SMK-37 Elite_037` / `Pro_037`), byte-identical to M-VAVE's `Package.cs` | `build.py` |
 
 ## Changing the synth
 

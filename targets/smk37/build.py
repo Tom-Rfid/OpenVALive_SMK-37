@@ -212,7 +212,7 @@ def wrap(flash, loader, product):
 
 
 def make_package(app, resources, product):
-    if not re.fullmatch(r"SMK-37 (?:Pro|Elite)_8[0-9]{6}", product):
+    if not re.fullmatch(r"SMK-37 (?:Pro|Elite)_037", product):
         raise SystemExit("build: invalid SMK-37 update identity")
     limit = FLASH_LIMIT - USER_BYTES - BT_SIZE - MIN_VM - AREA - APP_DATA - 383 - 64
     if not app or len(app) > limit:
@@ -264,7 +264,9 @@ def generate_fonts(base, gen):
 
 def product_id(model, version):
     major, minor, patch = (int(x) for x in (version.split("-")[0].split(".") + ["0", "0"])[:3])
-    return f"SMK-37 {MODEL_NAME[model]}_8{major:02d}{minor:02d}{patch:02d}"
+    # the model's name and The Firmware Hub's number, as M-UPGRADE and the hub expect (three digits: FM-1_037);
+    # the version is in the release, not in the identity (OberVave does the same: SMK-37 Elite_95N)
+    return f"SMK-37 {MODEL_NAME[model]}_037"
 
 
 def check_host(args, gen):

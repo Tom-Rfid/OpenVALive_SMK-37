@@ -53,7 +53,8 @@ Actions > build > Run workflow with "release" ticked). A release pins a **tag** 
 ## Known pitfalls
 
 - The JieLi toolchain has no `nm`: `build.py` falls back on `objdump -t`.
-- The package identity is fixed by M-VAVE's format: `SMK-37 Elite_8XXYYZZ` / `SMK-37 Pro_8XXYYZZ` (the version).
+- The package identity: `SMK-37 Elite_037` / `SMK-37 Pro_037`, the model and The Firmware Hub's number (three digits,
+  as M-UPGRADE and the hub expect; OberVave: `SMK-37 Elite_95N`); the version is the release's.
 - The render runs from the flash (M-VAVE's instrument ran from RAM): a freeze while saving would point there.
 - No Bluetooth by default: `no_bluetooth.py` patches M-VAVE's engine object (its calls into the stack go to
   `groove_midi_panel_reset`, ours) in the build directory; if smk37_open changes, it stops rather than guess.
