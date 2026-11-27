@@ -1,7 +1,6 @@
 {
   "what": "A live-first instrument for the SMK-37: four synth tracks with their own loops, Capture, undo, scenes and Morph, pressure pads for perform effects, faders and wheels you can assign, and MIDI out to a drum machine.",
   "author": "Tom-Rfid",
-  "hub_number": "FM-1_037",
   "kinds": [
     "groove"
   ],
